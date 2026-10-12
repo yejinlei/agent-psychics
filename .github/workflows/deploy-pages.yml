@@ -27,20 +27,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 拼装 Pages 站点根：frontend/* + data/*.csv
       - name: Assemble static site
         run: |
           set -euo pipefail
-          mkdir -p gh-pages
-          cp -r frontend/. gh-pages/
-          # 确保 data/ 目录里是最新的 CSV
-          mkdir -p gh-pages/data
+          rm -rf gh-pages && mkdir -p gh-pages/data
+          # 站点根 → frontend 的静态资源（index.html 放根，css/js 平铺）
+          cp frontend/index.html  gh-pages/
+          cp -r frontend/css  gh-pages/
+          cp -r frontend/js   gh-pages/
+          # CSV 数据 → /data/
           cp backend/data/*.csv gh-pages/data/
-          # 清理构建产物
-          rm -rf gh-pages/node_modules gh-pages/package-lock.json
-          find gh-pages -type d -empty -delete || true
-          echo "=== gh-pages preview ==="
-          find gh-pages -maxdepth 2 -type f | sort
+          echo "=== gh-pages root ==="
+          ls -la gh-pages/
+          echo "=== files ==="
+          find gh-pages -maxdepth 3 -type f | sort
 
       - uses: actions/upload-pages-artifact@v3
         with:
