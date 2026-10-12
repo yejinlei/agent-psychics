@@ -5,16 +5,20 @@
    ============================================================ */
 
 /* 路径自动适配：
- * - 本地（frontend/index.html → ../backend/data/*.csv）
- * - GH Pages（站点根 index.html → ./data/*.csv）
+ * - GH Pages（Actions 部署，根站点 /index.html）→ ./data
+ * - GH Pages（branch + /frontend 作为 folder）→ ./data（因为 frontend/data 会被部署到 /data）
+ * - 本地开发（frontend/index.html 相对 ../backend/data）→ ../backend/data
  */
 const DATA_BASE = (() => {
   try {
     const path = new URL(location.href).pathname;
-    // 站点根目录：/xxx/  或  /xxx  （无 frontend/ 前缀）
-    if (/\/frontend\/|\/frontend$/.test(path)) return '../backend/data';
+    // 本地开发才回退到 ../backend/data；其他情况都从当前目录取 ./data
+    if (/\/frontend\/|\/frontend$/.test(path)
+        && !location.hostname.includes('github.io')) {
+      return '../backend/data';
+    }
     return './data';
-  } catch { return '../backend/data'; }
+  } catch { return './data'; }
 })();
 const TABLES = [
   { key: 'schools',       file: 'schools.csv',       idPrefix: 'SCH' },
