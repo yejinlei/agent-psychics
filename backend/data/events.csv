@@ -1,0 +1,51 @@
+id,name_zh,name_en,year,place,actors,school_ids,significance_zh,related_theories
+EVT001,冯特心理学实验室建立,Wundt's Psychology Laboratory,1879,莱比锡大学,PSY001,SCH01,世界上第一个心理学实验室；标志着实验心理学的诞生,THY001
+EVT002,詹姆斯《心理学原理》出版,Publication of Principles of Psychology,1890,美国,PSY002,SCH02,机能主义心理学奠基之作；意识流概念的提出,THY002
+EVT003,弗洛伊德《梦的解析》出版,Publication of Interpretation of Dreams,1899,维也纳,PSY008,SCH03,精神分析学派的开山之作；潜意识理论的提出,THY003
+EVT004,弗洛伊德与荣格决裂,Freud and Jung's Split,1913,萨尔佩伦斯岛,PSY008;PSY010,SCH03;SCH04,分析心理学独立于精神分析学派,THY014
+EVT005,国际精神分析协会建立,Founding of IPA,1910,萨尔佩伦斯岛,PSY008;PSY009;PSY010,SCH03,精神分析学派正式国际组织成立,
+EVT006,班杜拉波波玩偶实验,Bobo Doll Experiment,1961,斯坦福大学,PSY015,SCH05,观察学习与攻击行为实验；社会学习理论奠基,THY016
+EVT007,皮亚杰《思维与语言》发表,Piaget's Development of Intelligence in Children,1952,日内瓦,PSY014,SCH04,建构主义与认知发展四阶段理论,THY015
+EVT008,维果茨基逝世,Death of Vygotsky,1934,莫斯科,PSY017,SCH04,《思维与语言》未完成原稿；1962年出版,THY015
+EVT009,鲍尔比《依恋与分离》出版,Attachment and Loss: Attachment,1969,伦敦,PSY022,SCH05,依恋理论系统化；现代儿童发展心理学里程碑,THY021
+EVT010,Ainsworth 陌生情境实验,Strange Situation Experiment,1978,马里兰大学,PSY023,SCH05,依恋类型分类（安全/回避/抗拒）,THY021
+EVT011,罗杰斯当事人中心疗法,Publication of Client-Centered Therapy,1951,伊利诺伊大学,PSY026,SCH08,人本主义心理学的奠基之作,THY025
+EVT012,马斯洛需求层次理论,Publication of Hierarchy of Needs,1943,哥伦比亚大学,PSY025,SCH08,人本主义心理学的核心概念,THY026
+EVT013,认知革命宣言,Cognitive Revolution Begins,1956,MIT,PSY033;PSY028,SCH23,认知心理学作为独立学科诞生,THY030
+EVT014,Simon 有限理性理论,Bounded Rationality,1955,卡内基梅隆大学,PSY028,SCH23,有限理性与信息加工概念,THY029
+EVT015,Simon 获得诺贝尔奖,Simon Wins Nobel Prize,1978,斯德哥尔摩,PSY028,SCH23,心理学与经济学交叉学科的里程碑,THY029
+EVT016,费斯廷格认知失调理论,Cognitive Dissonance Theory,1957,纽约,PSY035,SCH23,认知心理学的重要理论,THY031
+EVT017,Ellis 理性情绪行为疗法,REBT Founded,1955,洛杉矶,PSY036,SCH07,认知行为疗法前身；ABC模型,THY032
+EVT018,Beck 抑郁认知模型,Cognitive Therapy of Depression,1967,宾夕法尼亚大学,PSY037,SCH07,认知疗法（CBT）建立,THY033
+EVT019,Wolpe 系统脱敏疗法,Systematic Desensitization,1958,哥伦比亚大学,PSY038,SCH07,焦虑治疗的经典技术,THY034
+EVT020,Linehan DBT 建立,Dialectical Behavior Therapy Founded,1991,华盛顿大学,PSY039,SCH07,边缘型人格障碍的辩证行为疗法,THY035
+EVT021,ACT 理论建立,Acceptance and Commitment Therapy Founded,1999,犹他大学,PSY040;PSY041,SCH07,新第三代认知行为疗法,THY036
+EVT022,Seligman 学会性无助实验,Learned Helplessness,1967,宾夕法尼亚大学,PSY042,SCH07,抑郁行为模型与乐观心理学,THY037
+EVT023,Seligman 积极心理学宣言,Positive Psychology,2000,华盛顿大学,PSY042,SCH22,积极心理学的正式提出,THY038
+EVT024,Gilligan 关怀伦理学,In a Different Voice,1982,哈佛女子学院,PSY044,SCH25,女性心理学与关怀伦理的诞生,THY039
+EVT025,White & Epston 叙事疗法,Narrative Therapy Founded,1990,阿德莱德大学,PSY045,SCH19,叙事治疗方法的正式提出,THY040
+EVT026,Berger & Luckmann 社会建构主义,The Social Construction of Reality,1966,哥伦比亚大学,PSY046,SCH19,社会建构主义经典,THY041
+EVT027,Minuchin 结构式家庭治疗,Structural Family Therapy,1974,匹兹堡大学,PSY047,SCH18,结构式家庭治疗建立,THY042
+EVT028,Bowen 家庭多代系统理论,Family Systems Therapy,1978,马里兰大学,PSY048,SCH18,多代系统理论建立,THY043
+EVT029,Klerman 人际治疗建立,IPT Founded,1988,哥伦比亚大学,PSY049,SCH13,抑郁的人际治疗,THY044
+EVT030,Loftus 目击者错认实验,Eyewitness Testimony,1974,耶鲁大学,PSY052,SCH21,司法心理学与目击者证词可靠性,THY046
+EVT031,APA 建立,American Psychological Association Founded,1892,克利夫兰,PSY002,SCH01,美国心理学会正式建立,
+EVT032,BPS 建立,British Psychological Society Founded,1901,伦敦,PSY008,SCH03,英国心理学会正式建立,
+EVT033,中国心理学会建立,Chinese Psychological Society Founded,1921,保定,PSY072,SCH32,中国心理学会成立,
+EVT034,ICD-11 精神障碍分类,ICD-11 Mental Disorders,2019,日内瓦,PSY070,SCH22,WHO 精神障碍分类更新,
+EVT035,DSM-5 发布,DSM-5 Published,2013,华盛顿,PSY070,SCH22,美国精神障碍诊断标准更新,
+EVT036,Kabat-Zinn 正念减压训练,MBSR Program Started,1979,马萨诸塞大学,PSY057,SCH07,正念减压疗法的起点,THY036
+EVT037,Brown & Harris 家庭系统理论,Family Stress Theory,1978,伦敦,PSY055,SCH18,家庭与心理健康整合研究,THY043
+EVT038,Seligman 心理学与幸福感,PERMA Model Proposed,2011,宾夕法尼亚大学,PSY042,SCH22,PERMA 幸福模型,THY038
+EVT039,Deci & Ryan 自我决定理论,SDT Formalized,1985,大学,PSY054;PSY055,SCH08,自我决定理论正式形成,THY049
+EVT040,正念认知疗法（MBCT）建立,MBCT Founded,2000,牛津大学,PSY058,SCH07,抑郁复发的预防,THY036
+EVT041,Bowlby 逝世,Death of Bowlby,1990,剑桥,PSY022,SCH05,依恋理论创始人逝世,
+EVT042,Schachter-Singer 情绪二因素理论,Two-Factor Theory of Emotion,1962,哥伦比亚大学,PSY062,SCH07,情绪理论的心理学建构,THY053
+EVT043,Ekman 面部表情跨文化研究,Universal Facial Expressions,1971,加州大学伯克利分校,PSY062,SCH07,情绪跨文化研究,THY053
+EVT044,DSM-I 发布,DSM-I Published,1952,华盛顿,PSY070,SCH22,美国DSM第一版；首次试图整合精神病学与心理学,
+EVT045,ICD-10 精神障碍分类,ICD-10 Mental Disorders,1992,日内瓦,PSY070,SCH22,WHO精神障碍分类的里程碑,
+EVT046,Maslow 需求层次理论提出,Hierarchy of Needs Published,1943,美国,PSY025,SCH08,人本主义心理学的核心概念,THY026
+EVT047,James-Lange 情绪理论,James-Lange Theory,1884,哥伦比亚大学,PSY002,SCH02,情绪理论的心理学起源,THY002
+EVT048,APA 建立伦理守则,APA Ethical Principles,1953,华盛顿,PSY002,SCH01,美国心理学会首次伦理守则,
+EVT049,APA 伦理守则修订,APA Ethics Code 2017,2017,华盛顿,PSY002,SCH01,APA伦理守则最新修订版本,
+EVT050,中国心理学会伦理守则修订,CPsR Ethics Code 2018,2018,北京,PSY073,SCH32,中国心理学会工作伦理守则更新,

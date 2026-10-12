@@ -1,0 +1,51 @@
+id,name_zh,name_en,kind,founded_year,disbanded_year,location,affiliation_school
+INS001,莱比锡大学心理学实验室,Wundt's Laboratory of Experimental Psychology,实验室,1879,1920,德国莱比锡,SCH01
+INS002,美国心理学会,American Psychological Association,协会,1892,,美国华盛顿,SCH01
+INS003,英国心理学会,British Psychological Society,协会,1901,,英国伦敦,SCH03
+INS004,中国心理学会,Chinese Psychological Society,协会,1921,,中国北京,SCH32
+INS005,世界心理协会,International Union of Psychological Science (IUPsyS),协会,1951,,荷兰海牙,,
+INS006,国际精神分析协会,International Psychoanalytic Association,协会,1910,,奥地利维也纳,SCH03
+INS007,剑桥大学心理系,Cambridge Department of Psychology,学院,1913,,英国剑桥,SCH05
+INS008,耶鲁大学心理学系,Yale Department of Psychology,学院,1930,,美国纽黑文,SCH05
+INS009,哥伦比亚大学心理学系,Columbia University Department of Psychology,学院,1930,,美国纽约,SCH05
+INS010,加州大学伯克利分校心理学系,UC Berkeley Department of Psychology,学院,1920,,美国伯克利,SCH05
+INS011,宾夕法尼亚大学心理学系,University of Pennsylvania Department of Psychology,学院,1920,,美国费城,SCH07
+INS012,华盛顿大学心理学系,University of Washington Department of Psychology,学院,1920,,美国西雅图,SCH07
+INS013,斯坦福大学心理学系,Stanford University Department of Psychology,学院,1912,,美国斯坦福,SCH05
+INS014,伊利诺伊大学心理学系,University of Illinois Department of Psychology,学院,1920,,美国香槟-Urbana,SCH08
+INS015,哈佛大学心理系,Harvard University Department of Psychology,学院,1920,,美国剑桥,SCH22
+INS016,加州大学洛杉矶分校心理系,University of California Los Angeles Psychology Department,学院,1919,,美国洛杉矶,SCH07
+INS017,牛津大学心理学系,University of Oxford Department of Experimental Psychology,学院,1928,,英国牛津,SCH05
+INS018,马里兰大学心理学系,University of Maryland Department of Psychology,学院,1945,,美国科利奇帕克,SCH05
+INS019,伦敦大学学院,UCL School of Historical Sciences (UCL),学院,1920,,英国伦敦,SCH25
+INS020,剑桥大学心理研究所,Cambridge Research Centre for Mental Health,研究所,2006,,英国剑桥,SCH05
+INS021,马萨诸塞大学医疗中心,University of Massachusetts Medical Center,研究所,1979,,美国 Worcester,SCH07
+INS022,宾夕法尼亚大学认知行为治疗中心,UPenn CBT Center,研究所,1990,,美国费城,SCH07
+INS023,耶鲁大学人类情绪研究中心,Center for Research in Human Emotion,研究所,1998,,美国纽黑文,SCH05
+INS024,明尼苏达大学人格诊所,University of Minnesota Clinic for Personality Research,研究所,1942,,美国明尼阿波利斯,SCH04
+INS025,剑桥大学精神分析研究所,Cambridge Institute of Psychoanalysis,研究所,1913,,英国剑桥,SCH03
+INS026,维也纳大学精神分析研究所,Vienna University Institute of Psychoanalysis,研究所,1909,,奥地利维也纳,SCH03
+INS027,中国心理卫生协会,Chinese Mental Health Association,协会,1985,,中国北京,SCH22
+INS028,中国心理学会临床与咨询心理学注册工作委员会,CPsR Clinical Registration System,协会,2003,,中国北京,SCH32
+INS029,中国精神卫生中心,Chinese Mental Health Center,研究所,1943,,中国北京,SCH22
+INS030,美国国立精神卫生研究院,National Institute of Mental Health (NIMH),研究所,1949,,美国 Bethesda,SCH22
+INS031,精神分析协会（澳大利亚）,Australian Psychoanalytic Society,协会,1954,,澳大利亚墨尔本,SCH03
+INS032,国际临床心理学会,International Association of Applied Psychology (IAAP),协会,1951,,国际,SCH22
+INS033,世界心理联合会,World Federation of Psychological Associations,协会,1951,,国际,,
+INS034,美国国家精神病学协会,American Psychiatric Association,协会,1862,,美国华盛顿,SCH22
+INS035,美国儿童与青少年精神病学学会,AACAP,协会,1953,,美国华盛顿,SCH05
+INS036,美国工业与组织心理学协会,Society for Industrial and Organizational Psychology (SIOP),协会,1912,,美国华盛顿,SCH24
+INS037,美国教育心理学协会,American Educational Research Association (AERA),协会,1956,,美国华盛顿,SCH24
+INS038,精神病学与心理治疗期刊,Journal of Abnormal Psychology,期刊,1892,,美国华盛顿,SCH07
+INS039,心理学综述,Psychological Review,期刊,1894,,美国华盛顿,SCH01
+INS040,心理学年评,Annual Review of Psychology,期刊,1947,,美国帕洛阿尔托,SCH22
+INS041,美国精神病学会,Journal of the American Psychiatric Association (JAMA Psychiatry),期刊,1949,,美国华盛顿,SCH22
+INS042,美国心理学会临床心理学家分会,Division 39 - Society for Clinical Social Psychology,协会,1970,,美国华盛顿,SCH05
+INS043,心理治疗与研究,Journal of Consulting and Clinical Psychology,期刊,1965,,美国华盛顿,SCH07
+INS044,精神病学与临床心理学杂志,Clinical Psychology Review,期刊,1981,,美国爱丁堡,SCH07
+INS045,精神分析与精神病学,Psychoanalytic Quarterly,期刊,1931,,美国纽约,SCH03
+INS046,心理治疗杂志,Cognitive Therapy and Research,期刊,1977,,美国华盛顿,SCH07
+INS047,心理学会,Journal of Personality and Social Psychology (JPSP),期刊,1965,,美国华盛顿,SCH05
+INS048,美国实验心理学杂志,Journal of Experimental Psychology,期刊,1895,,美国华盛顿,SCH01
+INS049,发展心理学,Child Development,期刊,1955,,美国华盛顿,SCH05
+INS050,心理测量学,Psychometrika,期刊,1936,,美国华盛顿,SCH04

@@ -1,0 +1,28 @@
+{
+  "name": "agent-psychics-frontend",
+  "version": "0.1.0",
+  "description": "心理学 Agent 前端：浏览器原生 Agent 编排 + 直连 LLM/ASR/TTS（GH Pages 纯静态）",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve -l 5173 .",
+    "start": "npx serve -l 5173 .",
+    "deploy": "npx gh-pages -d ."
+  },
+  "devDependencies": {
+    "serve": "^14.2.0",
+    "gh-pages": "^6.1.0"
+  },
+  "peerDependencies": {
+    "comment": "如需切换到 LangChain deepagents，请部署到 Vercel/Cloudflare Pages Functions 并加入以下依赖",
+    "deepagents": "^0.1.0",
+    "langchain": "^0.3.0",
+    "@langchain/core": "^0.3.0",
+    "zod": "^3.23.0"
+  },
+  "peerDependenciesMeta": {
+    "deepagents": { "optional": true },
+    "langchain": { "optional": true },
+    "@langchain/core": { "optional": true },
+    "zod": { "optional": true }
+  }
+}

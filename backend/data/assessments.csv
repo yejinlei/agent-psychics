@@ -1,0 +1,51 @@
+id,name_zh,name_en,abbr,kind,author_ids,year,publisher,target_topics,admin_years,evidence_level,copyright_status,note
+ASM001,Minnesota 多项人格测验,Minnesota Multiphasic Personality Inventory,MMPI,量表,PSY065,1943,University of Minnesota Press,"TOP13;TOP21;TOP26","16+;18+",I,commercial,567项人格评估，10个临床量表
+ASM002,MMPI-2,MMPI-2,MMPI-2,量表,PSY065,1989,University of Minnesota Press,"TOP13;TOP21;TOP26","16+;18+",I,commercial,MMPI 修订版，题目与文化适应性更新
+ASM003,MMPI-3,MMPI-3,MMPI-3,量表,PSY065,2020,Psychological Assessment Resources,"TOP13;TOP21;TOP26","16+",I,commercial,MMPI 最新版本
+ASM004,贝克抑郁量表,Beck Depression Inventory,BDI,量表,PSY037,1961,Guilford Press,"TOP01;TOP26","13+",I,commercial,21项抑郁自评
+ASM005,贝克抑郁量表第II版,BDI-II,BDI-II,量表,PSY037,1996,The Psychological Corporation,"TOP01;TOP26","13+",I,commercial,BDI 修订版
+ASM006,贝克焦虑量表,Beck Anxiety Inventory,BAI,量表,PSY037,1988,Psychological Corporation,"TOP02;TOP26","13+",I,commercial,21项焦虑自评
+ASM007,贝克希望lessness量表,Beck Hopelessness Scale,BHS,量表,PSY037,1974,Guilford Press,"TOP30;TOP01","13+",I,commercial,24项希望lessness评分
+ASM008,汉密顿抑郁量表,Hamilton Depression Rating Scale,HAMD,量表,PSY066,1960,McGraw-Hill,"TOP01;TOP26","成人",I,commercial,他评抑郁量表；17/21/24项版本
+ASM009,汉密顿焦虑量表,Hamilton Anxiety Rating Scale,HAMA,量表,PSY066,1959,McGraw-Hill,"TOP02;TOP26","成人",I,commercial,14项焦虑他评
+ASM010,症状自评量表,Symptom Checklist-90,SCL-90,量表,PSY070,1975,Parthenon Press,"TOP21;TOP26","18+",I,commercial,90项心理症状自评
+ASM011,抑郁自评量表,Self-Rating Depression Scale,SDS,量表,PSY071,1965,Wiley,"TOP01;TOP26","14+",I,free,Zung 21项抑郁自评
+ASM012,焦虑自评量表,Self-Rating Anxiety Scale,SAS,量表,PSY071,1971,Wiley,"TOP02;TOP26","14+",I,free,Zung 20项焦虑自评
+ASM013,NEO-人格调查修订版,NEO Personality Inventory Revised,NEO-PI-R,量表,PSY030,1992,Paradigm,"TOP13;TOP26","17+",I,commercial,240项大五人格量表
+ASM014,NEO-PI-3,NEO Personality Inventory-3,NEO-PI-3,量表,PSY030,2015,Paradigm,"TOP13;TOP26","17+",I,commercial,NEO-PI 最新版本
+ASM015,大五人格简版,Big Five Inventory-2,BFI-2,量表,PSY031,2015,Perspectives in Psychological Science,"TOP13;TOP26","17+",I,free,60项大五人格简版量表
+ASM016,16种人格因素测验,16 Personality Factor Questionnaire,16PF,量表,PSY031,1949,Science Research Associates,"TOP13;TOP17;TOP26","16+",I,commercial,185项16因素人格测验
+ASM017,大五人格简版,BFI,BFI,量表,PSY031,1991,University of Minnesota,"TOP13;TOP26","17+",I,free,44项大五人格简版
+ASM018,人格诊断问卷,Personality Assessment Inventory,PAI,量表,PSY031,1983,Multi-Health Systems,"TOP07;TOP26","18+",I,commercial,人格与心理病理综合评估
+ASM019,五因素人格问卷,FFM,FFM,量表,PSY030,1991,Academic Press,"TOP13;TOP26","17+",I,free,60项五因素人格研究版本
+ASM020,大五人格简版,FFPI,FFPI,量表,PSY031,1989,Perspectives in Psychological Science,"TOP13;TOP26","17+",I,free,155项五因素人格简版
+ASM021,Wechsler成人智力量表,Wechsler Adult Intelligence Scale,WAIS-IV,量表,PSY067,2008,NCS Pearson,"TOP26;TOP13","16-90",I,commercial,4个分量表：言语理解/知觉推理/工作记忆/加工速度
+ASM022,Wechsler儿童智力量表,Wechsler Intelligence Scale for Children,WISC-V,量表,PSY067,2014,NCS Pearson,"TOP11;TOP26","6-16",I,commercial,儿童智力评估最新版本
+ASM023,Wechsler幼儿智力量表,Wechsler Preschool and Primary Scale of Intelligence,WPPSI-IV,量表,PSY067,2012,NCS Pearson,"TOP11;TOP26","2.5-7",I,commercial,幼儿智力评估
+ASM024,瑞文推理测验,Raven's Progressive Matrices,RPM,量表,PSY068,1938,Frederick A. Praeger,"TOP26;TOP17","所有",I,commercial,非言语推理测验
+ASM025,标准瑞文推理测验,Standard Progressive Matrices,SPM,量表,PSY068,1938,Frederick A. Praeger,"TOP26","所有",I,commercial,54项推理测验
+ASM026,高级瑞文推理测验,Advanced Progressive Matrices,APM,量表,PSY068,1938,Frederick A. Praeger,"TOP26","14+",I,commercial,高级版本
+ASM027,简易精神状态检查,Mini-Mental State Examination,MMSE,量表,PSY068,1975,Bruce J. Walker,"TOP19;TOP26","55+",I,free,30项认知筛查工具
+ASM028,蒙特利尔认知评估,Montreal Cognitive Assessment,MoCA,量表,PSY069,2006,MoCA "Inc.","TOP19;TOP26","55+",I,free,30项认知筛查工具
+ASM029,汉密顿焦虑量表,HAMA,HAMA,量表,PSY066,1959,McGraw-Hill,"TOP02","成人",I,commercial,14项他评
+ASM030,贝克认知问卷,Beck Cognitive Inventory,BCI,量表,PSY037,1977,Guilford Press,"TOP01;TOP02","13+",I,commercial,贝克认知问卷
+ASM031,贝克认知问卷,Beck Hopelessness Inventory,BHI,量表,PSY037,1974,Guilford Press,"TOP30","13+",I,commercial,贝克希望lessness量表
+ASM032,罗夏墨迹测验,Rorschach Inkblot Test,Rorschach,投射,PSY064,1921,International University Press,"TOP07;TOP21;TOP26","成人",II,commercial,10张墨迹图投射测验
+ASM033,主题统觉测验,Thematic Apperception Test,TAT,投射,PSY063,1943,Harvard University Press,"TOP07;TOP21;TOP26","成人",III,commercial,30张情境图
+ASM034,儿童图画人格测验,Children's Apperception Test,CAT,投射,PSY063,1949,Harvard University Press,"TOP11;TOP26","5-13",III,commercial,儿童情境图
+ASM035,句子完成测验,Sentence Completion Test,SCT,投射,PSY070,1938,Routledge,"TOP21;TOP26","所有",III,commercial,开放式句子完成
+ASM036,家庭治疗评估问卷,Family Assessment Scale,FAS,量表,PSY070,1978,Sage,"TOP28;TOP11","所有",II,free,家庭互动评估
+ASM037,婚姻质量评估问卷,Marital Quality Inventory,MQI,量表,PSY049,1976,Plenum,"TOP28","成人",II,free,伴侣关系评估
+ASM038,依恋类型（AAI）,Adult Attachment Interview,AAI,访谈,PSY023,1988,University of California Press,"TOP21;TOP13","成人",I,free,成人依恋访谈
+ASM039,依恋类型（陌生情境）,Strange Situation Procedure,SSP,观察,PSY023,1978,Univ. of Chicago Press,"TOP11;TOP13","9-18月",I,free,婴儿依恋类型评估
+ASM040,临床访谈（结构式）,SCID-5,SCID-5,访谈,PSY070,2019,PLM Press,"TOP26;TOP21","所有",I,commercial,DSM-5 结构式临床访谈
+ASM041,临床访谈（半结构式）,CIDI,CIDI,访谈,PSY070,1997,World Health Organization,"TOP26;TOP21","所有",I,free,WHO 生活事件访谈
+ASM042,抑郁自评量表（儿童）,CDI,CDI,量表,PSY071,1977,University of Illinois,"TOP01;TOP11","7-17",I,commercial,儿童抑郁自评
+ASM043,儿童行为量表,Child Behavior Checklist,CBCL,量表,PSY068,1991,University of Minnesota,"TOP11;TOP21;TOP26","4-18",I,free,儿童行为评估
+ASM044,强森职业兴趣量表,Jones-Jones Vocational Interest Inventory,JVI,量表,PSY070,1985,Wiley,"TOP17;TOP26","14+",II,commercial,职业兴趣评估
+ASM045,职业评估量表,Strong Interest Inventory,Strong,量表,PSY070,1944,SAGE,"TOP17;TOP26","14+",II,commercial,职业评估经典
+ASM046,大五人格简版,BFI-2-Short Form,BFI-2-XS,量表,PSY031,2017,Perspectives in Psychological Science,"TOP13","17+",I,free,15项超简版大五
+ASM047,贝克希望lessness量表,BHS,BHS,量表,PSY037,1974,Guilford Press,"TOP30","13+",I,commercial,贝克希望lessness量表
+ASM048,自杀风险量表,Columbia-Suicide Severity Rating Scale,C-SSRS,量表,PSY070,2008,Columbia University,"TOP30",所有,I,free,自杀风险评估工具
+ASM049,家庭与婚姻满意度评估,Marital Quality Inventory,MQI,量表,PSY049,1976,Plenum,"TOP28","成人",II,free,伴侣关系评估
+ASM050,DSM-5诊断标准,DSM-5 Diagnostic Criteria,DSM-5,评估方法,PSY070,2013,American Psychiatric Association,"TOP01;TOP02;TOP07;TOP21",所有,I,commercial,DSM-5 诊断分类标准

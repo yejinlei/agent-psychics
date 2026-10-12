@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Psychics · 心理学 Agent</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <style id="flat-override">
+    /* 强制扁平：中性单色主色 + 清所有装饰层 */
+    :root {
+      --accent: #1f2937 !important;
+      --accent-2: #1f2937 !important;
+      --primary: #1f2937 !important;
+      --bg: #f4f5f7 !important;
+      --surface: #ffffff !important;
+      --surface-2: #f4f5f7 !important;
+      --border: #e5e7eb !important;
+      --border-strong: #d1d5db !important;
+      --text: #111827 !important;
+      --text-2: #4b5563 !important;
+      --text-3: #9ca3af !important;
+    }
+    html, body { background: #f4f5f7 !important; color: #111827 !important; }
+    * { box-shadow: none !important; text-shadow: none !important; animation: none !important; }
+    /* 杀掉所有装饰层 */
+    .bg-decor, .bg-orb, .bg-orb-1, .bg-orb-2, .bg-orb-3, .bg-grid,
+    .aurora, .stardust, .glow, .bg-layer { display: none !important; }
+    /* body 清光晕：直接盖回纯色 */
+    body::before, body::after, html::before, html::after { display: none !important; content: none !important; }
+    #app::before, #app::after { display: none !important; content: none !important; }
+    /* Logo 单色 */
+    .logo-orb { background: #f4f5f7 !important; border: 1px solid #e5e7eb !important; border-radius: 8px; padding: 4px; }
+    .logo-orb svg * { stroke: #111827 !important; fill: none !important; }
+    .logo-orb svg circle { fill: #111827 !important; stroke: none !important; }
+    .brand-title { color: #111827 !important; }
+    .brand-dot { background: #111827 !important; }
+    .brand-sub { color: #6b7280 !important; }
+    /* 面板 */
+    .learn-panel, .chat-panel, .topbar, header.topbar {
+      background: #ffffff !important;
+      border-color: #e5e7eb !important;
+    }
+    /* Mode switch：全白底 + 纯文字 */
+    .mode-switch { background: #ffffff !important; border: 1px solid #e5e7eb !important; border-radius: 8px; padding: 2px; }
+    .mode-tab { background: transparent !important; color: #6b7280 !important; border: none !important; font-weight: 400; }
+    .mode-tab.active { background: #ffffff !important; color: #111827 !important; border: 1px solid transparent !important; font-weight: 600; }
+    .mode-tab .mt-icon { background: none !important; font-size: 14px; filter: grayscale(1) opacity(.75); }
+    .mode-tab.active .mt-icon { filter: none; }
+    .mode-tab .mt-en { color: #9ca3af !important; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
+    /* 二级 tab：白底 + 字重区分，无 hover 变色 */
+    .sub-tabs { background: #ffffff !important; border: none !important; }
+    .ptab { background: #ffffff !important; border: 1px solid #e5e7eb !important; color: #6b7280 !important; border-radius: 6px; font-weight: 400; }
+    .ptab:hover { background: #ffffff !important; color: #111827 !important; border-color: #d1d5db !important; }
+    .ptab.active { background: #111827 !important; border-color: #111827 !important; color: #ffffff !important; font-weight: 500; }
+    .ptab .tab-icon { background: none !important; font-size: 13px; filter: grayscale(1) opacity(.8); }
+    .ptab.active .tab-icon { filter: none; }
+    /* 图标（emoji）纯白底，只保留灰度让 emoji 不抢戏 */
+    .panel-title-icon, .cq-icon, .cq-emoji, .item-icon, .card-icon {
+      filter: grayscale(1) opacity(.85);
+      background: #ffffff !important;
+      border: 1px solid #e5e7eb !important;
+      color: #111827 !important;
+    }
+    /* 结果项 */
+    .result-item, .cq-item, .guide-card, .school-card, .person-card, .team-card {
+      background: #ffffff !important;
+      border: 1px solid #e5e7eb !important;
+      border-radius: 8px;
+    }
+    .result-item:hover, .cq-item:hover, .guide-card:hover, .school-card:hover, .person-card:hover, .team-card:hover {
+      background: #ffffff !important;
+      border-color: #111827 !important;
+    }
+    .result-item .numGlow, .result-item .item-num {
+      background: #ffffff !important;
+      color: #111827 !important;
+      border: 1px solid #e5e7eb !important;
+      box-shadow: none !important;
+      font-weight: 500;
+    }
+    /* Badge / tag */
+    .panel-badge, .tag {
+      background: #ffffff !important;
+      color: #4b5563 !important;
+      border: 1px solid #e5e7eb !important;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+    }
+    /* Effort：只靠文字颜色 + 边框区分，背景全白 */
+    .tm-effort, .cq-effort { background: #ffffff !important; border: 1px solid #e5e7eb !important; color: #111827 !important; font-weight: 500; }
+    .tm-effort.low, .cq-effort.low  { color: #047857 !important; background: #ffffff !important; border-color: #a7f3d0 !important; }
+    .tm-effort.mid, .cq-effort.mid  { color: #92400e !important; background: #ffffff !important; border-color: #fde68a !important; }
+    .tm-effort.hi,  .cq-effort.hi   { color: #b91c1c !important; background: #ffffff !important; border-color: #fecaca !important; }
+    /* Team-mode：全白底 */
+    .team-mode, .team-mode.cool, .team-mode.warm, .team-mode.hot {
+      background: #ffffff !important;
+      color: #111827 !important;
+      border: 1px solid #e5e7eb !important;
+    }
+    .team-mode.hot { color: #047857 !important; background: #ffffff !important; border-color: #a7f3d0 !important; }
+    /* Notice */
+    .notice { background: #fffbeb !important; border: 1px solid #fde68a !important; color: #92400e !important; border-radius: 8px; }
+    .notice-icon { color: #d97706 !important; }
+    .hotline b { color: #b91c1c !important; }
+    /* 消息：全白底，用户消息用左边竖条区分 */
+    .msg-bot { background: #ffffff !important; border: 1px solid #e5e7eb !important; color: #111827 !important; border-radius: 10px; }
+    .msg-user { background: #ffffff !important; border: 1px solid #e5e7eb !important; color: #111827 !important; border-radius: 10px; border-left: 3px solid #111827 !important; }
+    .msg-handoff .handoff-card { background: #ffffff !important; border: 1px solid #e5e7eb !important; color: #111827 !important; }
+    /* 按钮 */
+    .hl-btn-primary, .send-btn, button.send, .btn-send {
+      background: #111827 !important;
+      color: #ffffff !important;
+      border: none !important;
+      border-radius: 8px;
+    }
+    .hl-btn-primary:hover, .send-btn:hover, button.send:hover, .btn-send:hover { background: #1f2937 !important; }
+    .hl-btn-ghost { background: #ffffff !important; color: #4b5563 !important; border: 1px solid #e5e7eb !important; border-radius: 8px; }
+    .hl-btn-ghost:hover { background: #f4f5f7 !important; color: #111827; }
+    /* 建议提问 */
+    .suggestion, .suggest-chip, .quick-q {
+      background: #ffffff !important;
+      border: 1px solid #e5e7eb !important;
+      color: #4b5563 !important;
+      border-radius: 6px;
+    }
+    .suggestion:hover, .suggest-chip:hover, .quick-q:hover {
+      background: #ffffff !important;
+      border-color: #111827 !important;
+      color: #111827 !important;
+    }
+    /* Topbar / icon-btn：全白 */
+    .top-actions .icon-btn { background: #ffffff !important; color: #4b5563 !important; border: 1px solid #e5e7eb !important; }
+    .top-actions .icon-btn:hover { background: #ffffff !important; color: #111827 !important; border-color: #111827 !important; }
+    .status-chip { background: #ffffff !important; color: #4b5563 !important; border: 1px solid #e5e7eb !important; }
+    .top-divider { background: #e5e7eb !important; }
+    /* 输入框 */
+    .chat-input, textarea, input[type="text"] {
+      background: #ffffff !important;
+      border: 1px solid #e5e7eb !important;
+      color: #111827 !important;
+    }
+    .chat-input:focus, textarea:focus, input[type="text"]:focus {
+      border-color: #111827 !important;
+      box-shadow: 0 0 0 3px rgba(17,24,39,.08) !important;
+    }
+    /* Code / pre */
+    pre, .guide-content code { background: #f4f5f7 !important; color: #111827 !important; border: 1px solid #e5e7eb !important; }
+    .guide-content code { color: #b91c1c !important; }
+    /* Welcome / empty */
+    .welcome-card, .empty-state { background: #ffffff !important; border: 1px solid #e5e7eb !important; color: #111827 !important; }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+    /* 分割线 */
+    hr, .divider { background: #e5e7eb !important; border: none !important; height: 1px; }
+
+    /* ============================================================
+       学习 vs 咨询 · 视觉分区
+       学习 = 冷色（indigo 靛蓝）   咨询 = 暖色（rose 玫瑰）
+       通过 learn-panel[data-mode] + html[data-panel-mode] 切换
+       ============================================================ */
+    :root {
+      --study-color: #4f46e5;
+      --study-soft:  #eef2ff;
+      --study-border:#c7d2fe;
+      --counsel-color: #e11d48;
+      --counsel-soft: #fff1f2;
+      --counsel-border:#fda4af;
+    }
+    /* 默认（study） */
+    #learn-panel[data-mode="study"] { --mode-color: var(--study-color); --mode-soft: var(--study-soft); --mode-border: var(--study-border); }
+    #learn-panel[data-mode="counsel"] { --mode-color: var(--counsel-color); --mode-soft: var(--counsel-soft); --mode-border: var(--counsel-border); }
+
+    /* 一级 mode-tab：默认色按当前模式 */
+    .mode-tab.active[data-mode="study"] { color: var(--study-color) !important; }
+    .mode-tab.active[data-mode="counsel"] { color: var(--counsel-color) !important; }
+    .mode-tab.active[data-mode="study"] .mt-icon,
+    .mode-tab.active[data-mode="counsel"] .mt-icon { filter: none !important; }
+
+    /* 二级 tab：active 色按当前模式 */
+    #learn-panel[data-mode="study"] .ptab.active {
+      background: var(--study-color) !important;
+      border-color: var(--study-color) !important;
+      color: #ffffff !important;
+    }
+    #learn-panel[data-mode="counsel"] .ptab.active {
+      background: var(--counsel-color) !important;
+      border-color: var(--counsel-color) !important;
+      color: #ffffff !important;
+    }
+
+    /* 面板顶部一条彩色边：让用户一眼分辨当前模式 */
+    #learn-panel { border-top: 3px solid var(--mode-color, #e5e7eb) !important; }
+
+    /* mode-banner：模式微提示条 */
+    .mode-banner {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--mode-soft, #ffffff) !important;
+      color: var(--mode-color, #111827) !important;
+      border-bottom: 1px solid var(--mode-border, #e5e7eb) !important;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .mb-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--mode-color);
+      flex-shrink: 0;
+    }
+    .mb-text { color: var(--mode-color); font-weight: 500; }
+
+    /* 标题的 icon 用当前模式色 */
+    .panel-title-icon { color: var(--mode-color, #111827); }
+
+    /* panel-badge：跟模式色绑定 */
+    .panel-badge { color: var(--mode-color) !important; border-color: var(--mode-border) !important; background: var(--mode-soft) !important; }
+
+    /* panel-desc 中的 <b> 数字 */
+    .panel-desc b { color: var(--mode-color); }
+
+    /* 结果项 num 用当前模式色 */
+    .result-item .numGlow, .result-item .item-num {
+      color: var(--mode-color) !important;
+      border-color: var(--mode-border) !important;
+      background: var(--mode-soft) !important;
+    }
+
+    /* Tag 分色：学习相关 tag 冷调，咨询相关 tag 暖调 */
+    .tag-classic, .tag-lineage, .tag-develop, .tag-human { color: #4f46e5 !important; background: #eef2ff !important; border-color: #c7d2fe !important; }
+    .tag-cbt { color: #0369a1 !important; background: #f0f9ff !important; border-color: #7dd3fc !important; }
+    .tag-counsel { color: #e11d48 !important; background: #fff1f2 !important; border-color: #fda4af !important; }
+
+    /* suggestion hover：跟模式色 */
+    #learn-panel[data-mode="study"] .sugg:hover { border-color: var(--study-color) !important; color: var(--study-color) !important; }
+    #learn-panel[data-mode="counsel"] .sugg:hover { border-color: var(--counsel-color) !important; color: var(--counsel-color) !important; }
+
+    /* ============================================================
+       建议提问：想聊聊 vs 想了解 分组
+       ============================================================ */
+    .sugg-hint {
+      color: #6b7280;
+      font-size: 12px;
+      margin: 0 0 10px;
+    }
+    .sugg-hint b { color: #111827; font-weight: 600; }
+    .sugg-group { margin-bottom: 12px; }
+    .sugg-group:last-child { margin-bottom: 0; }
+    .sugg-group-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #111827;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .sugg-group-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .sugg-group-dot.study { background: #4f46e5; }
+    .sugg-group-dot.counsel { background: #e11d48; }
+    .sugg-group-hint { color: #9ca3af; font-weight: 400; margin-left: auto; font-size: 11px; }
+
+    /* ============================================================
+       咨询 · 危机热线卡（置顶显眼）
+       ============================================================ */
+    .crisis-card {
+      background: #fff1f2 !important;
+      border: 1px solid #fda4af !important;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 14px;
+    }
+    .crisis-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .crisis-icon {
+      font-size: 20px;
+      line-height: 1;
+      flex-shrink: 0;
+      background: #fff;
+      border: 1px solid #fda4af;
+      width: 32px; height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+    .crisis-title-main {
+      color: #be123c;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .crisis-title-sub {
+      color: #9f1239;
+      font-size: 11px;
+      margin-top: 2px;
+      opacity: .8;
+    }
+    .crisis-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .crisis-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid #fecdd3;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+    .crisis-tag {
+      background: #be123c;
+      color: #fff;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      flex-shrink: 0;
+    }
+    .crisis-num {
+      color: #111827;
+      font-weight: 700;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+    .crisis-loc {
+      color: #6b7280;
+      font-size: 11px;
+      margin-left: auto;
+    }
+
+    /* 咨询 · 建议提问分组 */
+    #learn-panel[data-mode="counsel"] .cq-item {
+      background: #ffffff !important;
+      border-color: #e5e7eb !important;
+    }
+    #learn-panel[data-mode="counsel"] .cq-item:hover {
+      border-color: var(--counsel-color) !important;
+    }
+
+    /* 咨询模式下的 notice 收敛为冷灰，让红色让位给危机卡 */
+    #learn-panel[data-mode="counsel"] .notice {
+      background: #f9fafb !important;
+      border: 1px solid #e5e7eb !important;
+      color: #4b5563 !important;
+    }
+    #learn-panel[data-mode="counsel"] .notice-icon { color: #6b7280 !important; }
+  </style>
+</head>
+<body>
+  <!-- 背景装饰 -->
+  <div class="bg-decor" aria-hidden="true">
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+    <div class="bg-grid"></div>
+  </div>
+
+  <div id="app">
+    <!-- ============ 顶部栏 ============ -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo-orb">
+          <svg viewBox="0 0 40 40" width="26" height="26">
+            <defs>
+              <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#a78bfa"/>
+                <stop offset="100%" stop-color="#4dd4ff"/>
+              </linearGradient>
+            </defs>
+            <path d="M20 6 C14 6 9 11 9 17 C9 21 11 24 14 26 L14 32 C14 33 15 34 16 34 L24 34 C25 34 26 33 26 32 L26 26 C29 24 31 21 31 17 C31 11 26 6 20 6 Z M14 36 L26 36" fill="none" stroke="url(#lg1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="15" cy="17" r="1.5" fill="#4dd4ff"/>
+            <circle cx="25" cy="17" r="1.5" fill="#4dd4ff"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">
+            Psychics<span class="brand-dot"></span>
+          </div>
+          <div class="brand-sub">编排者 · 学派 · 心理学家</div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <div class="top-divider"></div>
+        <button id="btn-new-session" class="icon-btn" title="新建对话">
+          <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span>新对话</span>
+        </button>
+        <button id="btn-export-sessions" class="icon-btn" title="导出全部会话">
+          <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>导出</span>
+        </button>
+        <span id="llm-status" class="status-chip">
+          <span class="dot"></span>
+          <span class="text">未配置模型</span>
+        </span>
+        <button id="btn-settings" class="icon-btn" title="设置">
+          <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 01-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 01-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 012.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 012.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span>设置</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ============ 主体 ============ -->
+    <main class="body">
+      <!-- 左侧：学习/研究面板 -->
+      <aside class="learn-panel" id="learn-panel" data-mode="study">
+        <!-- 模式专属微提示条 -->
+        <div class="mode-banner" id="mode-banner">
+          <span class="mb-dot" aria-hidden="true"></span>
+          <span class="mb-text" id="mode-banner-text">探索模式：我可以帮你理解概念、比较流派、追溯谱系。</span>
+        </div>
+        <div class="panel-header">
+          <div class="panel-header-top">
+            <div class="panel-title">
+              <span class="panel-title-icon">📚</span>
+              <h2 id="panel-title-text">学习 / 研究</h2>
+            </div>
+            <span class="panel-badge">基于本体</span>
+          </div>
+          <p class="panel-desc" id="panel-desc-text">探索心理学本体 · 覆盖 <b>32</b> 学派 · <b>78</b> 心理学家</p>
+        </div>
+
+        <!-- 一级：模式切换（学习 / 咨询） -->
+        <div class="mode-switch" id="mode-switch">
+          <button class="mode-tab active" data-mode="study">
+            <span class="mt-icon">📚</span>
+            <span class="mt-label">学习</span>
+            <span class="mt-en">Study</span>
+          </button>
+          <button class="mode-tab" data-mode="counsel">
+            <span class="mt-icon">💬</span>
+            <span class="mt-label">咨询</span>
+            <span class="mt-en">Counsel</span>
+          </button>
+        </div>
+
+        <!-- 二级 tabs：根据当前模式显示不同子 tab -->
+        <div class="sub-tabs" id="sub-tabs"></div>
+
+        <div class="panel-scroll">
+          <!-- ============ 学习 · 探索（默认） ============ -->
+          <div class="panel-tab-pane" data-mode="study" data-pane="explore">
+            <div class="panel-section">
+              <h3><span class="h3-icon">📊</span>本体概况</h3>
+              <div class="stats" id="learn-stats">
+                <div class="stat"><div class="num" data-stat="schools">—</div><div class="label">学派</div></div>
+                <div class="stat"><div class="num" data-stat="psychs">—</div><div class="label">心理学家</div></div>
+                <div class="stat"><div class="num">~120</div><div class="label">著作</div></div>
+                <div class="stat"><div class="num">~100</div><div class="label">论文</div></div>
+              </div>
+            </div>
+
+            <div class="panel-section">
+              <h3><span class="h3-icon">💡</span>建议提问</h3>
+              <p class="sugg-hint">按<b>目的</b>分两组：想了解知识 or 想被陪伴。</p>
+
+              <div class="sugg-group">
+                <div class="sugg-group-label">
+                  <span class="sugg-group-dot study"></span>
+                  <span class="sugg-group-title">想了解</span>
+                  <span class="sugg-group-hint">学术 / 概念 / 谱系</span>
+                </div>
+                <div class="suggestions">
+                  <button class="sugg"><span class="tag tag-classic">经典</span><span class="sugg-text">"什么是精神分析？"</span></button>
+                  <button class="sugg"><span class="tag tag-human">人本</span><span class="sugg-text">"罗杰斯的人本主义怎么看？"</span></button>
+                  <button class="sugg"><span class="tag tag-cbt">CBT</span><span class="sugg-text">"CBT 的核心原理"</span></button>
+                </div>
+              </div>
+
+              <div class="sugg-group">
+                <div class="sugg-group-label">
+                  <span class="sugg-group-dot counsel"></span>
+                  <span class="sugg-group-title">想聊聊</span>
+                  <span class="sugg-group-hint">情绪 / 关系 / 自我</span>
+                </div>
+                <div class="suggestions">
+                  <button class="sugg"><span class="tag tag-counsel">情绪</span><span class="sugg-text">"我最近焦虑失眠，怎么办？"</span></button>
+                  <button class="sugg"><span class="tag tag-counsel">关系</span><span class="sugg-text">"我总重复同一段关系模式"</span></button>
+                  <button class="sugg"><span class="tag tag-counsel">需求</span><span class="sugg-text">"想被理解和被看见"</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ 学习 · 学派 ============ -->
+          <div class="panel-tab-pane" data-mode="study" data-pane="schools" style="display:none">
+            <div class="panel-section">
+              <h3><span class="h3-icon">🔍</span>搜索学派</h3>
+              <div class="input-wrap">
+                <input type="search" id="learn-search-school" placeholder="如：精神分析 / CBT / 人本" />
+                <svg class="input-icon" viewBox="0 0 24 24" width="14" height="14"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="results" id="learn-results-school"></div>
+            </div>
+          </div>
+
+          <!-- ============ 学习 · 人物 ============ -->
+          <div class="panel-tab-pane" data-mode="study" data-pane="people" style="display:none">
+            <div class="panel-section">
+              <h3><span class="h3-icon">🔍</span>搜索心理学家</h3>
+              <div class="input-wrap">
+                <input type="search" id="learn-search-psy" placeholder="如：弗洛伊德 / 罗杰斯 / 皮亚杰" />
+                <svg class="input-icon" viewBox="0 0 24 24" width="14" height="14"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="results" id="learn-results-psy"></div>
+            </div>
+          </div>
+
+          <!-- ============ 学习 · 指南 ============ -->
+          <div class="panel-tab-pane" data-mode="study" data-pane="guide" style="display:none">
+            <div class="panel-section">
+              <h3><span class="h3-icon">🧭</span>快速导航</h3>
+              <div class="quick-links">
+                <a href="#" data-q="请介绍精神分析学派"><span class="ql-icon">🧩</span><span>学派地图</span></a>
+                <a href="#" data-q="人格理论有哪些？"><span class="ql-icon">🎭</span><span>人格理论</span></a>
+                <a href="#" data-q="CBT 的核心理念与应用"><span class="ql-icon">💡</span><span>认知行为</span></a>
+                <a href="#" data-q="人本主义核心观点"><span class="ql-icon">🌱</span><span>人本主义</span></a>
+                <a href="#" data-q="发展心理学主要理论"><span class="ql-icon">🔬</span><span>发展心理学</span></a>
+                <a href="#" data-q="依恋理论介绍"><span class="ql-icon">🤝</span><span>依恋理论</span></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ 咨询 · 求助（默认） ============ -->
+          <div class="panel-tab-pane" data-mode="counsel" data-pane="help" style="display:none">
+            <!-- 危机热线：置顶显眼卡 -->
+            <div class="crisis-card">
+              <div class="crisis-head">
+                <span class="crisis-icon">🚨</span>
+                <div class="crisis-title">
+                  <div class="crisis-title-main">如果你正在经历危机</div>
+                  <div class="crisis-title-sub">立即联系专业机构，不要独自承受</div>
+                </div>
+              </div>
+              <div class="crisis-lines">
+                <div class="crisis-line"><span class="crisis-tag">24h</span><span class="crisis-num">010-82951332</span><span class="crisis-loc">北京心理援助</span></div>
+                <div class="crisis-line"><span class="crisis-tag">24h</span><span class="crisis-num">12355</span><span class="crisis-loc">全国青少年心理</span></div>
+                <div class="crisis-line"><span class="crisis-tag">24h</span><span class="crisis-num">400-161-9995</span><span class="crisis-loc">北京回龙观热线</span></div>
+              </div>
+            </div>
+
+            <div class="panel-section">
+              <h3><span class="h3-icon">🤝</span>咨询方式</h3>
+              <p class="counsel-lead">选择适合你的咨询场景，切换到右侧对话，AI 会根据你的选择匹配不同的咨询师或团队。</p>
+
+              <div class="counsel-quick">
+                <button class="cq-item" data-mode="panel">
+                  <span class="cq-icon">🧩</span>
+                  <div class="cq-body">
+                    <span class="cq-title">多专家会诊</span>
+                    <span class="cq-desc">3 学派并列发言，编排者收尾</span>
+                  </div>
+                  <span class="cq-effort low">低</span>
+                </button>
+                <button class="cq-item" data-mode="supervision">
+                  <span class="cq-icon">🎓</span>
+                  <div class="cq-body">
+                    <span class="cq-title">督导室</span>
+                    <span class="cq-desc">来访者↔咨询师↔督导三层</span>
+                  </div>
+                  <span class="cq-effort mid">中</span>
+                </button>
+                <button class="cq-item" data-mode="assessment">
+                  <span class="cq-icon">📋</span>
+                  <div class="cq-body">
+                    <span class="cq-title">心理测评</span>
+                    <span class="cq-desc">PHQ-9 / GAD-7 / SCL-90 打分</span>
+                  </div>
+                  <span class="cq-effort low">低</span>
+                </button>
+                <button class="cq-item" data-mode="cbt">
+                  <span class="cq-icon">🧠</span>
+                  <div class="cq-body">
+                    <span class="cq-title">CBT 工作表</span>
+                    <span class="cq-desc">ABCDE 卡 + 认知扭曲标签</span>
+                  </div>
+                  <span class="cq-effort low">低</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="panel-section">
+              <h3><span class="h3-icon">💬</span>建议提问</h3>
+              <div class="suggestions">
+                <button class="sugg"><span class="tag tag-counsel">情绪</span><span class="sugg-text">"我最近焦虑失眠，怎么办？"</span></button>
+                <button class="sugg"><span class="tag tag-counsel">人际</span><span class="sugg-text">"和同事相处总是内耗"</span></button>
+                <button class="sugg"><span class="tag tag-cbt">CBT</span><span class="sugg-text">"想做一个 CBT 自我观察"</span></button>
+                <button class="sugg"><span class="tag tag-classic">分析</span><span class="sugg-text">"我总重复同一段关系模式"</span></button>
+                <button class="sugg"><span class="tag tag-human">人本</span><span class="sugg-text">"想被理解和被看见"</span></button>
+              </div>
+            </div>
+
+            <div class="panel-section">
+              <h3><span class="h3-icon">⚠</span>使用须知</h3>
+              <div class="notice">
+                <p>本 Agent 仅提供<b>心理学学习</b>与<b>一般性心理支持</b>，不做医学诊断。</p>
+                <p>如你有持续困扰，建议尽快联系当地专业机构进行正式评估。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ 咨询 · 团队 ============ -->
+          <div class="panel-tab-pane" data-mode="counsel" data-pane="team" style="display:none">
+            <div class="panel-section">
+              <h3><span class="h3-icon">👥</span>团队模式候选</h3>
+              <p class="team-lead">围绕"心理咨询师团队"的隐喻，15 种可落地的交互设计。<span class="tag-hint">绿点 = 高性价比首推</span></p>
+
+              <div class="team-group">
+                <div class="tg-head">
+                  <span class="tg-dot tg-dot-brand"></span>
+                  <span class="tg-title">团队协作</span>
+                  <span class="tg-count">5</span>
+                </div>
+                <div class="tg-hint">最贴近"咨询师团队"隐喻</div>
+                <button class="team-mode hot" data-mode="panel">
+                  <div class="tm-row">
+                    <span class="tm-title">多专家会诊</span>
+                    <span class="tm-effort low">低</span>
+                  </div>
+                  <div class="tm-desc">3 学派并列发言，编排者收尾</div>
+                </button>
+                <button class="team-mode hot" data-mode="supervision">
+                  <div class="tm-row">
+                    <span class="tm-title">督导室</span>
+                    <span class="tm-effort mid">中</span>
+                  </div>
+                  <div class="tm-desc">来访者↔咨询师↔督导三层</div>
+                </button>
+                <button class="team-mode" data-mode="family">
+                  <div class="tm-row">
+                    <span class="tm-title">家庭治疗</span>
+                    <span class="tm-effort hi">高</span>
+                  </div>
+                  <div class="tm-desc">扮演一个家庭成员，AI 演其余</div>
+                </button>
+                <button class="team-mode" data-mode="roundtable">
+                  <div class="tm-row">
+                    <span class="tm-title">圆桌对话</span>
+                    <span class="tm-effort mid">中</span>
+                  </div>
+                  <div class="tm-desc">同一议题，专家依次发言</div>
+                </button>
+                <button class="team-mode" data-mode="group">
+                  <div class="tm-row">
+                    <span class="tm-title">团体心理治疗</span>
+                    <span class="tm-effort hi">高</span>
+                  </div>
+                  <div class="tm-desc">用户 + AI 同伴 + 治疗师</div>
+                </button>
+              </div>
+
+              <div class="team-group">
+                <div class="tg-head">
+                  <span class="tg-dot tg-dot-info"></span>
+                  <span class="tg-title">结构化工具</span>
+                  <span class="tg-count">3</span>
+                </div>
+                <div class="tg-hint">增强专业感与可复用性</div>
+                <button class="team-mode hot" data-mode="assessment">
+                  <div class="tm-row">
+                    <span class="tm-title">心理测评</span>
+                    <span class="tm-effort low">低</span>
+                  </div>
+                  <div class="tm-desc">PHQ-9 / GAD-7 / SCL-90 打分</div>
+                </button>
+                <button class="team-mode hot" data-mode="cbt">
+                  <div class="tm-row">
+                    <span class="tm-title">CBT 工作表</span>
+                    <span class="tm-effort low">低</span>
+                  </div>
+                  <div class="tm-desc">ABCDE 卡 + 认知扭曲标签</div>
+                </button>
+                <button class="team-mode" data-mode="genogram">
+                  <div class="tm-row">
+                    <span class="tm-title">家庭树</span>
+                    <span class="tm-effort mid">中</span>
+                  </div>
+                  <div class="tm-desc">三代 Genogram 交互图</div>
+                </button>
+              </div>
+
+              <div class="team-group">
+                <div class="tg-head">
+                  <span class="tg-dot tg-dot-accent"></span>
+                  <span class="tg-title">长程追踪</span>
+                  <span class="tg-count">3</span>
+                </div>
+                <div class="tg-hint">数据沉淀，形成留存</div>
+                <button class="team-mode" data-mode="longitudinal">
+                  <div class="tm-row">
+                    <span class="tm-title">长程追踪</span>
+                    <span class="tm-effort mid">中</span>
+                  </div>
+                  <div class="tm-desc">情绪曲线 + 阶段报告</div>
+                </button>
+                <button class="team-mode" data-mode="trainee">
+                  <div class="tm-row">
+                    <span class="tm-title">实习带教沙盒</span>
+                    <span class="tm-effort hi">高</span>
+                  </div>
+                  <div class="tm-desc">用户扮咨询师，AI 督导点评</div>
+                </button>
+                <button class="team-mode" data-mode="ethics">
+                  <div class="tm-row">
+                    <span class="tm-title">伦理困境库</span>
+                    <span class="tm-effort mid">中</span>
+                  </div>
+                  <div class="tm-desc">保密例外 / 反移情等案例</div>
+                </button>
+              </div>
+
+              <div class="team-group">
+                <div class="tg-head">
+                  <span class="tg-dot tg-dot-danger"></span>
+                  <span class="tg-title">团队隐喻延伸</span>
+                  <span class="tg-count">4</span>
+                </div>
+                <div class="tg-hint">让"团队"更立体</div>
+                <button class="team-mode" data-mode="profile">
+                  <div class="tm-row">
+                    <span class="tm-title">团队档案</span>
+                    <span class="tm-effort low">低</span>
+                  </div>
+                  <div class="tm-desc">每位 agent 个人主页 + 擅长</div>
+                </button>
+                <button class="team-mode hot" data-mode="duty">
+                  <div class="tm-row">
+                    <span class="tm-title">值班表</span>
+                    <span class="tm-effort low">低</span>
+                  </div>
+                  <div class="tm-desc">按场景/时段自动匹配专家</div>
+                </button>
+                <button class="team-mode" data-mode="referral">
+                  <div class="tm-row">
+                    <span class="tm-title">转介记录</span>
+                    <span class="tm-effort mid">中</span>
+                  </div>
+                  <div class="tm-desc">专家离开时留下简短小结</div>
+                </button>
+                <button class="team-mode" data-mode="retro">
+                  <div class="tm-row">
+                    <span class="tm-title">团队复盘</span>
+                    <span class="tm-effort mid">中</span>
+                  </div>
+                  <div class="tm-desc">一周/一月总结 + 推荐</div>
+                </button>
+              </div>
+
+              <div class="team-legend">
+                <span class="lg-item"><span class="lg-dot low"></span>低投入 1-2 天</span>
+                <span class="lg-item"><span class="lg-dot mid"></span>中投入 3-5 天</span>
+                <span class="lg-item"><span class="lg-dot hi"></span>高投入 1 周+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- 右侧：对话 -->
+      <section class="chat-panel">
+        <!-- 咨询师流程状态条 -->
+        <div class="stage-bar" id="stage-bar">
+          <div class="stage-bar-head">
+            <div class="stage-bar-title">
+              <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2l2.39 6.96H22l-6.18 4.49L18.21 22 12 17.51 5.79 22l2.39-8.55L2 8.96h7.61L12 2z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>
+              <span>咨询流程</span>
+            </div>
+            <div class="stage-bar-meta">
+              <span id="stage-session-num">第 1 次</span>
+              <button class="stage-reset" id="btn-reset-case" title="重新开始咨询">↺ 重新开始</button>
+            </div>
+          </div>
+          <div class="stage-track" id="stage-track"></div>
+        </div>
+
+        <div class="route-badge" id="route-badge">
+          <svg viewBox="0 0 24 24" width="14" height="14"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="label">路由</span>
+          <span class="route" id="route-text">—</span>
+        </div>
+
+        <div class="chat" id="chat">
+          <div class="messages" id="messages"></div>
+        </div>
+
+        <div class="input-area">
+          <!-- @ popover：心理学家召唤面板 -->
+          <div class="mention-popover" id="mention-popover" hidden>
+            <div class="mp-head">
+              <span class="mp-title">
+                <svg viewBox="0 0 24 24" width="14" height="14"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>召唤一位心理学家</span>
+                <span class="mp-count" id="mp-count"></span>
+              </span>
+              <button class="mp-close" id="btn-mp-close" title="关闭 (Esc)">✕</button>
+            </div>
+            <div class="mp-search">
+              <svg viewBox="0 0 24 24" width="14" height="14"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <input id="mp-filter" type="text" placeholder="输入名字或学派关键词（如：弗洛伊德 / CBT / 精神分析）…" />
+            </div>
+            <div class="mp-list" id="mp-list"></div>
+            <div class="mp-foot">点击即锁定为该心理学家，之后所有消息都由 TA 回答；再次点击「咨询师」按钮或按 Esc 恢复。</div>
+          </div>
+
+          <!-- 当前召唤者 chip -->
+          <div class="mention-chip" id="mention-chip" hidden></div>
+
+          <div class="composer">
+            <div class="composer-row">
+              <button id="btn-mic" class="btn-icon" title="语音输入">
+                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 15a3 3 0 003-3V6a3 3 0 00-6 0v6a3 3 0 003 3zm7-3a7 7 0 01-14 0M12 18v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button id="btn-mention" class="btn-icon" title="@ 召唤一位心理学家">
+                <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-4 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <textarea id="input" rows="1" placeholder="输入消息…（Enter 发送 · Shift+Enter 换行 · @ 召唤心理学家 · 生成中随时可打断）"></textarea>
+              <button id="btn-send" class="btn-icon primary" title="发送">
+                <svg id="icon-send" viewBox="0 0 24 24" width="18" height="18"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg id="icon-stop" viewBox="0 0 24 24" width="16" height="16" hidden><rect x="6" y="6" width="12" height="12" rx="1" fill="currentColor"/></svg>
+              </button>
+            </div>
+            <div class="composer-footer">
+              <label class="tts-toggle">
+                <input type="checkbox" id="chk-tts" />
+                <svg viewBox="0 0 24 24" width="14" height="14"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M15.5 8.5a5 5 0 010 7M19 5a9 9 0 010 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <span>自动朗读</span>
+              </label>
+              <span id="queue-chip" class="queue-chip hidden"></span>
+              <span class="footer-hint">
+                <svg viewBox="0 0 24 24" width="12" height="12"><rect x="3" y="11" width="18" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                Key 仅保存在本地 localStorage
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ============ 设置对话框 ============ -->
+  <dialog id="dlg-settings" class="dlg">
+    <form method="dialog" id="form-settings">
+      <div class="dlg-head">
+        <div>
+          <h2>⚙ 模型与语音设置</h2>
+          <p class="note">API Key 仅保存在你的浏览器 localStorage，绝不上传。</p>
+        </div>
+        <button type="button" class="dlg-close" id="btn-close-settings">
+          <svg viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <fieldset>
+        <legend>
+          <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 6v4l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          LLM（OpenAI 兼容）
+        </legend>
+        <div class="preset-grid">
+          <button type="button" class="preset-btn" data-preset="sensenova">
+            <span class="p-logo" style="background:linear-gradient(135deg,#7c5cff,#4dd4ff)">SN</span>
+            <span>SenseNova</span>
+          </button>
+          <button type="button" class="preset-btn" data-preset="openrouter">
+            <span class="p-logo" style="background:linear-gradient(135deg,#f97316,#eab308)">OR</span>
+            <span>OpenRouter</span>
+          </button>
+          <button type="button" class="preset-btn" data-preset="siliconflow">
+            <span class="p-logo" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)">SF</span>
+            <span>SiliconFlow</span>
+          </button>
+          <button type="button" class="preset-btn" data-preset="deepseek">
+            <span class="p-logo" style="background:linear-gradient(135deg,#5865f2,#8b5cf6)">DS</span>
+            <span>DeepSeek</span>
+          </button>
+          <button type="button" class="preset-btn" data-preset="custom">
+            <span class="p-logo" style="background:linear-gradient(135deg,#64748b,#475569)">+</span>
+            <span>自定义</span>
+          </button>
+        </div>
+        <div class="form-grid">
+          <label class="fg-span-2">Base URL
+            <input id="cfg-llm-base" type="text" placeholder="https://token.sensenova.cn/v1" />
+          </label>
+          <label class="fg-span-2">API Key
+            <input id="cfg-llm-key" type="password" placeholder="sk-..." />
+          </label>
+          <label class="fg-span-2">Model
+            <input id="cfg-llm-model" type="text" placeholder="sensenova-6.8-flash-lite" />
+          </label>
+          <label>Temperature
+            <input id="cfg-llm-temp" type="number" step="0.1" min="0" max="2" value="0.4" />
+          </label>
+          <label>启用思考模式
+            <select id="cfg-llm-think">
+              <option value="0">关闭（推荐）</option>
+              <option value="1">开启</option>
+            </select>
+          </label>
+        </div>
+        <button type="button" id="btn-test-llm" class="btn-test">
+          <svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          测试连接
+        </button>
+      </fieldset>
+
+      <div class="dlg-sections">
+        <fieldset>
+          <legend>🎙 ASR（语音输入）</legend>
+          <div class="form-grid">
+            <label>Provider
+              <select id="cfg-asr-provider">
+                <option value="openai">OpenAI Whisper</option>
+                <option value="browser">浏览器原生</option>
+                <option value="none">关闭</option>
+              </select>
+            </label>
+            <label>Model
+              <input id="cfg-asr-model" type="text" placeholder="whisper-1" />
+            </label>
+          </div>
+          <div class="form-grid">
+            <label>API Key
+              <input id="cfg-asr-key" type="password" placeholder="留空则复用 LLM Key" />
+            </label>
+            <label>Base URL
+              <input id="cfg-asr-base" type="text" placeholder="留空则复用 LLM Base URL" />
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>🔊 TTS（语音输出）</legend>
+          <div class="form-grid">
+            <label>Provider
+              <select id="cfg-tts-provider">
+                <option value="openai">OpenAI TTS</option>
+                <option value="browser">浏览器 SpeechSynthesis</option>
+                <option value="none">关闭</option>
+              </select>
+            </label>
+            <label>Model
+              <input id="cfg-tts-model" type="text" placeholder="tts-1" />
+            </label>
+          </div>
+          <div class="form-grid">
+            <label>Voice
+              <input id="cfg-tts-voice" type="text" placeholder="alloy / nova / shimmer" />
+            </label>
+            <label>Base URL
+              <input id="cfg-tts-base" type="text" placeholder="留空则复用 LLM Base URL" />
+            </label>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="dlg-actions">
+        <button type="button" id="btn-clear-cfg" class="btn-ghost">清空配置</button>
+        <button type="submit" id="btn-save-cfg" class="btn-primary">保存配置</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ============ 咨询工具：多专家会诊 ============ -->
+  <dialog id="dlg-panel-consult" class="dlg dlg-tool">
+    <div class="dlg-head">
+      <div>
+        <h2>👥 多专家会诊</h2>
+        <p class="note">选择 2-4 位心理学家，就同一议题并行给出各自学派视角，最后综合点评。</p>
+      </div>
+      <button type="button" class="dlg-close" id="btn-pc-close" aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="dlg-body tool-body">
+      <div class="tool-row">
+        <div>
+          <div class="tool-label">选择专家 <span id="pc-count" class="tool-count">2-4 位专家</span></div>
+          <div id="pc-list" class="pc-list"></div>
+        </div>
+      </div>
+      <div class="tool-row">
+        <div>
+          <div class="tool-label">会诊议题</div>
+          <textarea id="pc-question" rows="3" placeholder="例：一位 30 岁的男性来访者，最近半年反复出现与母亲冲突，同时在工作中回避所有亲密合作，你认为核心动力可能是什么？"></textarea>
+        </div>
+      </div>
+      <div id="pc-status" class="tool-status" style="display:none"></div>
+      <div id="pc-results" class="pc-results"></div>
+      <div id="pc-summary" class="tool-summary" style="display:none"></div>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" id="pc-run-btn" class="btn-primary">🚀 发起会诊</button>
+    </div>
+  </dialog>
+
+  <!-- ============ 咨询工具：CBT 工作表 ============ -->
+  <dialog id="dlg-cbt" class="dlg dlg-tool">
+    <div class="dlg-head">
+      <div>
+        <h2>📝 CBT 工作表 · ABCDE</h2>
+        <p class="note">逐步填写事件、想法、后果、辩驳、新效果，AI 只做引导，答案由你自己写。</p>
+      </div>
+      <button type="button" class="dlg-close" id="btn-cbt-close" aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="dlg-body tool-body">
+      <div id="cbt-draft-hint" class="tool-hint" hidden></div>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <button type="button" id="cbt-continue-btn" class="btn-primary" hidden>▶ 继续填写上次草稿</button>
+      </div>
+      <div class="tool-row">
+        <div>
+          <div class="tool-label">发生了什么让你情绪波动的事？</div>
+          <textarea id="cbt-question" rows="3" placeholder="用第一人称描述一次具体的情境（时间、场景、对方、发生了什么、你的感受）"></textarea>
+        </div>
+      </div>
+      <div id="cbt-progress" class="cbt-progress hidden"></div>
+      <div id="cbt-steps" class="cbt-steps hidden"></div>
+      <div id="cbt-result" class="cbt-result hidden"></div>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" id="cbt-run-btn" class="btn-primary">▶ 开始填写</button>
+    </div>
+  </dialog>
+
+  <!-- ============ 咨询工具：心理测评 ============ -->
+  <dialog id="dlg-assessment" class="dlg dlg-tool">
+    <div class="dlg-head">
+      <div>
+        <h2>📊 心理测评</h2>
+        <p class="note">PHQ-9（抑郁）与 GAD-7（焦虑），基于近 2 周主观感受打分。</p>
+      </div>
+      <button type="button" class="dlg-close" id="btn-as-close" aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="dlg-body tool-body">
+      <div class="tool-row">
+        <div class="as-scale-bar">
+          <button type="button" id="as-scale-toggle" class="btn-ghost as-scale-toggle" data-current="phq9">↔ 切换到 GAD-7</button>
+          <div>
+            <div id="as-scale-name" class="as-scale-name">PHQ-9 抑郁症筛查</div>
+            <div id="as-scale-desc" class="as-scale-desc"></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div style="font-size:13px;color:#666">已答 <span id="as-progress" style="color:#1f2430;font-weight:600">0 / 0</span></div>
+      </div>
+      <div id="as-items" class="as-items"></div>
+      <div id="as-result" class="as-result hidden"></div>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" id="as-submit-btn" class="btn-primary">✅ 提交并查看结果</button>
+    </div>
+  </dialog>
+
+  <!-- ============ 咨询工具：督导室 ============ -->
+  <dialog id="dlg-supervision" class="dlg dlg-tool">
+    <div class="dlg-head">
+      <div>
+        <h2>🎓 督导室</h2>
+        <p class="note">面向心理学学生：把咨询中卡壳的案例贴进来，AI 从资深督导角度提问、反思、给建议。</p>
+      </div>
+      <button type="button" class="dlg-close" id="btn-sv-close" aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="dlg-body tool-body">
+      <div class="tool-row">
+        <div>
+          <div class="tool-label">案例描述（越多越好，至少 30 字）</div>
+          <textarea id="sv-case" rows="5" placeholder="例：来访者 26 岁女性，主诉反复失眠+工作内耗。前两次咨询我用了 CBT 让她写情绪日志，她表面配合但每次记录都很简略，明显在回避什么。今天她突然问我：'你觉得我是不是被原生家庭毁了？'——我不知道怎么接，就换了话题…"></textarea>
+        </div>
+      </div>
+      <div id="sv-content" class="sv-content"></div>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" id="sv-run-btn" class="btn-primary">🔎 请督导分析</button>
+    </div>
+  </dialog>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+id,name_zh,name_en,issuing_body,year,jurisdiction,supersedes,key_points_zh
+ETH01,美国心理学会伦理守则,APA Ethics Code of Conduct,APA,2003,USA,,善行原则（Beneficence）;尊重与尊严;胜任力;诚信;责任与义务
+ETH02,美国心理学会伦理守则,APA Ethics Code of Conduct,APA,2017,USA,ETH01,增加对性边界与在线伦理的规定;加强知情同意与保密例外
+ETH03,英国心理学会伦理准则,BPS Code of Ethics and Conduct,BPS,2018,GBR,,尊重;关怀;诚信;专业责任
+ETH04,中国心理学会临床与咨询心理学工作伦理守则,CPsR Ethical Principles for Psychological Practice in China,中国心理学会,2018,CHN,,善行原则;尊重与保密;胜任力;诚信;专业责任;心理治疗与咨询关系的伦理
+ETH05,中国心理学会咨询心理学注册系统临床与咨询心理学工作伦理守则,CPsR Clinical Ethics Code,中国心理学会,2003,CHN,,中国心理学会早期伦理守则;被2018版取代
+ETH06,世界心理协会伦理原则,International Code of Ethics for Psychologists,IUPsyS,1983,International,,尊重个体;维护专业关系;胜任力;伦理意识
+ETH07,世界心理协会伦理原则,International Code of Ethics for Psychologists,IUPsyS,2013,International,ETH06,更新对数字伦理与跨文化实践的规定;加强知情同意
+ETH08,美国精神医学学会伦理原则,AMA Principles of Medical Ethics,AMA,2017,USA,,尊重生命;尊重个人;保密;责任与义务
+ETH09,精神医学伦理原则,APA Ethics Code of Ethics,APA,1992,USA,,精神医师伦理守则;被后续版本迭代
+ETH10,香港华人心理学会专业守则,Hong Kong Society of Chinese Psychologists Code of Ethics,中国心理学会,1995,HKG,,华人心理学会工作伦理
+ETH11,英国精神医学伦理原则,Royal College of Psychiatrists Code of Ethics,RCPsych,2016,GBR,,精神医学伦理原则;知情同意;保密例外;尊重自主
+ETH12,中国医学伦理学原则,Chinese Medical Ethics Principles,中华医学会,1987,CHN,,医学伦理原则;医生行为准则
+ETH13,美国国家社会工作者协会伦理原则,NASW Code of Ethics for Social Workers,NASW,2018,USA,,社会工作伦理原则;NASW为美国国家社会工作者协会
+ETH14,美国联邦研究伦理保护条例,Belmont Report,US Department of Health and Human Services,1979,USA,,尊重人;善行;正义;三大基本原则
+ETH15,赫尔辛基宣言,Declaration of Helsinki,WMA,1964,International,,医学研究伦理;知情同意;科学审查
+ETH16,赫尔辛基宣言（2013版）,Declaration of Helsinki,WMA,2013,International,ETH15,更新对儿童与弱势群体的保护;加强知情同意
+ETH17,精神卫生法案,The Mental Health Act (UK),UK Government,1983,GBR,,强制治疗与自愿治疗;司法保护;康复权利
+ETH18,精神卫生法案（台湾）,Mental Health Act (Taiwan),Taiwan Executive Yuan,2000,TWN,,台湾精神卫生立法
+ETH19,心理治疗与咨询知情同意书,Informed Consent Standards,WHO,1983,International,,知情同意的通用原则
+ETH20,美国联邦共同规则/Common Rule,The Common Rule,45 CFR 46,2018,USA,ETH14,对人类研究对象的伦理保护
+ETH21,中国精神疾病诊断和治疗原则,Chinese Principles of Diagnosis and Treatment of Mental Disorders,中华医学会,1993,CHN,,中国精神医学诊断与治疗原则
+ETH22,美国联邦儿童研究保护条例,Additional Protections for Children,45 CFR 46 Subpart D,2018,USA,,儿童研究保护附加条例
+ETH23,精神分析伦理规范,Psychoanalytic Ethics,IPPA,2000,International,,精神分析伦理规范
+ETH24,中国心理学会儿童与青少年心理服务伦理规范,CPsR Ethics for Children and Adolescents,中国心理学会,2020,CHN,,儿童与青少年心理服务伦理

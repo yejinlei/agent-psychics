@@ -1,0 +1,30 @@
+# ============================================================
+# agent-psychics 后端依赖
+# 激活虚拟环境：
+#   Windows:  .venv\Scripts\activate
+#   macOS/Unix:  source .venv/bin/activate
+# ============================================================
+
+# ---- 核心 ----
+pydantic>=2.11
+pydantic-settings>=2.5
+fastapi>=0.115
+uvicorn[standard]>=0.32
+python-multipart>=0.0.19    # /asr 接收音频 multipart
+httpx>=0.28                  # 大模型 / OpenAI 兼容 HTTP 客户端
+pyyaml>=6.0
+
+# ---- 数据处理 ----
+pandas>=2.2
+duckdb>=1.1                  # 结构化查询
+pyarrow>=17
+
+# ---- ASR / TTS ----
+# openai-whisper 用于本地 ASR（可选；不装则只走 OpenAI API）
+# openai-whisper>=20240930
+# pyttsx3 用于本地 TTS 兜底（Windows/macOS/Linux 通用）
+pyttsx3>=2.90
+
+# ---- 开发 ----
+pytest>=8
+ruff>=0.6
