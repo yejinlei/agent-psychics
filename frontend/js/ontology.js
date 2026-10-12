@@ -4,7 +4,18 @@
    构建对象图 + 名称索引。GH Pages 部署时可把 CSV 复制到站点根目录。
    ============================================================ */
 
-const DATA_BASE = '../backend/data';
+/* 路径自动适配：
+ * - 本地（frontend/index.html → ../backend/data/*.csv）
+ * - GH Pages（站点根 index.html → ./data/*.csv）
+ */
+const DATA_BASE = (() => {
+  try {
+    const path = new URL(location.href).pathname;
+    // 站点根目录：/xxx/  或  /xxx  （无 frontend/ 前缀）
+    if (/\/frontend\/|\/frontend$/.test(path)) return '../backend/data';
+    return './data';
+  } catch { return '../backend/data'; }
+})();
 const TABLES = [
   { key: 'schools',       file: 'schools.csv',       idPrefix: 'SCH' },
   { key: 'psychologists', file: 'psychologists.csv', idPrefix: 'PSY' },

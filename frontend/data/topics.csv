@@ -1,0 +1,36 @@
+id,name_zh,name_en,category,parent_id,description_zh,related_theories
+TOP01,抑郁症,Depression,临床应用,,,重度抑郁障碍为主要诊断；涵盖抑郁发作的诊断与治疗
+TOP02,焦虑障碍,Anxiety Disorders,临床应用,TOP01,涵盖GAD/PTSD/惊恐/社交/特定恐惧症等焦虑类诊断
+TOP03,强迫症,OCD,临床应用,TOP01,以强迫观念与强迫行为为核心
+TOP04,创伤后应激障碍,PTSD,临床应用,TOP02,创伤后应激障碍；含复杂性PTSD与PCL-5评估
+TOP05,双相情感障碍,Bipolar Disorder,临床应用,TOP01,涵盖躁狂/抑郁/混合发作
+TOP06,精神分裂症,Schizophrenia,临床应用,TOP01,涵盖阳性/阴性/瓦解症状
+TOP07,人格障碍,Personality Disorders,临床应用,TOP01,涵盖边缘型/自恋型/反社会型等
+TOP08,进食障碍,Eating Disorders,临床应用,TOP01,涵盖神经性厌食症/贪食症/暴食症
+TOP09,成瘾与物质使用障碍,Addiction & SUD,临床应用,TOP01,涵盖酒精/药物/赌博/游戏成瘾
+TOP10,睡眠障碍,Sleep Disorders,临床应用,TOP01,涵盖失眠/嗜睡/节律障碍
+TOP11,儿童发展与教育,Child & Adolescent Psychology,应用领域,TOP12,儿童青少年心理健康与发展
+TOP12,发展心理学,Developmental Psychology,研究领域,,研究个体一生的心理变化与规律
+TOP13,人格心理学,Personality Psychology,应用领域,,研究个体差异、人格结构与评估
+TOP14,临床心理学,Clinical Psychology,应用领域,,面向心理障碍的诊断与干预
+TOP15,咨询心理学,Counseling Psychology,应用领域,,面向发展与心理健康的咨询与心理治疗
+TOP16,教育心理学,Educational Psychology,应用领域,,研究学习与教学的心理学原理
+TOP17,组织与工业心理学,I/O Psychology,应用领域,,面向工作场所的心理与人员选拔、绩效、领导力
+TOP18,司法心理学,Forensic Psychology,应用领域,,面向司法领域的心理评估、见证、评估
+TOP19,健康心理学,Health Psychology,应用领域,,面向健康、疾病预防与心理干预
+TOP20,神经心理学,Neuropsychology,研究领域,,研究脑功能与心理行为的对应关系
+TOP21,变态心理学,Abnormal Psychology,应用领域,,研究异常心理与心理障碍
+TOP22,社会心理学,Social Psychology,研究领域,,研究社会情境下个体的认知与行为
+TOP23,认知心理学,Cognitive Psychology,研究领域,,研究认知过程与信息加工
+TOP24,情绪心理学,Emotion Psychology,研究领域,,研究情绪的生理、认知、表达与调节
+TOP25,动机与自我决定,Motivation & Self-Determination,研究领域,,研究行为驱动力与自主动机
+TOP26,心理评估与测量,Psychometric Assessment,应用领域,,心理测量、评估工具编制与验证
+TOP27,心理咨询与治疗,Psychotherapy,临床应用,,心理咨询与治疗技术综合
+TOP28,家庭与婚姻,Family & Couples Therapy,临床应用,TOP27,家庭与伴侣咨询与干预
+TOP29,团体治疗,Group Therapy,临床应用,TOP27,面向群体的心理干预
+TOP30,危机干预与自杀预防,Crisis Intervention & Suicide Prevention,临床应用,TOP27,危机应对与自杀风险评估
+TOP31,超个人心理学,Transpersonal Psychology,研究领域,,研究意识扩展、冥想、灵性体验
+TOP32,正念与MBSR,Mindfulness & MBSR,临床应用,TOP27,正念减压疗法及临床应用
+TOP33,性心理与性别研究,Sexuality & Gender Psychology,应用领域,,性心理、性别认同、性别表达的研究
+TOP34,文化心理学,Cultural Psychology,研究领域,,心理学与文化相互塑造的研究
+TOP35,中国本土心理学,Chinese Indigenous Psychology,应用领域,,根植于中国传统文化的心理研究

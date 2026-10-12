@@ -1,0 +1,50 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'frontend/**'
+      - 'backend/data/*.csv'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # 拼装 Pages 站点根：frontend/* + data/*.csv
+      - name: Assemble static site
+        run: |
+          set -euo pipefail
+          mkdir -p gh-pages
+          cp -r frontend/. gh-pages/
+          # 确保 data/ 目录里是最新的 CSV
+          mkdir -p gh-pages/data
+          cp backend/data/*.csv gh-pages/data/
+          # 清理构建产物
+          rm -rf gh-pages/node_modules gh-pages/package-lock.json
+          find gh-pages -type d -empty -delete || true
+          echo "=== gh-pages preview ==="
+          find gh-pages -maxdepth 2 -type f | sort
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: gh-pages/.
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

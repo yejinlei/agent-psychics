@@ -1,0 +1,86 @@
+id,name_zh,name_en,kind,school_ids,author_ids,year,target_topics,applicable_ages,description_zh,evidence_level
+MTH001,精神分析,Psychoanalysis,治疗技术,SCH03,PSY008,1900,"TOP01;TOP02;TOP07;TOP21","18+","自由联想、梦的分析、阻抗与移情分析的长程精神动力学治疗",II
+MTH002,自由联想,Free Association,治疗技术,SCH03,PSY008,1896,"TOP27;TOP21","18+","精神分析核心技术；鼓励患者不加审查地表达",II
+MTH003,梦的解析,Dream Analysis,治疗技术,SCH03,PSY008,1900,"TOP27;TOP21","18+","解释梦的显性与隐性内容以揭示潜意识",II
+MTH004,移情分析,Transference Analysis,治疗技术,SCH03,PSY008,1900,"TOP27;TOP21","18+","分析患者对治疗者的移情关系",II
+MTH005,内省法,Introspection,研究方法,SCH01,PSY001,1874,"TOP26;TOP23","18+","早期结构主义方法；受训练观察者报告心理过程",III
+MTH006,反应时测量,Reaction Time Measurement,研究方法,SCH01,PSY001,1874,"TOP23;TOP26","成人","测量刺激-反应时间以推断心理过程",I
+MTH007,经典条件反射,Classical Conditioning,研究方法,SCH06;SCH07,PSY006,1913,"TOP22;TOP23","所有","通过经典条件反射研究学习过程",I
+MTH008,操作条件反射,Operant Conditioning,研究方法,SCH07,PSY011,1938,"TOP22;TOP23","所有","通过强化与惩罚研究行为塑形",I
+MTH009,行为塑造,Shaping,治疗技术,SCH07,PSY011,1938,"TOP11;TOP22","儿童+","逐步强化接近目标的行为",I
+MTH010,系统脱敏疗法,Systematic Desensitization,治疗技术,SCH07,PSY038,1958,"TOP02;TOP04","成人","通过放松训练与逐步暴露消除焦虑",I
+MTH011,暴露疗法,Exposure Therapy,治疗技术,SCH07,PSY038,1966,"TOP02;TOP03;TOP04","成人","逐步暴露于恐惧情境以减少焦虑",I
+MTH012,行为激活,Behavioral Activation,治疗技术,SCH07,PSY037,1976,"TOP01","成人","增加积极活动以改善抑郁",I
+MTH013,ABC情绪模型,ABC Model (Ellis),治疗技术,SCH07,PSY036,1955,"TOP22;TOP27","成人","理性情绪行为疗法；分析ABC（情境-信念-结果）",I
+MTH014,认知重构,Cognitive Restructuring,治疗技术,SCH07,PSY037,1976,"TOP01;TOP02;TOP27","成人","识别并重构不合理认知模式",I
+MTH015,认知行为治疗,CBT,治疗技术,SCH07,PSY037,1979,"TOP01;TOP02;TOP03;TOP04;TOP07;TOP08;TOP09;TOP10;TOP21;TOP27","成人","结合认知与行为技术的结构化短程治疗",I
+MTH016,正念认知疗法,MBCT,治疗技术,SCH07,PSY057;PSY058,2000,"TOP01;TOP02","成人","MBCT 用于预防抑郁复发",I
+MTH017,正念减压疗法,MBSR,治疗技术,SCH07,PSY057,1979,"TOP27;TOP32","成人","Kabat-Zinn 正念减压训练",I
+MTH018,接纳与承诺疗法,ACT,治疗技术,SCH07,PSY040;PSY041,1999,"TOP01;TOP02;TOP27;TOP32","成人","通过心理灵活性与价值导向行为改变",I
+MTH019,辩证行为疗法,DBT,治疗技术,SCH07,PSY039,1993,"TOP07;TOP08;TOP27","成人","Linehan DBT；含正念/情绪调节/人际效能/痛苦耐受四模块",I
+MTH020,当事人中心疗法,Person-Centered Therapy,治疗技术,SCH08,PSY026,1951,"TOP14;TOP15;TOP27","成人","无条件积极关注、共情与真诚一致",I
+MTH021,格式塔疗法,Gestalt Therapy,治疗技术,SCH08,PSY027,1951,"TOP27","成人","强调此时此地与觉察",I
+MTH022,存在主义心理治疗,Existential Psychotherapy,治疗技术,SCH09,PSY028;PSY029,1946,"TOP27","成人","关注意义、自由、孤独、死亡",II
+MTH023,精神动力学心理治疗,Psychodynamic Psychotherapy,治疗技术,SCH03;SCH13,PSY008,1980,"TOP01;TOP02;TOP07;TOP21;TOP27","成人","现代精神动力学治疗，短程与长程",I
+MTH024,心理动力短程治疗,Short-Term Psychodynamic Psychotherapy (STPP),治疗技术,SCH13,PSY008,1985,"TOP01;TOP27","成人","聚焦核心冲突的短程精神动力学治疗",I
+MTH025,依恋理论治疗,Attachment-Based Treatment,治疗技术,SCH05,PSY022,1969,"TOP11;TOP15;TOP27","儿童-成人","基于依恋理论的治疗取向",II
+MTH026,亲子互动治疗,Parent-Child Interaction Therapy (PCIT),治疗技术,SCH05;SCH18,PSY023,1988,"TOP11","3-7岁","改善亲子互动，针对学龄前儿童行为问题",I
+MTH027,依恋与家庭治疗,Attachment & Family-Based Treatment,治疗技术,SCH05,PSY023,1978,"TOP11;TOP28","所有","依恋理论应用于家庭咨询",II
+MTH028,自我决定理论应用,Self-Determination Theory Applications,治疗技术,SCH05,PSY054,1985,"TOP11;TOP14;TOP25","所有","促进内在动机与自主性",I
+MTH029,结构化家庭治疗,Structural Family Therapy,治疗技术,SCH18,PSY047,1974,"TOP28;TOP11","所有","Minuchin 家庭结构分析与边界重建",I
+MTH030,系统式家庭治疗,Systemic Family Therapy,治疗技术,SCH18,PSY048,1978,"TOP28","所有","多代系统理论；自我分化与循环因果",II
+MTH031,战略式家庭治疗,Strategic Family Therapy,治疗技术,SCH18,PSY050;PSY051,1976,"TOP28;TOP11","所有","悖论干预与任务布置",I
+MTH032,叙事疗法,Narrative Therapy,治疗技术,SCH19,PSY045,1990,"TOP27;TOP28;TOP11","所有","White & Epston 外化问题与重写生活故事",II
+MTH033,焦点解决短期治疗,Solution-Focused Brief Therapy (SFBT),治疗技术,SCH19,PSY051,1980,"TOP27;TOP28;TOP14","所有","聚焦解决方案与奇迹提问",II
+MTH034,人际治疗,IPT,治疗技术,SCH13,PSY049,1988,"TOP01;TOP02;TOP27","成人","Klerman & Weissman 人际治疗的短程干预",I
+MTH035,认知行为治疗（儿童）,Child-Friendly CBT,治疗技术,SCH07,PSY037,2001,"TOP02;TOP11","6-12","儿童焦虑障碍的CBT（CALS/CPS）",I
+MTH036,游戏治疗,Play Therapy,治疗技术,SCH10,PSY062,1940,"TOP11","3-12","以游戏媒介进行儿童治疗",II
+MTH037,眼动脱敏再处理,EMDR,治疗技术,SCH13,PSY063,1989,"TOP04;TOP02","成人","创伤后应激障碍处理",I
+MTH038,接纳承诺治疗（慢性疼痛）,ACT for Chronic Pain,治疗技术,SCH07,PSY041,2004,"TOP19;TOP27","成人","ACT 应用于慢性疼痛",I
+MTH039,家庭作业与心理教育,Psychoeducation & Homework,治疗技术,SCH07,PSY037,1979,"TOP01;TOP02","成人","CBT 结构化任务与技术家庭练习",I
+MTH040,团体咨询,Group Counseling,治疗技术,SCH08,PSY026,1965,"TOP27;TOP29","成人","通过团体互动进行治疗",II
+MTH041,艺术治疗,Art Therapy,治疗技术,SCH19,PSY055,1990,"TOP11;TOP21;TOP27","所有","以艺术媒介进行表达与治疗",II
+MTH042,音乐治疗,Music Therapy,治疗技术,SCH19,PSY055,1990,"TOP11;TOP21;TOP27","所有","以音乐媒介进行心理干预",II
+MTH043,催眠治疗,Hypnotherapy,治疗技术,SCH20,PSY060,1847,"TOP02;TOP19;TOP27","成人","通过催眠状态进行心理干预",II
+MTH044,催眠诱导,Hypnosis Induction,治疗技术,SCH20,PSY060,1847,"TOP27","成人","催眠技术：引导进入催眠状态",II
+MTH045,意象对话,Imagery Dialogue,治疗技术,SCH20,PSY061,1992,"TOP27;TOP01;TOP02","成人","通过想象对话访问内在心理意象",II
+MTH046,内感受疗法,Hypnotherapeutic Methods,治疗技术,SCH20,PSY060,1847,"TOP27","成人","通过内感受调节心理状态",II
+MTH047,行为治疗,Behavior Therapy,治疗技术,SCH06,PSY006,1950,"TOP01;TOP02;TOP03;TOP04;TOP07;TOP08;TOP09;TOP10","所有","行为主义治疗技术合集",I
+MTH048,心理动力学评估,Psychodynamic Assessment,评估方法,SCH03,PSY008,1900,"TOP26","成人","通过心理动力学理解个体心理",II
+MTH049,投射测试,Projective Test,评估方法,SCH03,PSY008,1913,"TOP26","成人","通过刺激模糊性揭示潜意识",III
+MTH050,主题统觉测验,Thematic Apperception Test (TAT),评估方法,SCH03,PSY063,1943,"TOP26;TOP07","成人","图片情境解释揭示人格与动机",III
+MTH051,罗夏墨迹测验,Rorschach Inkblot Test,评估方法,SCH03,PSY064,1921,"TOP26;TOP07","成人","图形刺激投射测验",II
+MTH052,MMPI,Minnesota Multiphasic Personality Inventory,量表,SCH06,PSY065,1943,"TOP26;TOP07","16+","Minnesota MMPI；567项人格评估",I
+MTH053,明尼苏达多项人格测验,MMPI-2,量表,SCH06,PSY065,1989,"TOP26;TOP07","16+","MMPI-2；修订版本；含10个临床量表",I
+MTH054,症状自评量表,SCL-90,量表,SCH07,PSY070,1975,"TOP26;TOP21","18+","90项自评量表评估心理症状",I
+MTH055,抑郁自评量表,SAS,量表,SCH07,PSY071,1975,"TOP26;TOP01","14+","Zung 自评量表评估焦虑与抑郁",I
+MTH056,焦虑自评量表,SAS (Zung),量表,SCH07,PSY071,1971,"TOP26;TOP02","14+","Zung 焦虑自评量表",I
+MTH057,汉密顿抑郁量表,HAMD,量表,SCH07,PSY066,1960,"TOP26;TOP01","成人","Hamilton 抑郁评定量表；他评",I
+MTH058,贝克抑郁量表,BDI,量表,SCH07,PSY037,1961,"TOP26;TOP01","13+","Beck 抑郁量表",I
+MTH059,贝克焦虑量表,BAI,量表,SCH07,PSY037,1988,"TOP26;TOP02","13+","Beck 焦虑量表",I
+MTH060,贝克希望lessness量表,BASI,量表,SCH07,PSY037,1974,"TOP26;TOP30","13+","Beck Hopelessness Scale",I
+MTH061,神经质问卷,NEO-PI-R,量表,SCH04,PSY030,1992,"TOP26;TOP13","17+","NEO-PI-R；大五人格量表",I
+MTH062,大五人格简版,BFI-2,量表,SCH04,PSY031,2015,"TOP26;TOP13","17+","Big Five Inventory v2",I
+MTH063,16种人格因素测验,16PF,量表,SCH04,PSY031,1949,"TOP26;TOP13","16+","Cattell 16PF；16因素人格测验",I
+MTH064,人格诊断问卷,PAI,量表,SCH04,PSY031,1983,"TOP26;TOP07","18+","Millon 人格障碍诊断问卷",I
+MTH065,Wechsler成人智力量表,WAIS,量表,SCH01;SCH23,PSY067,1955,"TOP26","16+","WAIS；成人智力评估",I
+MTH066,Wechsler儿童智力量表,WISC,量表,SCH01;SCH23,PSY067,1949,"TOP26;TOP11","6-16","WISC；儿童智力评估",I
+MTH067,韦氏幼儿智力量表,WPPSI,量表,SCH01;SCH23,PSY067,1965,"TOP26;TOP11","2.5-7","WPPSI；幼儿智力评估",I
+MTH068,瑞文推理测验,Raven's Progressive Matrices,量表,SCH01;SCH23,PSY068,1938,"TOP26;TOP17","所有","非言语推理测验",I
+MTH069,MMSE,Mini-Mental State Examination,量表,SCH01;SCH23,PSY068,1975,"TOP26;TOP19","55+","简易精神状态评估；筛查认知障碍",I
+MTH070,MoCA,Montreal Cognitive Assessment,量表,SCH01;SCH23,PSY069,2006,"TOP26;TOP19","55+","MoCA 蒙特利尔认知评估",I
+MTH071,Beck 认知问卷,BDI;BAI,量表,SCH07,PSY037,1961,"TOP26","13+","贝克抑郁与焦虑量表",I
+MTH072,贝克认知问卷（认知）,Beck Cognitive Inventory,量表,SCH07,PSY037,1977,"TOP26","13+","贝克认知问卷",I
+MTH073,DSM-5 分类,DSM-5 Diagnostic Criteria,评估方法,SCH22,PSY070,2013,"TOP01;TOP02;TOP07;TOP21","所有","美国精神医学学会诊断标准",I
+MTH074,ICD-11 分类,ICD-11 Diagnostic Criteria,评估方法,SCH22,PSY070,2019,"TOP01;TOP02;TOP21","所有","世界卫生组织疾病分类",I
+MTH075,临床访谈,Clinical Interview,评估方法,SCH22,PSY070,1980,"TOP26;TOP27","所有","结构化/半结构化临床访谈",I
+MTH076,心理测验,Pyschological Test,评估方法,SCH04,PSY067,1949,"TOP26;TOP13","所有","心理测量的综合评估",I
+MTH077,结构化临床访谈,SCID,评估方法,SCH22,PSY070,1990,"TOP26","所有","结构化临床访谈（DSM-5）",I
+MTH078,正念减压疗法（训练）,MBSR (Program),治疗技术,SCH07,PSY057,1979,"TOP27;TOP32","成人","Kabat-Zinn 正念减压训练8周课程",I
+MTH079,认知行为治疗（青少年）,CBT for Youth,治疗技术,SCH07,PSY037,2001,"TOP01;TOP02;TOP11","10-17","青少年焦虑/抑郁CBT",I
+MTH080,团体认知行为治疗,Group CBT,治疗技术,SCH07,PSY037,2003,"TOP01;TOP02;TOP29","成人","团体CBT干预",I
+MTH081,正念认知疗法（MBCT）,MBCT,治疗技术,SCH07,PSY058,2000,"TOP01","成人","MBCT 8周抑郁复发预防课程",I
+MTH082,ACT 干预,ACT Intervention,治疗技术,SCH07,PSY041,2004,"TOP01;TOP02;TOP19;TOP27","成人","ACT 心理灵活性干预",I
+MTH083,心理弹性训练,Resilience Training,治疗技术,SCH05,PSY043,1990,"TOP01;TOP02","成人","Covington 心理韧性与成长心智训练",II
+MTH084,叙事疗法外化技术,Externalization Technique,治疗技术,SCH19,PSY045,1990,"TOP27;TOP11","所有","叙事疗法：将问题外化以重建故事",II
+MTH085,危机干预,Crisis Intervention,治疗技术,SCH24,PSY042,1967,"TOP30;TOP27","所有","自杀预防与危机干预",I

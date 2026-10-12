@@ -1,0 +1,201 @@
+id,name_zh,name_en,kind,school_ids,theory_ids,author_ids,definition_zh,aliases_zh,example_zh,related,origin_year
+CPT001,内省,Introspection,研究方法,SCH01,THY001,PSY001,训练观察者自觉报告当下意识内容的实验方法,自我观察,冯特实验室中让被试报告声音与色块的意识变化,CPT002,1879
+CPT002,心理元素,Psychical Elements,心理结构,SCH01,THY001,PSY001,意识可拆解为感觉、意象与情感三类基本元素,,红色、声音、愉快感,CPT001;CPT003,1874
+CPT003,心理机能,Mental Function,心理过程,SCH02,THY002,PSY002,指心理活动对有机体适应环境所起的功能,,注意力、记忆、判断、意志,CPT002;CPT004,1890
+CPT004,意识流,Stream of Consciousness,心理概念,SCH02;SCH15,THY002,PSY002,詹姆斯提出：意识不是元素堆叠而是连续流动的整体,,一个念头未落另一个已起,CPT003,1890
+CPT005,无意识,Unconscious,心理结构,SCH03,THY003;THY004,PSY008,不能被意识直接访问却影响行为的心理层面,,压抑的欲望、被遗忘的经验,CPT006;CPT007,1895
+CPT006,压抑,Repression,心理动力,SCH03,THY003;THY006,PSY008,自我把痛苦经验排除在意识之外的动力过程,,儿童期创伤被遗忘,CPT005;CPT014,1900
+CPT007,冲突,Psycho-Dynamic Conflict,心理动力,SCH03,THY003;THY005,PSY008,人格内部本我-自我-超我或不同驱力之间的相互抵触,,道德要求与本能冲动冲突,CPT006;CPT012;CPT013,1923
+CPT008,症状,Symptom,临床术语,SCH03;SCH24,THY003,PSY008,无意识冲突的变形表达，具有潜功能满足,,转换症状、癔症性失明,CPT005;CPT007,1900
+CPT009,显梦,Manifest Content,心理概念,SCH03,THY004,PSY008,梦的表层内容，即醒来后能记住的情节,,梦见与故人重逢,CPT010,1899
+CPT010,隐梦,Latent Content,心理概念,SCH03,THY004,PSY008,被压抑的欲望或创伤，通过梦的工作被伪装成显梦,,重逢梦中隐含对已故父亲的情感,CPT009,1899
+CPT011,本我,Id,心理结构,SCH03,THY005,PSY008,人格最原始部分，遵循快乐原则、储存本能驱力,,幼儿饥饿时立即要求喂奶,CPT012;CPT013,1923
+CPT012,自我,Ego,心理结构,SCH03,THY005,PSY008,在现实与自我之间协调的部分，遵循现实原则,,面对诱惑时权衡后果后再行动,CPT011;CPT013;CPT014,1923
+CPT013,超我,Superego,心理结构,SCH03,THY005,PSY008,道德与理想的内化代表，遵循道德原则,,因偷窃而内疚,CPT011;CPT012,1923
+CPT014,防御机制,Defense Mechanism,心理动力,SCH03;SCH24,THY006,PSY008,自我用以减轻焦虑与保护人格平衡的无意识策略,,合理化、否认、投射,CPT005;CPT006,1936
+CPT015,投射,Projection,心理动力,SCH03;SCH24,THY006,PSY008,把自己不能接受的情感或冲动归因于他人,,自己嫉妒他人却认为别人在针对自己,CPT014,1926
+CPT016,合理化,Rationalization,心理动力,SCH03;SCH24,THY006,PSY008,为难以接受的行为或事实编造看似合理的解释,,考试失败却说是试卷太难,CPT014,1926
+CPT017,力比多,Libido,心理动力,SCH03,THY007,PSY008,弗洛伊德指心理能量主要与性驱力相关,,少年对异性对象的强烈关注,CPT018,1905
+CPT018,本能驱力,Instinctual Drives,心理动力,SCH03,THY007,PSY008,生物遗传的强烈冲力，是心理能量的根源,,饥饿、性、攻击,CPT017,1920
+CPT019,俄狄浦斯情结,Oedipus Complex,心理概念,SCH03,THY008,PSY008,儿童对同性父母产生敌意并依恋异性父母的潜意识冲突,,父亲在家庭中的独占关系,CPT005;CPT020,1910
+CPT020,阉割焦虑,Neurasthenic Castration Anxiety,心理概念,SCH03,THY008,PSY008,男孩对父亲产生敌意后所产生的恐惧与压抑机制,,男孩因想象父亲惩罚而压抑欲念,CPT019,1910
+CPT021,自卑感,Inferiority Feeling,心理概念,SCH04;SCH25,THY009,PSY010,相对于理想自我的不足感，是动机来源之一,,考试落后于同学感到自卑,CPT022,1912
+CPT022,补偿,Compensation,心理概念,SCH04;SCH25,THY009,PSY010,通过发展其他能力弥补短板以恢复心理平衡,,运动不佳者转而发展学术,CPT021,1912
+CPT023,社会兴趣,Social Interest,心理概念,SCH04;SCH25,THY010,PSY010,个体对共同体与他人的自然关心与合作意愿,,志愿者帮助社区弱势群体,CPT021,1927
+CPT024,集体无意识,Collective Unconscious,心理结构,SCH05;SCH25,THY011,PSY011,人类共享的深层无意识层，储存跨世代原型,,不同文化中反复出现的英雄与母亲原型,CPT025;CPT026,1919
+CPT025,原型,Archetype,心理概念,SCH05,THY012,PSY011,集体无意识中反复出现的先验心理模式,,英雄、阴影、母亲原型,CPT024;CPT026,1919
+CPT026,自性,Self (Jung),心理概念,SCH05,THY012,PSY011,人格整体的统一中心与目标，荣格用来表达人格整合,,个体经历中年危机后整合阴影,CPT025,1934
+CPT027,阴影,Shadow,心理概念,SCH05,THY012,PSY011,被自我压抑的、不愿承认的人格面向,,自己厌恶他人身上的"坏"特征其实是自身阴影,CPT026,1912
+CPT028,心理功能,Psiychic Functions,心理概念,SCH05,THY013,PSY011,荣格用来描述意识活动的四种基本取向：思维、情感、感觉、直觉,,偏好分析性思考者vs偏好情感判断者,CPT029,1921
+CPT029,内倾-外倾,Introversion-Extraversion,心理概念,SCH05;SCH25,THY013,PSY011,心理能量指向自身还是外部的两种根本态度,,内向者独处恢复能量,CPT028;CPT076,1921
+CPT030,条件反射,Conditioned Reflex,心理过程,SCH06,THY014,PSY013,由中性刺激与无条件刺激配对后建立的条件性反射,,巴甫洛夫的狗听到铃声分泌唾液,CPT031,1904
+CPT031,获得性情绪反应,Acquired Emotional Response,心理过程,SCH06,THY014,PSY013,中性刺激反复与厌恶刺激共现后引发的情绪反应,,白鼠对电击前声音产生恐惧,CPT030,1938
+CPT032,效果律,Law of Effect,心理概念,SCH06;SCH32,THY015,PSY003,行为后果决定联结强度：满意加强、苦恼减弱,,答对题强化做题行为,CPT033,1898
+CPT033,联结,Connection,心理概念,SCH06;SCH32,THY015,PSY003,情境与反应之间形成的可测量关系,,在教室听到铃声就起身离开,CPT032,1898
+CPT034,操作性行为,Operant Behavior,心理概念,SCH07,THY016,PSY015,由后果塑造的自主行为，与反射式行为相对,,学生为奖励而完成作业,CPT035;CPT036,1938
+CPT035,强化,Reinforcement,心理概念,SCH07,THY016,PSY015,行为后出现使行为概率增加的刺激,正强化/负强化,表扬使孩子更常做家务,CPT034,1938
+CPT036,认知地图,Cognitive Map,心理概念,SCH07;SCH10,THY018,PSY016,生物对环境的内部空间表征,,在熟悉街区闭眼能"看到"出口,CPT034;CPT037,1948
+CPT037,潜伏学习,Latent Learning,心理过程,SCH07,THY018,PSY016,在无强化条件下学习仍发生，只是行为未显现,,无奖励的探索仍使老鼠记住迷宫路径,CPT036,1948
+CPT038,观察学习,Observational Learning,心理概念,SCH11;SCH07,THY019,PSY017,通过观察他人及其结果而进行的学习,替代学习,儿童模仿父母的攻击行为,CPT039;CPT040,1963
+CPT039,替代强化,Vicarious Reinforcement,心理概念,SCH11,THY019,PSY017,观察者因看到示范者被强化而学习某种行为,,看到同学被表扬而更愿意举手,CPT038,1963
+CPT040,分枝,Enactment,心理过程,SCH11,THY019,PSY017,观察学习中的四个阶段之一：注意、保持、复现、动机,,看到老师示范实验步骤后自己动手操作,CPT038,1977
+CPT041,自我效能,Self-Efficacy,心理概念,SCH11,THY020,PSY017,个体对能否执行特定行为达成目标的主观信念,,相信自己在公众演讲中表现良好,CPT042,1977
+CPT042,效能信念来源,Sources of Efficacy Belief,心理概念,SCH11,THY020,PSY017,自我效能的四种来源：成功经验、替代经验、语言劝说、情绪唤醒,,成功过一次公开演讲后再度信心大增,CPT041,1986
+CPT043,知觉行为控制,Perceived Behavioral Control,心理概念,SCH11,THY021,PSY017,个体对自己能否实施某行为的感知难度与能力,,觉得锻炼时间不足而不开始健身,CPT041;CPT045,1985
+CPT044,图式,Scheme,心理结构,SCH12;SCH13,THY023,PSY019,组织经验与指导行动的既有认知框架,,认识"狗"的图式,CPT047;CPT048;CPT049,1952
+CPT045,前运算阶段,Preoperational Stage,发展里程碑,SCH12,THY022,PSY019,2-7岁阶段，象征性思维出现但受自我中心与直观限制,,小孩认为从自己视线角度看不到自己,CPT044;CPT046,1952
+CPT046,形式运算阶段,Formal Operational Stage,发展里程碑,SCH12,THY022,PSY019,11岁以上阶段，具备抽象假设-演绎推理能力,,少年能思考"如果所有人都诚实会怎样",CPT044;CPT045,1952
+CPT047,同化,Assimilation,心理过程,SCH12;SCH13,THY023,PSY019,把新经验纳入既有图式的过程,,把一只猫仍当作"动物"识别,CPT044;CPT048,1937
+CPT048,顺应,Accommodation,心理过程,SCH12;SCH13,THY023,PSY019,当既有图式不足以解释新经验时调整图式,,遇到鲸鱼后修正"动物=有腿"的图式,CPT044;CPT047,1937
+CPT049,平衡化,Equilibration,心理过程,SCH12;SCH13,THY023,PSY019,同化与顺应之间的动态平衡过程，是认知发展驱动机制,,遇到反例后重新调整观念,CPT047;CPT048,1937
+CPT050,最近发展区,ZPD,心理概念,SCH13,THY024,PSY020,儿童独立完成水平与在协助下能达到的水平之间的差距,,学生在教师协助下能解更难的题,CPT051;CPT052,1978
+CPT051,支架式教学,Scaffolding,心理概念,SCH13,THY024,PSY020,成年人在最近发展区内逐步调整协助的教学策略,,老师从示范到提问再到让学生独立,CPT050,1976
+CPT052,内化,Internalization,心理过程,SCH13;SCH11,THY025,PSY020,把社会-文化中的工具与规则变为个体内部心理机能的过程,,儿童把"要守序"从外部要求变内部准则,CPT050;CPT053,1934
+CPT053,高级心理机能,Higher Mental Functions,心理概念,SCH13,THY025,PSY020,由语言与文化工具内化产生的高级认知功能,,计划、逻辑推理、注意,CPT052,1934
+CPT054,依恋,Attachment,心理概念,SCH14;SCH13,THY026,PSY022,儿童与主要照顾者之间形成的稳定、持久情感联结,,婴儿与母亲之间分离焦虑,CPT055;CPT056,1958
+CPT055,依恋行为系统,Attachment Behavioral System,心理概念,SCH14,THY026,PSY022,进化塑造的、以亲近与寻求保护为目的的行为系统,,婴儿在陌生环境向母亲寻求安慰,CPT054,1969
+CPT056,内部工作模型,Internal Working Model,心理概念,SCH14,THY027,PSY022,依恋经验形成的关于自我、他人与关系的稳定心理表征,,因早年忽视而相信"我不可爱",CPT054;CPT057,1973
+CPT057,心理社会危机,Psychosocial Crisis,心理概念,SCH13;SCH25,THY028,PSY024,埃里克森每阶段的核心冲突与解决任务,,婴儿期的信任vs不信任,CPT058,1950
+CPT058,自我认同,Sense of Identity,心理概念,SCH13;SCH25,THY028,PSY024,青春期为整合自我而进行的心理社会过程,,青少年在探索中确认自己是谁,CPT057,1968
+CPT059,气质,Temperament,心理概念,SCH13;SCH10,THY029,PSY041,与生俱来的、跨情境稳定的情绪与行为倾向,,易怒的婴儿vs温和的婴儿,CPT060,1988
+CPT060,害羞反应,Shy Response,心理概念,SCH13;SCH10,THY029,PSY041,婴儿在面对陌生人时的自我调节模式之一,,新生儿见到陌生人退缩,CPT059,1990
+CPT061,客体关系,Object Relations,心理概念,SCH03;SCH14,THY030,PSY027,无意识中与早期客体的关系模板及由此产生的情感模式,,对父母的内在化形象影响日后亲密关系,CPT062,1946
+CPT062,分裂,Splitting,心理概念,SCH03;SCH14,THY030,PSY027,把客体与自我划分成好与坏两极的防御过程,,把他人视为全好或全坏,CPT061,1946
+CPT063,偏执-分裂位,Paranoid-Schizoid Position,心理概念,SCH03,THY031,PSY027,心理发展早期分裂客观位、好客与坏客并存的状态,,婴儿区分"好妈妈"与"坏妈妈",CPT064,1946
+CPT064,抑郁位,Depressive Position,心理概念,SCH03,THY031,PSY027,婴儿把客我整合为整体的心理位置，能承认完整他人,,开始意识到母亲既给奶又生气,CPT063,1946
+CPT065,基本焦虑,Basic Anxiety,心理概念,SCH03;SCH21,THY032,PSY025,神经症患者持续感到孤独、无助、与世界疏离的情感状态,,害怕人际亲密与暴露自我,CPT066,1941
+CPT066,神经症人格类型,Neurotic Personality Types,心理概念,SCH03;SCH21,THY032,PSY025,霍妮归纳的三类神经症人格：屈从型、攻击型、分离型,,过分讨好他人的屈从者,CPT065,1941
+CPT067,自体客体,Selfobject,心理概念,SCH03;SCH22,THY033,PSY008,他人的某功能被体验为自我的组成部分以维持自体的连续,,父母的镜映功能帮助儿童形成自我感,CPT068,1945
+CPT068,镜映,Mirroring,心理概念,SCH03;SCH22,THY033,PSY008,主要照顾者对儿童情感的反映与确认功能,,母亲微笑回应婴儿的微笑,CPT067,1945
+CPT069,主体间性,Intersubjectivity,心理概念,SCH03;SCH22,THY034,PSY025,人与人之间的共同情感与意义的共享与相互构成,,治疗师与来访者的情绪共振,CPT067;CPT070,1990
+CPT070,特质,Trait,心理概念,SCH25,THY035,跨情境稳定、区分个体的心理倾向,人格特质,外向的人在陌生场合仍健谈,CPT071,1937
+CPT071,个体特有特质,Cardinal Trait,心理概念,SCH25,THY035,PSY028,极少数人拥有的、主宰其全部生活的中心特质,,林肯的"悲悯",CPT070,1937
+CPT072,源特质,Source Trait,心理概念,SCH25,THY036,PSY029,卡特尔因素分析得出的、构成人格的16个源特质,,乐群性、稳定性,CPT073,1943
+CPT073,主成分分析,Principal Component Analysis,研究方法,SCH25;SCH32,THY036,PSY029,用于从大量变量中提取主要人格因素的因素分析方法,,16PF量表的统计基础,CPT072,1938
+CPT074,大五人格,Big Five,心理概念,SCH25;SCH32,THY037,PSY030;PSY031,开放性、责任心、外倾性、宜人性、神经质五大维度模型,,用NEO-PI-R测量大五,CPT075,1988
+CPT075,神经质,Neuroticism,心理概念,SCH25,THY037,PSY030;PSY031,易受情绪困扰、焦虑、抑郁倾向的维度,,情绪波动大、易担心,CPT074,1990
+CPT076,心理类型,Psychological Type,心理概念,SCH25,THY038,PSY032;PSY033,MBTI 十六种人格类型之一，由四维度组合而成,,INTJ（内倾直觉理性判断）,CPT077,1943
+CPT077,四维度,Four Dichotomies,心理概念,SCH25,THY038,PSY032;PSY033,MBTI 的四组对立：E/I、S/N、T/F、J/P,,外向直觉-思考感知（ENTP）,CPT076,1943
+CPT078,无条件积极关注,Unconditional Positive Regard,心理概念,SCH08;SCH29,THY039,PSY034,治疗师对来访者不加评判、全然接纳的态度,,不因来访者错误而降低接纳度,CPT079;CPT080,1957
+CPT079,共情,Empathy,心理概念,SCH08;SCH29,THY039,PSY034,治疗师从来访者内部世界理解其经验的能力,,准确复述来访者的感受,CPT078;CPT080,1957
+CPT080,真诚一致,Genuineness,心理概念,SCH08;SCH29,THY039,PSY034,治疗师在治疗关系中坦诚一致、不戴面具,,坦率表达真实感受而不伪装,CPT078;CPT079,1957
+CPT081,生理需要,Physiological Needs,心理概念,SCH08;SCH31,THY040,PSY035,最低层次需要，包括饥饿、渴、性、休息,,食物、饮水、睡眠,CPT082,1943
+CPT082,归属需要,Belongingness Need,心理概念,SCH08;SCH31,THY040,PSY035,个体对家庭、朋友与群体的接纳与亲密需求,,渴望加入兴趣小组,CPT081;CPT083,1943
+CPT083,自我实现,Self-Actualization,心理概念,SCH08;SCH31,THY040;THY041,PSY035,个体发挥全部潜能、成为自身所能成之人的最高需要,,艺术家通过作品实现自我,CPT084;CPT085,1943
+CPT084,高峰体验,Peak Experience,心理概念,SCH08;SCH31,THY041,PSY035,自我实现者短暂进入的完整、意义充盈的心理状态,,登山顶端体验到的忘我感,CPT083,1962
+CPT085,自我实现者,Self-Actualized Person,心理概念,SCH08;SCH31,THY041,PSY035,具备自主、独立、创造性与超越自我倾向的成熟人格,,具有创造性能力与真诚的人,CPT083;CPT084,1962
+CPT086,逃避自由,Escape from Freedom,心理概念,SCH09;SCH03,THY042,PSY036,现代人面对自由与孤独的两难时的心理防御行为,,用顺从权威来逃避选择负担,CPT087,1941
+CPT087,存在性焦虑,Existential Anxiety,心理概念,SCH09,THY043,PSY037,与自由、孤独、死亡和无意义有关的普遍性心理焦虑,,临终前的死亡焦虑,CPT088;CPT089,1941
+CPT088,存在性死亡,Death as Existential Given,心理概念,SCH09,THY043,PSY037,存在主义认为死亡是不可避免并驱动意义寻求的因素,,意识到有限性而改变生活优先级,CPT087,1980
+CPT089,无意义感,Meaninglessness,心理概念,SCH09,THY043,PSY037,当个体感到生命缺乏价值与目标时产生的心理状态,,失去目标后感到空虚,CPT088,1980
+CPT090,存在性自由,Existential Freedom,心理概念,SCH09,THY043,PSY037,人始终处于选择状态并因此承担责任的根本处境,,意识到必须为自己的路径负责,CPT087,1980
+CPT091,工作记忆,Working Memory,心理结构,SCH10,THY044,PSY039,短时保存、操作与执行任务的心理工作空间,,听指令"记住7个数字",CPT092,1956
+CPT092,神奇数字 7±2,The Magical Number Seven,心理概念,SCH10,THY044,PSY039,短时记忆的容量约在5-9个组块之间,,一次报出7位电话号码不易出错,CPT091,1956
+CPT093,有限理性,Bounded Rationality,心理概念,SCH10,THY045,PSY040,决策在认知与信息约束下追求满意解而非最优解,,超市结账时选最快通道而非最优策略,CPT094,1955
+CPT094,满意化,Satisficing,心理概念,SCH10,THY045,PSY040,在信息有限时接受"够好"而非"最好"的决策策略,,第一件合身的衣服即买下,CPT093,1955
+CPT095,不合理信念,Irational Belief,心理概念,SCH16;SCH08,THY046,PSY042,导致情绪困扰的绝对化、过分概括化、灾难化思维,,一次失败就认为自己永远失败,CPT096,1955
+CPT096,ABC模型,ABC Model,心理概念,SCH16,THY046,PSY042,诱发事件-信念-后果三步骤解释情绪困扰的模型,,考试失利(A)认为自己是废物(B)产生抑郁(C),CPT095,1955
+CPT097,认知三角,Cognitive Triad,心理概念,SCH16;SCH13,THY047,PSY043,抑郁者对自我、世界与未来的消极三角评价,,自贬、消极世界观、绝望预期,CPT098,1967
+CPT098,认知重构,Cognitive Restructuring,心理过程,SCH16,THY047,PSY043,识别-修正非理性/偏差认知以改善情绪与行为的技术,,把"我总是失败"改写为"这次没做好可以下次改进",CPT097;CPT099,1967
+CPT099,自动思维,Automatic Thought,心理概念,SCH16,THY048;THY047,PSY043,情绪事件中自然浮现的、未经检视的瞬时想法,,想到批评者而瞬间觉得自己糟糕,CPT098,1979
+CPT100,辩证整合,Dialectical Integration,心理概念,SCH17;SCH18,THY049,PSY046,同时接纳与改变的两种对立姿态，是DBT的核心治疗姿态,,承认痛苦真实同时开始学习应对技能,CPT101,1991
+CPT101,边缘人格,Borderline Personality,临床术语,SCH17,THY049,PSY046,以情绪失调、身份紊乱、关系不稳定为特征的人格结构,,难以处理愤怒与自我价值,CPT100,1991
+CPT102,心理灵活性,Psychological Flexibility,心理概念,SCH18;SCH11,THY050,PSY047,能灵活面对经验并按价值行动的心理能力,,接受焦虑但不被它绑架地去做重要事,CPT103,1999
+CPT103,认知融合,Cognitive Fusion,心理概念,SCH18,THY050,PSY047,把想法当作事实、被想法完全绑住的思维过程,,相信"我很笨"因而放弃尝试,CPT102,1999
+CPT104,学会性无助,Learned Helplessness,心理概念,SCH19;SCH16,THY051,PSY051,反复经历不可控消极事件后产生的努力无益的信念,,实验中的狗在不可控电击后放弃挣扎,CPT105,1967
+CPT105,心理繁荣,Psychological Flourishing,心理概念,SCH19;SCH16,THY052,PSY051,包括积极情绪、投入、关系、意义、成就的心理健康状态,PERMA,能感受幸福与自我实现的人,CPT106,2000
+CPT106,积极情绪,Positive Affect,心理概念,SCH19,THY052,PSY051,快乐、感恩、希望、爱等积极情感体验,,被朋友感谢时感到的快乐,CPT105,1998
+CPT107,关怀伦理,Ethic of Care,心理概念,SCH21;SCH08,THY053,PSY052,以关系、责任与情境性关怀为核心的伦理取向,关怀道德,母亲照顾孩子的选择,CPT108,1982
+CPT108,另一声音,The Other Voice,心理概念,SCH21,THY053,PSY052,吉根认为被主流心理学压抑的女性道德视角,,从"正义"转向"关系"的伦理判断,CPT107,1982
+CPT109,外化,Externalization,心理概念,SCH22,THY054,PSY054,把问题与来访者分开、让问题成为"外部者"的治疗手法,,把"抑郁"当作一位访客来对话,CPT110,1988
+CPT110,重写故事,Re-authoring,心理概念,SCH22,THY054,PSY054,与来访者共同重写生命叙事以凸显优势与意义,,把失败经历重新讲成一次学习机会,CPT109,1988
+CPT111,社会建构,Social Construction,心理概念,SCH22;SCH21,THY055,PSY054,知识与心理现实由社会互动与语言共同形成的过程,,性别角色被视为社会建构而非生物事实,CPT112,1990
+CPT112,语言游戏,Linguistic Play,心理概念,SCH22,THY055,PSY054,后现代视语为意义生成手段，语言塑造心理现实,,不同的命名改变体验与身份,CPT111,1990
+CPT113,家庭边界,Family Boundary,心理概念,SCH23,THY056,PSY049,家庭成员与子系统之间情感与信息流通的规则,,父母与成年子女之间应有适度边界,CPT114,1974
+CPT114,家庭层级,Family Hierarchy,心理概念,SCH23,THY056,PSY049,家庭中决策与权力的层级安排，正常应为由上至下,,父母权威下孩子尊重与服从,CPT113,1974
+CPT115,自我分化,Differentiation of Self,心理概念,SCH23,THY057,PSY050,个体在情感上从家庭系统独立的能力,,与父母情绪保持适度距离,CPT116;CPT117,1971
+CPT116,三角关系,Triangulation,心理概念,SCH23,THY057,PSY050,家庭中当二元关系紧张时引入第三人以转移焦虑的机制,,夫妻矛盾让儿子夹在中间,CPT115,1971
+CPT117,代际传递,Intergenerational Transmission,心理概念,SCH23,THY057,PSY050,家庭中的情感模式、信念与创伤从父母到子女的传递,,父母的沟通方式被孩子习得,CPT115;CPT116,1971
+CPT118,人际敏感度,Interpersonal Sensitivity,心理概念,SCH23;SCH03,THY058,PSY048,对他人评价高度敏感的神经症核心情绪,,过分在意别人眼神与语气,CPT119,1953
+CPT119,人际焦虑,Interpersonal Anxiety,心理概念,SCH23;SCH03,THY058,PSY048,在人际情境中普遍存在的紧张与忧虑,社交焦虑,在聚会中担心说错话被评,CPT118,1953
+CPT120,悖论处方,Paradoxical Prescription,心理概念,SCH23,THY059,PSY056,治疗师让来访者做与治疗目标"相反"的行为以打破循环,,失眠者被要求努力保持清醒,CPT118,1973
+CPT121,犯罪画像,Criminal Profiling,心理概念,SCH28,THY060,PSY057,基于犯罪情境与行为模式的罪犯心理特征推断方法,,根据作案模式推测罪犯的年龄与性别,CPT122,1898
+CPT122,变态心理研究,Abrasive-Psychology Study,研究方法,SCH28,THY060,PSY057,犯罪学-心理学交叉的研究方法,犯罪心理学,通过档案与情境评估犯罪人心理,CPT121,1898
+CPT123,本土心理学,Indigenous Psychology,心理概念,SCH30,THY061,PSY058;PSY059,以本土文化情境与文化理论为基础建立的心理学研究取向,,黄光国提出人情/面子/关系概念,CPT124,1995
+CPT124,符号系统,Symbol System,心理概念,SCH21;SCH30,THY061,PSY059,以本土文化符号（如"道""和"）解释心理现象的方法,,以"情"解释中国人心理,CPT123,2000
+CPT125,生物-心理-社会模型,Biopsychosocial Model,心理概念,SCH24;SCH25,THY062,PSY008,从生物、心理、社会三层面综合解释健康与疾病的模型,,糖尿病同时涉及代谢、心理与生活事件,CPT126,1977
+CPT126,健康连续体,Health Continuum,心理概念,SCH24,THY062,PSY008,健康与疾病被视为从积极健康到疾病的连续谱,,亚健康状态,CPT125,1977
+CPT127,神经可塑性,Neuroplasticity,心理概念,SCH15;SCH10,THY063,PSY021;PSY074,大脑在经验作用下结构和功能的可改变性,,丰富环境让老鼠皮层加厚,CPT128,1980
+CPT128,认知神经科学,Cognitive Neuroscience,心理概念,SCH15;SCH10,THY063,PSY021;PSY074,研究认知功能与大脑机制之间关系的研究领域,,通过fMRI观察工作记忆激活,CPT127,1980
+CPT129,基本选择动机,Basic Needs / Choice Motives,心理概念,SCH09;SCH25,THY064,PSY053,格拉瑟认为人类所有选择动机最终归于生存、爱、权力、自由、乐趣,,为寻求认可的行为反映权力动机,CPT130,1985
+CPT130,自主性,Autonomy,心理概念,SCH19;SCH08,THY065,PSY017,行为发自个人自主选择而非外部控制的心理需求,,自由选择研究方向,CPT131,1985
+CPT131,胜任感,Competence,心理概念,SCH19;SCH08,THY065,PSY017,个体感到能有效应对挑战并完成任务的心理需求,,掌握新技能后感到胜任,CPT130;CPT132,1985
+CPT132,安全型依恋,Safe Attachment,心理概念,SCH14;SCH13,THY066,PSY023,能在分离中保持情绪调节并信任照顾者的依恋类型,,离开时不哭闹并能再相聚,CPT133,1978
+CPT133,回避型依恋,Avoidant Attachment,心理概念,SCH14;SCH13,THY066,PSY023,与照顾者保持距离、不表达情感需求的依恋类型,,母亲离开时面无表情,CPT132,1978
+CPT134,抵抗型依恋,Resistant Attachment,心理概念,SCH14;SCH13,THY066,PSY023,与照顾者亲密却难以分离的焦虑依恋模式,,母亲离开时哭闹、回来时仍抗拒,CPT132,1978
+CPT135,超个人体验,Transpersonal Experience,心理概念,SCH31;SCH19,THY068,PSY035;PSY036,超越个体自我边界的意识状态,灵性体验,冥想中感到与万物合一,CPT136,1968
+CPT136,超个人心理,Transpersonal Psychology,心理概念,SCH31,THY068,PSY035;PSY036,研究超越个人意识层次的心理学分支,,意义寻求、宗教体验,CPT135,1968
+CPT137,共情式沟通,Empathic Communication,心理过程,SCH08;SCH29,THY039,PSY034,以无评价、准确反映对方感受的对话方式,,咨询师复述来访者的感受而不评判,CPT079,1957
+CPT138,共情倾听,Empathic Listening,心理过程,SCH08;SCH29,THY039,PSY034,以理解对方感受与意图为目的的倾听方式,,不打断地听对方讲完,CPT137,1960
+CPT139,共情表达,Empathic Expression,心理过程,SCH08;SCH29,THY039,PSY034,把对方未说出的情感用语言准确表达出来,,你感到被批评时很受伤,CPT137,1960
+CPT140,暴露疗法,Exposure Therapy,心理过程,SCH06;SCH16,THY016;THY048,PSY013;PSY044,让来访者持续暴露在恐惧情境中以消减焦虑的技术,,恐惧者逐步接近恐惧情境,CPT031;CPT099,1965
+CPT141,系统脱敏,Systematic Desensitization,心理过程,SCH06;SCH16,THY048,PSY013,通过放松-焦虑等级逐步暴露以降低焦虑的技术,,焦虑者先想象小情境再逐步接近,CPT140,1958
+CPT142,暴露与反应预防,Exposure and Response Prevention,心理过程,SCH16,THY048,PSY044,强迫症患者暴露于症状情境同时不做强迫反应的技术,,洗手强迫者不洗手但仍接触细菌,CPT140;CPT099,1970
+CPT143,行为激活,Behavioral Activation,心理过程,SCH16;SCH19,THY051;THY052,PSY051,通过系统安排有价值行为提升情绪的方法,,抑郁者重新安排日常活动,CPT104;CPT106,2000
+CPT144,正念,Self-Compassion,心理过程,SCH18;SCH19,THY050;THY052,PSY047,对自己不完美与非顺利时以善意、同情心进行安慰的态度,,失败时对自己说"没关系",CPT102,2000
+CPT145,短时记忆,Short-term Memory,心理过程,SCH10,THY044,PSY039,信息进入长时记忆前的短暂工作存储阶段,,背一串数字,CPT091,1967
+CPT146,长时记忆,Long-term Memory,心理过程,SCH10,THY044,PSY039,可以保存数天至一生的信息储存系统,,童年照片中的细节,CPT145,1967
+CPT147,陈述性记忆,Declarative Memory,心理过程,SCH10,THY044,PSY018,可以明确说出与陈述的记忆类型，包括情景与语义记忆,,记得昨天晚餐吃了什么,CPT146;CPT148,1982
+CPT148,程序性记忆,Procedural Memory,心理过程,SCH10,THY044,PSY018,存储运动与操作步骤的记忆类型，如骑车和打字,,骑自行车不需思考,CPT147,1982
+CPT149,工作记忆模型,Working Memory Model,心理过程,SCH10,THY044,PSY018,由语音回路、视空间画板与中央执行构成的现代记忆模型,,同时心算时调用工作记忆,CPT091;CPT145,1974
+CPT150,元记忆,Meta-memory,心理过程,SCH10,THY044,PSY018,对自己记忆能力的监控与调节,记忆监控,意识到自己遗忘某个词,CPT149,1980
+CPT151,认知失调,Cognitive Dissonance,心理概念,SCH11;SCH13,THY019,PSY017,持有相互矛盾的信念或行为产生的心理不适,,烟民知道吸烟有害仍吸烟,CPT095,1957
+CPT152,态度,Attitude,心理概念,SCH11;SCH25,THY021,PSY017,对某一事物/群体形成的持久评价性倾向,,对某项政策的赞成或反对,CPT043,1943
+CPT153,社会影响,Social Influence,心理概念,SCH11;SCH23,THY019,PSY017,他人行为影响个体判断与行为的现象,,在人群中服从多数意见,CPT152,1951
+CPT154,旁观者效应,Bystander Effect,心理概念,SCH11;SCH23,,1968,在场人数越多，个人伸出援手的意愿越低,,看到别人求助时假设他人会先行动,CPT153,1968
+CPT155,从众,Conformity,心理概念,SCH11;SCH23,,1951,个体为符合群体规范而调整自己的观点或行为,,在会议上附和多数意见,CPT153,1951
+CPT156,服从,Obedience,心理概念,SCH11;SCH23,,1961,个体因权威而执行自己可能不愿执行的行为,,服从上级命令给他人电击,CPT153,1961
+CPT157,归属需要,Belonging Need,心理概念,SCH11;SCH08,THY021,PSY051,寻求与他人的持久联结的普遍心理需要,,对朋友的依赖与归属感,CPT082;CPT153,1985
+CPT158,智力,Intelligence,心理概念,SCH32;SCH25,THY063,PSY004;PSY006,个体学习、推理与适应环境的综合能力,,考试分数反映的智力水平,CPT159,1905
+CPT159,智力商数,IQ,心理概念,SCH32,THY063,PSY006,衡量智力相对于同龄人的比率指标,智商,标准智力测验得分为100,CPT158,1916
+CPT160,流体智力,Fluid Intelligence,心理概念,SCH32,THY063,PSY007,不依赖先前经验的推理与信息加工能力,,解决从未见过的图形推理题,CPT158,1958
+CPT161,晶体智力,Crystallized Intelligence,心理概念,SCH32,THY063,PSY007,由学习与经验积累的知识与技能,,词汇量与常识,CPT158,1958
+CPT162,三因素智力,Three-Factor Model,心理概念,SCH32,THY063,PSY007,吉尔福特提出的智力三维结构模型,,内容、操作与产物三维,CPT158,1959
+CPT163,动机,Motivation,心理概念,SCH08;SCH11,THY040,PSY035,推动并维持行为以达到目标的内在驱力,,想要完成作业的动力,CPT083,1943
+CPT164,自我决定动机,Self-Determined Motivation,心理概念,SCH11;SCH19,THY065,PSY017,由自主性、胜任感与归属感三需求驱动的内在动机,,出于兴趣主动学习,CPT130;CPT131,1985
+CPT165,情绪,Emotion,心理过程,SCH02;SCH13,THY002,PSY002,生理-认知-行为联合的短暂状态,情感,看到亲人时感到的喜悦,CPT166,1900
+CPT166,基本情绪,Basic Emotion,心理概念,SCH02;SCH15,THY002,PSY002,跨文化普遍存在的情绪原型,如喜、怒、哀、惧,高兴、生气、悲伤、害怕,CPT165,1970
+CPT167,情绪智力,Emotional Intelligence,心理概念,SCH11;SCH25,THY020,PSY017,识别、理解与管理自身与他人的情绪的能力,情商,能察觉他人情绪的敏感者,CPT165,1990
+CPT168,情绪调节,Emotion Regulation,心理过程,SCH11;SCH18,THY020,PSY047,改变情绪体验与其表达的方法与过程,,生气时先深呼吸再回复,CPT165,1997
+CPT169,压力,Stress,心理过程,SCH24;SCH25,THY062,PSY008,机体应对环境挑战时的适应反应,应激,考试前的心跳加速,CPT165,1936
+CPT170,生活事件,Life Event,心理概念,SCH24,THY062,PSY008,与健康和心理状态相关的重要生活事件,,失业或丧亲事件,CPT169,1967
+CPT171,自我,Self,心理概念,SCH11;SCH25,THY020,PSY017,个体对自己身份与特质的整体认知与评价,自我概念,觉得自己有创造力,CPT026;CPT058,1934
+CPT172,自尊,Self-Esteem,心理概念,SCH11;SCH25,THY020,PSY017,个体对自我的总体评价与情感态度,,对自己价值感的肯定,CPT171;CPT041,1981
+CPT173,自我一致性,Self-Consistency,心理概念,SCH11;SCH25,THY020,PSY017,个体的行为与自我形象保持和谐一致的状态,,不违背自己的价值观做事,CPT171,1962
+CPT174,社会自我,Social Self,心理概念,SCH11;SCH13,THY020,PSY017,个体在社会情境中形成的自我形象,,在同事面前的表现与角色,CPT171,1934
+CPT175,自我图式,Self-Schema,心理概念,SCH11;SCH10,THY020,PSY017,关于自己的组织和信息存储结构,,认为自己是"内向的人",CPT171;CPT044,1977
+CPT176,社会比较,Social Comparison,心理概念,SCH11;SCH23,THY020,PSY017,通过与他人比较评估自己的倾向,上行/下行比较,通过同学成绩评估自己,CPT152;CPT172,1954
+CPT177,社会认同,Social Identity,心理概念,SCH11;SCH23,,1979,个体由所属群体身份定义的心理范畴,,作为某校学生的身份认同,CPT153;CPT172,1979
+CPT178,印象管理,Impression Management,心理概念,SCH11;SCH23,,1972,个体为影响他人印象而进行的行为调控,,在面试前精心打扮,CPT153;CPT171,1972
+CPT179,自我实现预言,Self-Fulfilling Prophecy,心理概念,SCH11;SCH13,THY020,PSY017,预期通过行为使其在现实中成为真的现象,,老师低期望让学生成绩变差,CPT172;CPT041,1956
+CPT180,发展心理学,Developmental Psychology,应用领域,SCH13;SCH12,THY022,PSY019,研究从出生到死亡心理发展过程与规律的分支学科,,研究幼儿认知发展,CPT044,1883
+CPT181,人格心理学,Personality Psychology,应用领域,SCH25,THY035,PSY028,研究人格结构、测量与发展的分支学科,,研究大五人格结构,CPT070,1937
+CPT182,临床心理学,Clinical Psychology,应用领域,SCH24;SCH16,THY062,PSY008,研究心理障碍诊断与治疗的分支学科,,为焦虑症患者做评估与干预,CPT065,1896
+CPT183,咨询心理学,Counseling Psychology,应用领域,SCH29;SCH08,THY039,PSY034,处理日常心理困难与促进个人成长的心理服务领域,,为职业困惑提供咨询,CPT078,1908
+CPT184,教育心理学,educational Psychology,应用领域,SCH26;SCH32,THY023,PSY075,研究与教育相关的学习与发展过程的分支学科,,研究如何帮助学生学会学习,CPT044;CPT050,1887
+CPT185,工业与组织心理学,Industrial-Organizational Psychology,应用领域,SCH27;SCH32,,1903,研究工作与组织中人的心理行为的分支学科,,员工绩效与满意度研究,CPT158,1903
+CPT186,司法心理学,Forensic Psychology,应用领域,SCH28,THY060,PSY057,心理学与法律的交叉学科，涵盖犯罪、目击者与审判,,犯罪画像与审讯策略,CPT121,1898
+CPT187,神经心理学,Neuropsychology,应用领域,SCH15;SCH10,THY063,PSY021;PSY074,研究脑与行为/认知关系的分支学科,,中风患者认知评估,CPT127,1936
+CPT188,变态心理学,Abnormal Psychology,研究领域,SCH24,THY062,PSY008,研究心理异常与精神障碍的分支学科,,研究抑郁、焦虑与人格障碍,CPT065,1856
+CPT189,发展性障碍,Developmental Disorder,临床术语,SCH13;SCH24,THY026,PSY022,儿童发展里程碑延迟或异常的心理状态,,发育迟缓,CPT188,1958
+CPT190,精神障碍,Mental Disorder,临床术语,SCH24,THY062,PSY008,与显著痛苦、功能损害相关的心理状态,心理疾病,重度抑郁障碍,CPT188,1856
+CPT191,诊断,Diagnosis,临床术语,SCH24;SCH32,THY062,PSY008,依据分类系统对精神障碍进行命名与分型的过程,,使用DSM-5对抑郁进行诊断,CPT190,1952
+CPT192,DSM诊断手册,DSM,临床术语,SCH24;SCH32,THY062,PSY008,美国精神医学会的精神障碍诊断与统计手册,精神障碍诊断手册,使用DSM-5分类抑郁,CPT190,1952
+CPT193,ICD国际疾病分类,ICD,临床术语,SCH24;SCH32,THY062,PSY008,世界卫生组织发布的国际疾病分类，含精神障碍章节,国际疾病分类,使用ICD-11分类抑郁,CPT190,1948
+CPT194,焦虑症,Anxiety Disorder,临床术语,SCH16;SCH24,THY048,PSY044,以过度焦虑为核心症状的精神障碍群,,社交焦虑障碍,CPT119,1960
+CPT195,抑郁症,Depression,临床术语,SCH16;SCH24,THY047,PSY043,以持久低落情绪与动力丧失为核心症状的精神障碍,,重度抑郁障碍,CPT097,1960
+CPT196,强迫症,Obsessive-Compulsive Disorder,临床术语,SCH16;SCH24,THY048,PSY044,以强迫思维与强迫行为为核心症状的精神障碍,,反复检查门锁,CPT194,1980
+CPT197,创伤后应激障碍,PTSD,临床术语,SCH24;SCH16,THY048,PSY044,创伤后出现闪回、回避与高警觉的精神障碍,创伤后应激障碍,经历过事故后的反复噩梦,CPT190,1980
+CPT198,精神分裂症,Schizophrenia,临床术语,SCH24,THY062,PSY008,以幻觉、妄想与认知紊乱为特征的重度精神障碍,,幻听与被害妄想,CPT190,1911
+CPT199,双相情感障碍,Bipolar Disorder,临床术语,SCH24,THY062,PSY008,以情绪在躁狂与抑郁之间交替为特征的精神障碍,,躁狂期与抑郁期交替,CPT195,1970
+CPT200,人格障碍,Personality Disorder,临床术语,SCH24;SCH25,THY062,PSY008,长期稳定偏离常态、影响人际与功能的心理模式,人格障碍,边缘人格障碍,CPT101,1980

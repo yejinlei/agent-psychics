@@ -1,0 +1,70 @@
+id,name_zh,name_en,iso3,flag_region
+N01,中国,China,CHN,东亚
+N02,美国,United States,USA,北美
+N03,英国,United Kingdom,GBR,欧洲
+N04,德国,Germany,DEU,欧洲
+N05,法国,France,FRA,欧洲
+N06,奥地利,Austria,AUT,欧洲
+N07,瑞士,Switzerland,CHE,欧洲
+N08,意大利,Italy,ITA,欧洲
+N09,俄罗斯,Russia,RUS,欧洲
+N10,荷兰,Netherlands,NLD,欧洲
+N11,丹麦,Denmark,DNK,欧洲
+N12,瑞典,Sweden,SWE,欧洲
+N13,挪威,Norway,NOR,欧洲
+N14,芬兰,Finland,FIN,欧洲
+N15,波兰,Poland,POL,欧洲
+N16,西班牙,Spain,ESP,欧洲
+N17,葡萄牙,Portugal,PRT,欧洲
+N18,希腊,Greece,GRC,欧洲
+N19,比利时,Belgium,BEL,欧洲
+N20,捷克,Czech Republic,CZE,欧洲
+N21,冰岛,Iceland,ISL,欧洲
+N22,爱尔兰,Ireland,IRL,欧洲
+N23,乌克兰,Ukraine,UKR,欧洲
+N24,澳大利亚,Australia,AUS,大洋洲
+N25,新西兰,New Zealand,NZL,大洋洲
+N26,加拿大,Canada,CAN,北美
+N27,墨西哥,Mexico,MEX,北美
+N28,巴西,Brazil,BRA,南美
+N29,阿根廷,Argentina,ARG,南美
+N30,智利,Chile,CHL,南美
+N31,哥伦比亚,Colombia,COL,南美
+N32,秘鲁,Peru,PER,南美
+N33,日本,Japan,JPN,东亚
+N34,韩国,South Korea,KOR,东亚
+N35,蒙古,Mongolia,MNG,东亚
+N36,中国台湾,Taiwan,TWN,东亚
+N37,中国香港,Hong Kong,HKG,东亚
+N38,中国澳门,Macau,MAC,东亚
+N39,印度,India,IND,南亚
+N40,巴基斯坦,Pakistan,PAK,南亚
+N41,孟加拉国,Bangladesh,BGD,南亚
+N42,斯里兰卡,Sri Lanka,LKA,南亚
+N43,尼泊尔,Nepal,NPL,南亚
+N44,泰国,Thailand,THA,东南亚
+N45,越南,Vietnam,VNM,东南亚
+N46,印尼,Indonesia,IDN,东南亚
+N47,菲律宾,Philippines,PHL,东南亚
+N48,马来西亚,Malaysia,MYS,东南亚
+N49,新加坡,Singapore,SGP,东南亚
+N50,缅甸,Myanmar,MMR,东南亚
+N51,柬埔寨,Cambodia,KHM,东南亚
+N52,老挝,Laos,LAO,东南亚
+N53,东帝汶,East Timor,TLS,东南亚
+N54,以色列,Israel,ISR,中东
+N55,伊朗,Iran,IRN,中东
+N56,土耳其,Turkey,TUR,中东
+N57,沙特阿拉伯,Saudi Arabia,SAU,中东
+N58,阿联酋,United Arab Emirates,UAE,中东
+N59,埃及,Egypt,EGY,中东
+N60,摩洛哥,Morocco,MAR,中东
+N61,突尼斯,Tunisia,TUN,非洲
+N62,南非,South Africa,ZAF,非洲
+N63,尼日利亚,Nigeria,NGA,非洲
+N64,肯尼亚,Kenya,KEN,非洲
+N65,埃塞俄比亚,Ethiopia,ETH,非洲
+N66,坦桑尼亚,Tanzania,TZA,非洲
+N67,加纳,Ghana,GHA,非洲
+N68,塞内加尔,Senegal,SEN,非洲
+N69,阿尔及利亚,Algeria,DZA,非洲
