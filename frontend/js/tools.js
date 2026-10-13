@@ -121,16 +121,16 @@ async function runPanelConsult() {
 
     // === Round 2：顺序交锋（每位专家逐位回应前一位的具体论点）===
     setStatus('② 交锋中——每位专家须正面回应前一位的论点…');
-    await runRound2(q, experts, results1, { cfg, signal, appendRound });
+    const results2 = await runRound2(q, experts, results1, { cfg, signal, appendRound });
 
     // === Round 3：独立反思（先出，让主持人看到批评）===
     setStatus('③ 反思中——独立第三方审视辩论过程…');
-    const reflText = await runReflexion(q, experts, results1, { cfg, signal });
+    const reflText = await runReflexion(q, experts, results1, results2, { cfg, signal });
     appendReflexion(reflText);
 
     // === 综合点评（输入 = 开题 + 交锋 + 反思）===
     setStatus('④ 综合中——主持人汇总各方观点…');
-    await finalize(results1, { reflexion: reflText });
+    await finalize({ round1: results1, round2: results2 }, { reflexion: reflText });
   } catch (err) {
     if (err?.name === 'AbortError') return;
     appendStatusText(`会诊出错：${err.message}`);
@@ -188,6 +188,7 @@ async function runRound2(q, experts, prevResults, { cfg, signal, appendRound }) 
     .map(r => ({ name: r.expert.name_zh || r.expert.name_en, text: r.content }))
     .filter(s => s.text);
 
+  const collected = [];
   for (let i = 1; i < experts.length; i++) {
     const prev = prevSpokes[i - 1];
     if (!prev) continue;
@@ -199,7 +200,7 @@ async function runRound2(q, experts, prevResults, { cfg, signal, appendRound }) 
       maxTokens: 1200,
       signal,
     });
-    appendRound({
+    const item = {
       idx: i, expert: experts[i],
       content: content || '',
       ok: content != null,
@@ -207,16 +208,26 @@ async function runRound2(q, experts, prevResults, { cfg, signal, appendRound }) 
       ms: performance.now() - t0,
       round: 2,
       quoteFrom: prev.name,
-    });
+    };
+    appendRound(item);
+    if (item.ok && item.content) collected.push(item);
   }
+  return collected;
 }
 
 /* -------- Round 3：独立反思 -------- */
-async function runReflexion(q, experts, round1Results, { cfg, signal }) {
-  const transcript = round1Results.map(r => {
+async function runReflexion(q, experts, round1Results, round2Results, { cfg, signal }) {
+  const r1Block = round1Results.map(r => {
     const n = r.expert.name_zh || r.expert.name_en;
-    return `【${n}】\n${r.content}`;
+    return `【${n} · 开题】\n${r.content}`;
   }).join('\n\n---\n\n');
+  const r2Block = (round2Results || []).map(r => {
+    const n = r.expert.name_zh || r.expert.name_en;
+    return `【${n} · 交锋，回应 ${r.quoteFrom}】\n${r.content}`;
+  }).join('\n\n---\n\n');
+  const transcript = r2Block
+    ? `${r1Block}\n\n==========\n\n${r2Block}`
+    : r1Block;
   const names = experts.map(e => e.name_zh || e.name_en).join('、');
 
   const system = `你是一位**独立方法学批评者**，身份不属于本场任何专家，也没有学派归属。
@@ -457,8 +468,13 @@ function openPanelResults(question, experts) {
     },
 
     finalize: async (results, opts) => {
-      const okResults = results.filter(r => r.ok && r.content);
-      if (okResults.length === 0) {
+      // results 可以是 { round1, round2 } 或旧的数组形式
+      const { round1, round2 } = Array.isArray(results)
+        ? { round1: results, round2: [] }
+        : { round1: results?.round1 || [], round2: results?.round2 || [] };
+      const okR1 = round1.filter(r => r.ok && r.content);
+      const okR2 = round2.filter(r => r.ok && r.content);
+      if (okR1.length === 0) {
         summaryEl.style.display = 'block';
         summaryEl.innerHTML = '<p>⚠ 全部专家生成失败，请检查 LLM 配置或网络。</p>';
         runBtn.style.display = '';
@@ -467,11 +483,15 @@ function openPanelResults(question, experts) {
       }
 
       try {
-        const expertText = okResults.map(r => {
+        const r1Text = okR1.map(r => {
           const n = r.expert.name_zh || r.expert.name_en;
           return `【${n} · 开题】\n${r.content}`;
         }).join('\n\n---\n\n');
-        const refl = opts?.reflexion ? `\n\n【独立反思者】\n${opts.reflexion}` : '';
+        const r2Text = okR2.map(r => {
+          const n = r.expert.name_zh || r.expert.name_en;
+          return `【${n} · 交锋，回应 ${r.quoteFrom}】\n${r.content}`;
+        }).join('\n\n---\n\n');
+        const refl = opts?.reflexion ? `\n\n=== 独立反思 ===\n【独立反思者】\n${opts.reflexion}` : '';
 
         const r = await chat({
           cfg: cfgHolder().cfg,
@@ -488,10 +508,10 @@ function openPanelResults(question, experts) {
 
 【约束】
 - 保持中立、清晰、避免诊断式语气
-- 每条结论后面用括注标注来源（例：（来自 ${okResults[0]?.expert?.name_zh || '专家A'}，或反思者指出…）
+- 每条结论后面用括注标注来源（例：（来自 ${okR1[0]?.expert?.name_zh || '专家A'}，或反思者指出…）
 - 不输出"作为AI"或"作为主持人"这类元话术
 - 回复 400-700 字` },
-            { role: 'user', content: `议题：${question}\n\n=== 开题 ===\n${expertText}${refl}` },
+            { role: 'user', content: `议题：${question}\n\n=== 开题 ===\n${r1Text}${r2Text ? `\n\n=== 交锋 ===\n${r2Text}` : ''}${refl}` },
           ],
           temperature: 0.5,
           maxTokens: 2000,
