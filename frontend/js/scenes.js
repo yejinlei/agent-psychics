@@ -676,6 +676,406 @@ async function runDialogCoach() {
 }
 
 /* ============================================================
+   场景 ⑤：心理沙盘（Jungian Sandplay · 单人版）
+   ------------------------------------------------------------
+   来访者摆沙盘：
+     · 从 30 件象征物里选 + 摆放位置
+     · 治疗师引导（Jung 经典 5 问） 或 多视角解读（4 视角并行）
+     · 产出"心理地图"：一句话 + 关键词标签
+   ============================================================ */
+
+const PS_OBJECTS = [
+  // 人
+  { cat: '人',     items: ['男人', '女人', '小孩', '老人', '孕妇', '军人', '僧侣', '医生'] },
+  // 动物
+  { cat: '动物',   items: ['狼', '狮子', '熊', '鹿', '兔子', '鸟', '蛇', '鱼'] },
+  // 植物
+  { cat: '植物',   items: ['大树', '小树', '花', '树桩', '草', '仙人掌'] },
+  // 建筑
+  { cat: '建筑',   items: ['房子', '城堡', '教堂', '学校', '桥', '门', '墙'] },
+  // 自然
+  { cat: '自然',   items: ['太阳', '月亮', '星星', '山', '河', '海', '云', '石头'] },
+  // 抽象
+  { cat: '抽象',   items: ['眼睛', '镜子', '钥匙', '书', '十字架', '心', '铃铛'] },
+  // 危险
+  { cat: '危险',   items: ['刀', '火', '子弹', '监狱', '血'] },
+];
+const PS_LOCATIONS = ['左上角', '左中', '左下角', '正上方', '中心', '正下方', '右上角', '右中', '右下角', '深埋在沙中'];
+
+const PS_THERAPIST_QUESTIONS = [
+  { key: 'feel', q: '你摆完这个沙盘的第一感受是什么？身体哪里先动起来？（胸口/喉咙/肚子/手…）' },
+  { key: 'story', q: '如果这个沙盘有一个故事，故事开头的第一句是什么？不用管逻辑。' },
+  { key: 'conflict', q: '沙盘里哪两样东西看起来最"紧张"或最"想靠近"？说说是哪两个。' },
+  { key: 'absent', q: '看着整个沙盘，你希望里面再多一样什么？或哪一样本该在但其实不在？' },
+  { key: 'close', q: '如果这个沙盘是你内心的今天，你想给它取什么名字？' },
+];
+
+export function openSandplay() {
+  openDialog('dlg-sandplay');
+  psTray = [];
+  psTherapistState = null;
+  document.getElementById('ps-scene-hint').value = '';
+  document.getElementById('ps-object-grid').innerHTML = '';
+  document.getElementById('ps-tray').innerHTML = '';
+  document.getElementById('ps-result').style.display = 'none';
+  document.getElementById('ps-result').innerHTML = '';
+  document.getElementById('ps-therapist-log').innerHTML = '';
+  document.getElementById('ps-therapist-current').innerHTML = '';
+  document.getElementById('ps-therapist-answer').value = '';
+  document.getElementById('ps-therapist-answer').style.display = 'none';
+  document.getElementById('ps-therapist-answer').disabled = false;
+  document.getElementById('ps-therapist-q').textContent = '';
+  document.getElementById('ps-therapist-status').textContent = '';
+  document.getElementById('ps-run-therapist').style.display = '';
+  document.getElementById('ps-run-multi').style.display = '';
+  document.getElementById('ps-undo-btn').style.display = 'none';
+  document.getElementById('ps-status').textContent = '';
+  renderPsObjectGrid();
+  renderPsTray();
+}
+
+function renderPsObjectGrid() {
+  const grid = document.getElementById('ps-object-grid');
+  grid.innerHTML = '';
+  PS_OBJECTS.forEach(group => {
+    const div = document.createElement('div');
+    div.className = 'ps-cat';
+    div.innerHTML = `<div class="ps-cat-name">${group.cat}</div><div class="ps-cat-items"></div>`;
+    const items = div.querySelector('.ps-cat-items');
+    group.items.forEach(name => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'ps-obj';
+      btn.textContent = name;
+      btn.dataset.name = name;
+      btn.onclick = () => openPsPositionPicker(name).then(sel => {
+        if (sel) { psTray.push(sel); renderPsTray(); }
+      });
+      items.appendChild(btn);
+    });
+    grid.appendChild(div);
+  });
+}
+
+/** 弹出位置选择器，选定后写入沙盘 */
+function openPsPositionPicker(objName) {
+  return new Promise((resolve) => {
+    const modal = document.createElement('div');
+    modal.className = 'ps-pos-overlay';
+    modal.innerHTML = `
+      <div class="ps-pos-modal">
+        <div class="ps-pos-title">你要把「${escapeHtml(objName)}」放在沙盘的哪里？</div>
+        <div class="ps-pos-grid">
+          ${PS_LOCATIONS.map((loc, i) => `<button type="button" class="ps-pos" data-loc="${escapeHtml(loc)}" data-i="${i}">${escapeHtml(loc)}</button>`).join('')}
+        </div>
+        <div class="ps-pos-hint">沙盘位置本身就是象征：中心=自我；深处=被压抑；边角=回避；成对出现=关系；孤立=孤独。</div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) { modal.remove(); resolve(null); return; }
+      const btn = e.target.closest('.ps-pos');
+      if (!btn) return;
+      modal.remove();
+      resolve({ objName, loc: btn.dataset.loc });
+    });
+  });
+}
+
+/** 当前沙盘状态（闭包内 module-level 变量：方便 undo） */
+let psTray = [];
+
+function renderPsTray() {
+  const tray = document.getElementById('ps-tray');
+  tray.innerHTML = '';
+  if (!psTray.length) {
+    tray.innerHTML = '<div class="ps-tray-empty">（沙盘是空的，从上方点物件放入）</div>';
+    return;
+  }
+  psTray.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.className = 'ps-tray-row';
+    row.innerHTML = `
+      <span class="ps-tray-idx">${i + 1}</span>
+      <span class="ps-tray-loc">${escapeHtml(item.loc)}</span>
+      <span class="ps-tray-obj">${escapeHtml(item.objName)}</span>
+      <button type="button" class="ps-tray-del" data-i="${i}" title="移除">✕</button>
+    `;
+    tray.appendChild(row);
+  });
+  tray.querySelectorAll('.ps-tray-del').forEach(btn => {
+    btn.onclick = () => {
+      const i = parseInt(btn.dataset.i, 10);
+      psTray.splice(i, 1);
+      renderPsTray();
+    };
+  });
+}
+
+/** 治疗师引导 —— 逐题推进 */
+let psTherapistState = null;
+async function runPsTherapist() {
+  if (psTray.length < 3) { alert('请先至少摆 3 件物件'); return; }
+  if (!isLlmConfigured(cfgHolder()?.cfg)) { alert('请先在右上角"设置"里配置 LLM。'); return; }
+
+  const status = document.getElementById('ps-status');
+  const log = document.getElementById('ps-therapist-log');
+  const cur = document.getElementById('ps-therapist-current');
+  const qEl = document.getElementById('ps-therapist-q');
+  const ansInput = document.getElementById('ps-therapist-answer');
+  const runBtn = document.getElementById('ps-run-therapist');
+  runBtn.style.display = 'none';
+  document.getElementById('ps-therapist-area').style.display = '';
+  log.innerHTML = '';
+
+  const sceneHint = document.getElementById('ps-scene-hint').value.trim();
+  psTherapistState = {
+    tray: [...psTray],
+    sceneHint,
+    qa: [],       // [{key, q, a}]
+    step: 0,
+  };
+
+  try {
+    while (psTherapistState.step < PS_THERAPIST_QUESTIONS.length) {
+      const item = PS_THERAPIST_QUESTIONS[psTherapistState.step];
+      cur.style.display = '';
+
+      // 清理上一轮遗留：只保留 qEl + ansInput（保留引用）
+      [...cur.querySelectorAll(':scope > .ps-therapist-preface')].forEach(n => n.remove());
+      [...cur.querySelectorAll(':scope > .ps-therapist-ok')].forEach(n => n.remove());
+
+      qEl.textContent = `${psTherapistState.step + 1}/${PS_THERAPIST_QUESTIONS.length} · 治疗师问：${item.q}`;
+      ansInput.value = '';
+      ansInput.style.display = '';
+      ansInput.disabled = false;
+
+      // 生成一段基于当前沙盘 + 已有对话的"治疗师旁白"
+      const convo = psTherapistState.qa.map(x => `Q: ${x.q}\nA: ${x.a}`).join('\n\n');
+      const preface = await chat({
+        cfg: cfgHolder().cfg,
+        messages: [
+          { role: 'system', content: `你是 Jungian 沙盘游戏治疗师，正在引导来访者探索 TA 摆的沙盘。
+沙盘内容：${psTray.map(x => `${x.objName} @ ${x.loc}`).join('；')}${sceneHint ? `\n来访者的场景提示：${sceneHint}` : ''}
+
+请以简短、温和、不评判、不带结论的方式，用 2-3 句话向来访者"描述你看到的沙盘整体氛围"（不是提问，是叙述你感受到的东西）。用第一人称"我"。避免心理学术语，避免"作为AI"这类话术。120-180 字。` },
+          { role: 'user', content: `之前的对话：\n${convo || '（还没开始）'}\n\n请描述你当下看到的沙盘整体氛围。` },
+        ],
+        temperature: 0.6,
+        maxTokens: 400,
+      });
+
+      const prefaceText = preface.content || '（无）';
+      // 插到 cur 最前面（preface → qEl → ansInput → okBtn）
+      const prefaceDiv = document.createElement('div');
+      prefaceDiv.className = 'ps-therapist-preface';
+      prefaceDiv.innerHTML = renderMdLite(prefaceText);
+      cur.insertBefore(prefaceDiv, qEl);
+
+      const okBtn = document.createElement('button');
+      okBtn.type = 'button';
+      okBtn.className = 'ps-therapist-ok';
+      okBtn.textContent = '继续 →';
+      cur.appendChild(okBtn);
+
+      // 等用户输入
+      const ans = await new Promise((resolve) => {
+        const done = () => {
+          const v = ansInput.value.trim();
+          if (!v) { alert('至少说几个字，或者写"跳过"'); return; }
+          ansInput.disabled = true;
+          ansInput.style.display = 'none';
+          okBtn.disabled = true;
+          okBtn.style.opacity = '0.5';
+          resolve(v === '跳过' || v === 'skip' ? '（来访者沉默/跳过）' : v);
+        };
+        ansInput.onkeydown = (e) => { if (e.key === 'Enter') done(); };
+        okBtn.onclick = done;
+        ansInput.focus();
+      });
+
+      psTherapistState.qa.push({ key: item.key, q: item.q, a: ans });
+
+      // 追加到 log
+      const logItem = document.createElement('div');
+      logItem.className = 'ps-therapist-turn';
+      logItem.innerHTML = `
+        <div class="ps-turn-q">🩺 治疗师：${escapeHtml(item.q)}</div>
+        <div class="ps-turn-a">🧑 来访者：${escapeHtml(ans)}</div>
+      `;
+      log.appendChild(logItem);
+
+      psTherapistState.step += 1;
+    }
+    // 5 问完成
+    cur.style.display = '';
+    cur.innerHTML = '<div class="ps-therapist-done">✅ 5 问完成，正在生成你的心理地图…</div>';
+
+    // 生成最终"心理地图"
+    status.textContent = '🗺 正在绘制你的心理地图…';
+    const qaText = psTherapistState.qa.map(x => `Q: ${x.q}\nA: ${x.a}`).join('\n\n---\n\n');
+    const trayText = psTray.map(x => `${x.objName}（${x.loc}）`).join('；');
+    const r = await chat({
+      cfg: cfgHolder().cfg,
+      messages: [
+        { role: 'system', content: `你是 Jungian 沙盘治疗师，请基于沙盘物件摆放 + 5 问问答，输出来访者的"心理地图"。
+
+结构（严格按此输出，中文，400-650 字）：
+
+**一句话意象**：用一句话描述这个沙盘整体的内在状态（不超过 20 字，如"一个带着旧钥匙的人站在没有门的墙前"）
+
+**关键词标签**：5-8 个 tag（每个 2-4 字），涵盖：核心意象 / 情绪基调 / 内在冲突 / 潜在资源 / 隐藏诉求
+
+**关系动力学**（100-150 字）：沙盘里的物件之间暗含什么关系？哪些在对峙、哪些在靠近、哪些孤立？
+
+**未说出口的话**（80-120 字）：来访者通过这次摆放"表达"了什么但没直接说？
+
+**下一步实验**：给来访者 1 条可以在真实生活里做的小行动（不是心理建议，是身体层面的具体行动，如"今晚睡前把这个物件从左手换到右手"）。
+
+【约束】
+- 不下诊断（不说"你有创伤""你焦虑"）
+- 用"我看到/我注意到/我想到"这种观察式语言
+- 不输出"作为AI"这类话术` },
+        { role: 'user', content: `沙盘（按位置）：${trayText}${sceneHint ? `\n场景提示：${sceneHint}` : ''}\n\n=== 5 问对话 ===\n${qaText}` },
+      ],
+      temperature: 0.5,
+      maxTokens: 1400,
+    });
+
+    const resultEl = document.getElementById('ps-result');
+    resultEl.style.display = '';
+    resultEl.innerHTML = `<div class="ps-map-title">🗺 你的心理地图</div>${renderMdLite(r.content || '（生成失败）')}`;
+    document.getElementById('ps-iterate-inline').style.display = '';
+    status.textContent = '';
+  } catch (err) {
+    status.textContent = `⚠ 出错：${err.message || err}`;
+  } finally {
+    runBtn.style.display = '';
+  }
+}
+
+/** 多视角解读（4 视角并行） */
+async function runPsMultiPerspective() {
+  if (psTray.length < 3) { alert('请先至少摆 3 件物件'); return; }
+  if (!isLlmConfigured(cfgHolder()?.cfg)) { alert('请先在右上角"设置"里配置 LLM。'); return; }
+
+  const status = document.getElementById('ps-status');
+  const runBtn = document.getElementById('ps-run-multi');
+  runBtn.style.display = 'none';
+  status.textContent = '🔮 4 个学派正在并行解读你的沙盘…';
+
+  const sceneHint = document.getElementById('ps-scene-hint').value.trim();
+  const trayText = psTray.map(x => `${x.objName}（${x.loc}）`).join('；');
+  const perspectives = [
+    { name: '荣格 · 集体无意识',   stance: '原型、阴影、自性、集体象征' },
+    { name: '客体关系',           stance: '内部客体、依恋、内化关系' },
+    { name: '家庭系统',           stance: '代际模式、三角化、循环' },
+    { name: '认知图式',           stance: '早期适应不良图式、信念' },
+  ];
+
+  try {
+    const results = await Promise.all(perspectives.map(async p => {
+      const r = await chat({
+        cfg: cfgHolder().cfg,
+        messages: [
+          { role: 'system', content: `你是从**${p.name}**看沙盘的治疗师。立场：${p.stance}。
+
+【输出（严格按此，200-320 字）】
+1. **核心象征**：从这个学派看，沙盘里最有诊断价值的 1-2 个物件是哪些？为什么？
+2. **动力假设**：这个沙盘在"讲述"什么样的内在过程？
+3. **一句反问**：给来访者留一个可以从这个学派出发的思考题。
+
+约束：假设式语言（"可能""也许"），不做诊断，不用"作为AI"。` },
+          { role: 'user', content: `沙盘（按位置）：${trayText}${sceneHint ? `\n场景提示：${sceneHint}` : ''}` },
+        ],
+        temperature: 0.65,
+        maxTokens: 700,
+      });
+      return { ...p, content: r.content || '' };
+    }));
+
+    // 生成"多视角对比"
+    status.textContent = '🌈 正在整合四视角…';
+    const four = results.map(r => `【${r.name}】\n${r.content}`).join('\n\n---\n\n');
+    const summaryR = await chat({
+      cfg: cfgHolder().cfg,
+      messages: [
+        { role: 'system', content: `你是沙盘治疗工作坊主持人。请对比 4 个学派的解读，输出：
+
+**共识**：四派都同意看到的物件或动力（1-2 条）
+**分歧**：同一物件被不同学派赋予的不同含义（举 1-2 例）
+**给来访者的 3 个选择**：三个方向不同的追问，来访者可以自选一个深聊
+**保留意见**：哪个学派的解读证据最少、仅供参考
+
+300-500 字。不代替来访者下结论。` },
+        { role: 'user', content: `沙盘：${trayText}\n\n=== 四视角解读 ===\n${four}` },
+      ],
+      temperature: 0.5,
+      maxTokens: 1200,
+    });
+
+    const resultEl = document.getElementById('ps-result');
+    resultEl.style.display = '';
+    let html = `<div class="ps-map-title">🌈 四视角解读</div>`;
+    results.forEach(r => {
+      html += `<div class="ps-view-card"><div class="ps-view-name">${escapeHtml(r.name)}</div><div class="ps-view-stance">${escapeHtml(r.stance)}</div><div class="ps-view-body">${renderMdLite(r.content)}</div></div>`;
+    });
+    html += `<div class="ps-view-summary">${renderMdLite(summaryR.content || '')}</div>`;
+    resultEl.innerHTML = html;
+    status.textContent = '';
+  } catch (err) {
+    status.textContent = `⚠ 出错：${err.message || err}`;
+  } finally {
+    runBtn.style.display = '';
+  }
+}
+
+/** 沙盘迭代修改：告诉 AI 你改了什么，让它对比解读 */
+async function runPsIterate() {
+  if (!psTherapistState || !psTherapistState.qa.length) {
+    alert('请先跑完一次"治疗师引导"，才能对比改动。');
+    return;
+  }
+  const newHint = document.getElementById('ps-iterate-hint').value.trim();
+  if (!newHint) { alert('请描述你这次改了什么（比如"我把城堡挪到中心，把狼换成了鹿"）'); return; }
+  if (!isLlmConfigured(cfgHolder()?.cfg)) { alert('请先在右上角"设置"里配置 LLM。'); return; }
+
+  const status = document.getElementById('ps-status');
+  const resultEl = document.getElementById('ps-result');
+  status.textContent = '🔁 正在对比改动前后的意义变化…';
+
+  const trayText = psTray.map(x => `${x.objName}（${x.loc}）`).join('；');
+  const qaText = psTherapistState.qa.map(x => `Q: ${x.q}\nA: ${x.a}`).join('\n');
+  try {
+    const r = await chat({
+      cfg: cfgHolder().cfg,
+      messages: [
+        { role: 'system', content: `你是沙盘治疗师，来访者刚刚改动了沙盘。请对比：
+
+1. **改动点识别**：TA 具体改了什么？（挪位置 / 换物件 / 加 / 删）
+2. **改动的"心理含义"**：从 TA 的改动里，你能看出 TA 想让什么浮现、想让什么消失？
+3. **一个反问**：给 TA 留一个能从这次改动继续深挖的问题
+4. **注意**：如果改动很小或没有清晰动机，也如实说"我看不到明显动机，请 TA 告诉我为什么改"
+
+150-250 字。不用术语，不下诊断。` },
+        { role: 'user', content: `改动前的沙盘问答（作为参考）：\n${qaText}\n\n改动后的沙盘：${trayText}\n\n来访者自述的改动：「${newHint}」` },
+      ],
+      temperature: 0.55,
+      maxTokens: 700,
+    });
+    resultEl.style.display = '';
+    resultEl.innerHTML = `<div class="ps-map-title">🔁 改动前后对比</div>${renderMdLite(r.content || '')}`;
+    status.textContent = '';
+  } catch (err) {
+    status.textContent = `⚠ 出错：${err.message || err}`;
+  }
+}
+
+/* ============================================================
+   场景 ⑤ 结束
+   ============================================================ */
+
+/* ============================================================
    场景路由
    ------------------------------------------------------------
    供 tools.js 主路由调用：scenes.openByMode(mode)
@@ -686,6 +1086,7 @@ export function openByMode(mode) {
     case 'ethics':  return openEthicsDilemma();
     case 'dream':   return openDreamWorkshop();
     case 'coach':   return openDialogCoach();
+    case 'sandplay':return openSandplay();
     default:        return false;
   }
 }
@@ -704,6 +1105,7 @@ export function bindSceneEvents() {
     'btn-ed-close': 'dlg-ethics',
     'btn-dw-close': 'dlg-dream',
     'btn-dc-close': 'dlg-coach',
+    'btn-ps-close': 'dlg-sandplay',
   };
   Object.entries(closeMap).forEach(([btnId, dlgId]) => {
     document.getElementById(btnId)?.addEventListener('click', () => closeDialog(dlgId));
@@ -714,15 +1116,20 @@ export function bindSceneEvents() {
     'ed-run-btn':   runEthicsDilemma,
     'dw-run-btn':   runDreamWorkshop,
     'dc-run-btn':   runDialogCoach,
+    'ps-run-therapist': runPsTherapist,
+    'ps-run-multi':     runPsMultiPerspective,
+    'ps-run-iterate':   runPsIterate,
+    'ps-reset-btn':     () => { psTray = []; psTherapistState = null; renderPsTray(); document.getElementById('ps-result').style.display = 'none'; document.getElementById('ps-result').innerHTML = ''; document.getElementById('ps-therapist-area').style.display = 'none'; document.getElementById('ps-therapist-log').innerHTML = ''; document.getElementById('ps-therapist-current').innerHTML = ''; document.getElementById('ps-therapist-current').style.display = 'none'; document.getElementById('ps-therapist-q').textContent = ''; document.getElementById('ps-therapist-answer').value = ''; document.getElementById('ps-therapist-answer').style.display = 'none'; document.getElementById('ps-therapist-answer').disabled = false; document.getElementById('ps-status').textContent = ''; },
   };
   Object.entries(runMap).forEach(([btnId, runner]) => {
     document.getElementById(btnId)?.addEventListener('click', runner);
   });
+  // 沙盘物件的 onclick 已直接绑定在 renderPsObjectGrid 里，不再需要 grid 事件委托
   // 重新抽签 / 再来一次
   document.getElementById('ed-redraw-btn')?.addEventListener('click', openEthicsDilemma);
   document.getElementById('ds-restart-btn')?.addEventListener('click', openDramaSandbox);
   // 遮罩点击关闭
-  ['dlg-drama', 'dlg-ethics', 'dlg-dream', 'dlg-coach'].forEach(id => {
+  ['dlg-drama', 'dlg-ethics', 'dlg-dream', 'dlg-coach', 'dlg-sandplay'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     el.addEventListener('click', (e) => {

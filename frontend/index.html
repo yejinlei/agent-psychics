@@ -607,7 +607,7 @@
 
             <div class="panel-section">
               <h3><span class="h3-icon">🎬</span>创意实验场</h3>
-              <p class="counsel-lead">4 个心理学实验型交互，帮你看见自己看不见的关系模式与思维盲区。</p>
+              <p class="counsel-lead">5 个心理学实验型交互，帮你看见自己看不见的关系模式与思维盲区。</p>
               <div class="counsel-quick">
                 <button class="cq-item cq-scene" data-mode="drama">
                   <span class="cq-icon">🎭</span>
@@ -640,6 +640,14 @@
                     <span class="cq-desc">说出口前的四维反馈</span>
                   </div>
                   <span class="cq-effort low">低</span>
+                </button>
+                <button class="cq-item cq-scene" data-mode="sandplay">
+                  <span class="cq-icon">🪶</span>
+                  <div class="cq-body">
+                    <span class="cq-title">心理沙盘</span>
+                    <span class="cq-desc">Jung 5 问 · 或 4 视角解读</span>
+                  </div>
+                  <span class="cq-effort mid">中</span>
                 </button>
               </div>
             </div>
@@ -1331,6 +1339,55 @@
     </div>
     <div class="dlg-actions">
       <button type="button" id="dc-run-btn" class="btn-primary">🎯 分析我的说法</button>
+    </div>
+  </dialog>
+
+  <!-- ========== 场景⑤：心理沙盘（Jungian Sandplay） ========== -->
+  <dialog id="dlg-sandplay" class="dlg dlg-tool" style="max-width:920px;">
+    <div class="dlg-head">
+      <div>
+        <h2>🪶 心理沙盘</h2>
+        <p class="note">从 30 件象征物里选几件摆一个"内在世界"。治疗师会问 5 个问题挖掘沙盘背后的意义，或 4 个学派并行解读。</p>
+      </div>
+      <button type="button" class="dlg-close" id="btn-ps-close" aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="dlg-body tool-body">
+      <div class="ps-scene-hint">
+        <label>场景提示（可选，例：最近一直失眠、总梦见小时候的家、感觉被压着）</label>
+        <input type="text" id="ps-scene-hint" maxlength="120" />
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div>
+          <div style="font-size:12px; font-weight:700; color:#4b5563; margin-bottom:6px; letter-spacing:.05em;">① 从象征物里挑（点击加入沙盘）</div>
+          <div id="ps-object-grid" style="max-height:220px; overflow-y:auto; padding-right:4px;"></div>
+        </div>
+        <div>
+          <div style="font-size:12px; font-weight:700; color:#4b5563; margin-bottom:6px; letter-spacing:.05em;">② 你的沙盘（按位置）</div>
+          <div id="ps-tray" class="ps-tray"></div>
+          <button type="button" id="ps-reset-btn" style="margin-top:6px; padding:5px 12px; background:#f5f6f8; border:1px solid #e4e7ec; border-radius:6px; font-size:12px; color:#6b7280; cursor:pointer; font-family:inherit;">🗑 清空重来</button>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+        <button type="button" id="ps-run-therapist" class="btn-primary" style="flex:1;">🩺 治疗师引导（Jung 5 问）</button>
+        <button type="button" id="ps-run-multi" class="btn-primary" style="flex:1;">🔮 多视角解读（4 学派）</button>
+      </div>
+      <div id="ps-therapist-area" class="ps-therapist-area" style="display:none; margin-top:12px;">
+        <div id="ps-therapist-log"></div>
+        <div id="ps-therapist-current" class="ps-therapist-current" style="display:none;">
+          <div id="ps-therapist-q"></div>
+          <input type="text" id="ps-therapist-answer" maxlength="300" placeholder="输入你的回答，按 Enter 或点继续" style="display:none;" />
+        </div>
+      </div>
+      <div id="ps-status" class="tool-status" style="min-height:20px; margin:8px 0; font-size:13px;"></div>
+      <div id="ps-result" style="display:none;"></div>
+    </div>
+    <div class="dlg-actions">
+      <div style="display:none;" id="ps-iterate-inline">
+        <input type="text" id="ps-iterate-hint" maxlength="200" placeholder="你想再摆一次？描述你改动了什么…" style="flex:1; margin-right:8px;" />
+        <button type="button" id="ps-run-iterate" class="btn-primary">🔁 对比解读</button>
+      </div>
     </div>
   </dialog>
 

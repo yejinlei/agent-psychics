@@ -1158,6 +1158,7 @@ export function bindCqItems() {
         case 'ethics':
         case 'dream':
         case 'coach':
+        case 'sandplay':
           if (sceneOpenByMode(mode)) break;
           // fall through
         default:

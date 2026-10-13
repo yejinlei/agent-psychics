@@ -4736,3 +4736,226 @@ dialog.dlg-tool .tool-summary {
 #dc-feedback ul { padding-left: 20px; margin: 4px 0; }
 #dc-feedback ul li { margin: 3px 0; }
 
+/* ============================================================
+   场景 ⑤：心理沙盘（ps-*）
+   ============================================================ */
+.ps-scene-hint { margin-bottom: 12px; }
+.ps-scene-hint label {
+  display: block; font-size: 12px; font-weight: 700; color: #4b5563;
+  margin-bottom: 6px; letter-spacing: .05em;
+}
+.ps-scene-hint input {
+  width: 100%; padding: 8px 10px;
+  border: 1px solid #e4e7ec; border-radius: 6px;
+  font-size: 13px; font-family: inherit;
+  background: #ffffff; color: #1f2430;
+}
+.ps-scene-hint input:focus {
+  outline: none; border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, .15);
+}
+
+/* 物件库 */
+.ps-cat {
+  padding: 8px 10px; background: #ffffff;
+  border: 1px solid #e4e7ec; border-radius: 8px;
+  margin-bottom: 6px;
+}
+.ps-cat-name {
+  font-size: 11px; font-weight: 700; color: #6b7280;
+  margin-bottom: 6px; letter-spacing: .1em;
+  padding-bottom: 4px; border-bottom: 1px dashed #f0f1f5;
+}
+.ps-cat-items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.ps-obj {
+  padding: 6px 4px;
+  border: 1px solid #d1d5db; border-radius: 6px;
+  background: #fafafa; color: #1f2430;
+  font-size: 12.5px; font-family: inherit;
+  cursor: pointer; transition: all .15s;
+  font-weight: 500;
+}
+.ps-obj:hover {
+  background: #ede9fe; border-color: #8b5cf6;
+  color: #6d28d9; transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(139, 92, 246, .2);
+}
+.ps-obj:active { transform: translateY(0); }
+
+/* 沙盘区 */
+.ps-tray {
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #fefce8, #fff7ed);
+  border: 2px dashed #d4a574;
+  border-radius: 10px;
+  min-height: 60px;
+}
+.ps-tray-empty {
+  text-align: center; font-size: 12px; color: #92400e;
+  font-style: italic; padding: 8px 0;
+}
+.ps-tray-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 8px; margin: 4px 0;
+  background: #ffffff; border: 1px solid #fde68a;
+  border-radius: 6px; font-size: 13px;
+}
+.ps-tray-idx {
+  width: 22px; height: 22px;
+  background: #8b5cf6; color: #ffffff;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex: 0 0 22px;
+}
+.ps-tray-loc {
+  font-size: 11px; color: #6b7280;
+  background: #f5f6f8; padding: 2px 6px; border-radius: 4px;
+}
+.ps-tray-obj {
+  font-weight: 700; color: #1f2430; flex: 1;
+}
+.ps-tray-del {
+  background: transparent; border: none; color: #ef4444;
+  cursor: pointer; font-size: 14px; padding: 2px 6px;
+  border-radius: 4px; transition: background .15s;
+  font-family: inherit;
+}
+.ps-tray-del:hover { background: #fee2e2; }
+
+/* 位置选择器弹窗 */
+.ps-pos-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0, 0, 0, .6);
+  display: flex; align-items: center; justify-content: center;
+}
+.ps-pos-modal {
+  background: #ffffff;
+  border-radius: 12px; padding: 20px 24px;
+  max-width: 520px; width: 92%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+}
+.ps-pos-title {
+  font-size: 14px; font-weight: 700; color: #1f2430;
+  margin-bottom: 12px;
+}
+.ps-pos-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.ps-pos {
+  padding: 8px 4px;
+  border: 1px solid #e4e7ec; border-radius: 6px;
+  background: #f9fafb; color: #1f2430;
+  font-size: 12px; font-family: inherit;
+  cursor: pointer; transition: all .15s;
+  font-weight: 600;
+}
+.ps-pos:hover {
+  background: #8b5cf6; color: #ffffff; border-color: #8b5cf6;
+  transform: scale(1.05);
+}
+.ps-pos-hint {
+  font-size: 11px; color: #6b7280; line-height: 1.55;
+  padding: 8px 10px; background: #f9fafb;
+  border-radius: 6px; border-left: 3px solid #8b5cf6;
+}
+
+/* 结果区 */
+#ps-result {
+  padding: 14px 16px;
+  background: #f0fdfa;
+  border: 1px solid #99f6e4; border-left: 4px solid #14b8a6;
+  border-radius: 10px;
+  font-size: 13px; line-height: 1.7; color: #1f2430;
+}
+.ps-map-title {
+  font-size: 15px; font-weight: 700; color: #0f766e;
+  margin-bottom: 10px;
+  padding-bottom: 6px; border-bottom: 1px dashed #99f6e4;
+}
+
+/* 治疗师引导区 */
+.ps-therapist-area {
+  padding: 12px 14px;
+  background: #fefce8; border: 1px solid #fcd34d;
+  border-radius: 10px;
+}
+.ps-therapist-area > #ps-therapist-log { margin-bottom: 8px; }
+.ps-therapist-preface {
+  padding: 10px 12px;
+  background: #ffffff; border-left: 3px solid #8b5cf6;
+  border-radius: 0 8px 8px 0;
+  font-size: 13px; line-height: 1.7; color: #1f2430;
+  margin-bottom: 10px;
+}
+.ps-therapist-done {
+  text-align: center; font-size: 13px; color: #0f766e;
+  font-weight: 700; padding: 12px;
+}
+.ps-therapist-turn {
+  padding: 6px 10px;
+  background: #ffffff; border-radius: 6px;
+  margin-bottom: 4px; font-size: 12.5px;
+  border: 1px solid #fde68a;
+}
+.ps-turn-q { color: #6d28d9; font-weight: 600; }
+.ps-turn-a { color: #1f2430; }
+.ps-therapist-current {
+  margin-top: 8px; padding-top: 8px;
+  border-top: 1px dashed #fcd34d;
+}
+#ps-therapist-q {
+  font-size: 13px; color: #78350f; font-weight: 700;
+  margin-bottom: 6px;
+}
+#ps-therapist-answer {
+  width: 100%; padding: 8px 10px;
+  border: 1px solid #fcd34d; border-radius: 6px;
+  font-size: 13px; font-family: inherit;
+  background: #ffffff; color: #1f2430;
+  margin-bottom: 8px;
+}
+#ps-therapist-answer:focus {
+  outline: none; border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, .15);
+}
+.ps-therapist-ok {
+  padding: 6px 14px;
+  background: #8b5cf6; color: #ffffff;
+  border: none; border-radius: 6px;
+  font-size: 12.5px; font-weight: 700; cursor: pointer;
+  font-family: inherit;
+}
+.ps-therapist-ok:hover { background: #7c3aed; }
+
+/* 多视角卡片 */
+.ps-view-card {
+  padding: 12px 14px; background: #ffffff;
+  border: 1px solid #e4e7ec; border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 4px solid #8b5cf6;
+}
+.ps-view-name {
+  font-size: 14px; font-weight: 700; color: #1f2430;
+  margin-bottom: 4px;
+}
+.ps-view-stance {
+  font-size: 11px; color: #6b7280; margin-bottom: 8px;
+}
+.ps-view-body {
+  font-size: 13px; line-height: 1.7; color: #1f2430;
+}
+.ps-view-summary {
+  padding: 12px 14px;
+  background: #f5f3ff; border: 1px solid #ddd6fe;
+  border-left: 4px solid #8b5cf6;
+  border-radius: 10px;
+  font-size: 13px; line-height: 1.7; color: #1f2430;
+}
+
