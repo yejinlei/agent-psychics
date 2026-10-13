@@ -4359,3 +4359,104 @@ dialog.dlg-tool .btn-icon:disabled { opacity: .6; cursor: wait; }
 }
 .first-visit-notice b { color: #1e3a8a; }
 
+/* ============================================================
+   【T0 · 合规层】危机硬拦截卡 + 引用校验徽章
+   ============================================================ */
+
+/* 危机硬拦截卡：白底红边，跟普通气泡区分 */
+.crisis-intervene {
+  background: #fef2f2 !important;
+  border: 1px solid #fecaca !important;
+  border-left: 4px solid #dc2626;
+  border-radius: 10px;
+  padding: 14px 16px;
+  color: #1f2430;
+  white-space: normal;
+  max-width: 520px;
+}
+.crisis-intervene .ci-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #fecaca;
+}
+.crisis-intervene .ci-icon { font-size: 20px; line-height: 1; }
+.crisis-intervene .ci-title {
+  font-weight: 700; color: #b91c1c; font-size: 15px;
+}
+.crisis-intervene .ci-body { font-size: 13px; line-height: 1.7; color: #1f2430; }
+.crisis-intervene .ci-reason {
+  padding: 8px 10px; background: #ffffff;
+  border: 1px solid #fecaca; border-radius: 6px;
+  margin-bottom: 8px; font-size: 12px; color: #7f1d1d;
+}
+.crisis-intervene .ci-reason b { color: #b91c1c; }
+.crisis-intervene .ci-msg { margin-bottom: 10px; }
+.crisis-intervene .ci-msg b { color: #b91c1c; }
+.crisis-intervene .ci-hotlines {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 12px;
+}
+.crisis-intervene .ci-hot {
+  display: inline-flex; flex-direction: column;
+  padding: 6px 10px;
+  background: #ffffff;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  min-width: 110px;
+}
+.crisis-intervene .ci-hot b {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color: #b91c1c; font-size: 13px; font-weight: 700;
+  letter-spacing: .5px;
+}
+.crisis-intervene .ci-hot small {
+  font-size: 10.5px; color: #6b7280; margin-top: 1px;
+}
+.crisis-intervene .ci-actions {
+  display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap;
+}
+.crisis-intervene .ci-btn-primary {
+  padding: 8px 14px;
+  background: #dc2626; color: #ffffff;
+  border: none; border-radius: 6px;
+  font-size: 12.5px; font-weight: 700;
+  cursor: pointer; font-family: inherit;
+  transition: background .15s;
+}
+.crisis-intervene .ci-btn-primary:hover { background: #b91c1c; }
+.crisis-intervene .ci-btn-secondary {
+  padding: 8px 14px;
+  background: transparent; color: #6b7280;
+  border: 1px solid #e4e7ec; border-radius: 6px;
+  font-size: 12.5px;
+  cursor: pointer; font-family: inherit;
+  transition: all .15s;
+}
+.crisis-intervene .ci-btn-secondary:hover {
+  background: #f9fafb; border-color: #d1d5db; color: #374151;
+}
+
+/* 引用校验徽章：贴在气泡下方 */
+.cite-badge-row {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed #e4e7ec;
+}
+.cite-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 11px; font-weight: 600;
+  cursor: help;
+}
+.cite-badge-ok {
+  background: #ecfdf5; color: #059669;
+  border: 1px solid #a7f3d0;
+}
+.cite-badge-warn {
+  background: #fef2f2; color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+

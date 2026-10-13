@@ -15,13 +15,14 @@ import {
   listPsychologists, psychologistById, schoolById, listSchools,
 } from './ontology.js';
 import { orchestrator } from './agent.js';
-import { bindCqItems, bindDialogs, setCfgRef, openInfoDialog } from './tools.js';
+import { bindCqItems, bindDialogs, setCfgRef, openInfoDialog, openCrisisList } from './tools.js';
 import { initRegistry, get as agentGet } from './agents/registry.js';
 import * as memory from './memory.js';
 import * as ui from './ui.js';
 import * as counselor from './counselor.js';
 import { runConductor, CONDUCTOR_NAME, CONDUCTOR_EN } from './conductor.js';
 import * as hlt from './hlt.js';
+import { detectCrisis, crisisCardHtml, sanitizeCitations, citationBadgeHtml } from './safety.js';
 
 let cfg = loadConfig();
 let REGISTRY = null;
@@ -637,6 +638,16 @@ async function submit() {
   // 命令系统：/reset /exit /new /help
   if (handleCommand(text)) return;
 
+  // 【T0】危机硬拦截：命中高危关键词 → 不发 LLM、不路由、直接弹危机卡
+  // 学术/研究语气会先被 safety.js 白名单过滤掉
+  const crisis = detectCrisis(text);
+  if (crisis && crisis.level === 'high') {
+    input.value = '';
+    ui.renderUser(text);
+    renderCrisisIntervention(crisis);
+    return;
+  }
+
   // @ 命令解析：@counselor / @人名 / @学派名
   const mention = parseInlineAtMention(text);
   if (mention) {
@@ -994,6 +1005,25 @@ async function sendMessageViaConductor(text, { signal } = {}) {
 
     ui.addSpeakButton(shell, (preface ? preface + '\n\n' : '') + (full || reply));
 
+    // 【T0】引用校验：LLM 回复里的 [THYxxx] 等逐个查 ontology
+    // 未命中的替换为 [🔍 THYxxx]，并在气泡下方挂一条状态徽章
+    const prefaceFull = (preface ? preface + '\n\n' : '') + (full || reply);
+    const sanitized = sanitizeCitations(prefaceFull);
+    if (sanitized.total > 0 && sanitized.display !== prefaceFull) {
+      shell.bubble.textContent = sanitized.display;
+      // 回写已 push 到历史的最后一条 assistant 消息，避免污染下一轮上下文
+      const last = conductorHistory[conductorHistory.length - 1];
+      if (last && last.role === 'assistant') last.content = sanitized.display;
+      trimAndPersistConductor();
+    }
+    const citeBadgeHtml = citationBadgeHtml(sanitized);
+    if (citeBadgeHtml) {
+      const badge = document.createElement('div');
+      badge.className = 'cite-badge-row';
+      badge.innerHTML = citeBadgeHtml;
+      shell.actions.appendChild(badge);
+    }
+
     // 路由徽章
     if (result.route === 'counselor') {
       const st = counselor.getStage(result.counselorResult?.case?.stage || 'intake');
@@ -1273,6 +1303,24 @@ async function sendMessageToAgent(agent, text, { signal } = {}) {
       reason: `直接与 ${agent.name} 对话`,
     });
 
+    // 【T0】引用校验：LLM 回复里的 [THYxxx] 等逐个查 ontology
+    const sanitized = sanitizeCitations(full || reply);
+    if (sanitized.total > 0 && sanitized.display !== (full || reply)) {
+      if (full !== sanitized.display) {
+        full = sanitized.display;
+        shell.bubble.textContent = sanitized.display;
+        if (lockedHistory.length) lockedHistory[lockedHistory.length - 1].content = sanitized.display;
+        trimAndPersistLocked();
+      }
+    }
+    const citeBadgeHtml = citationBadgeHtml(sanitized);
+    if (citeBadgeHtml) {
+      const badge = document.createElement('div');
+      badge.className = 'cite-badge-row';
+      badge.innerHTML = citeBadgeHtml;
+      shell.actions.appendChild(badge);
+    }
+
     // HLT 交接拦截：agent 声明"不擅长"并给出候选 → 弹候选卡
     const hltResult = hlt.detectAndStrip(full || reply);
     if (hltResult.ids && hltResult.ids.length) {
@@ -1453,6 +1501,29 @@ function renderLockedChip(agent) {
 
 function escapeAttr(s) {
   return String(s == null ? '' : s).replace(/"/g, '&quot;');
+}
+
+/* ============================================================ */
+/* 危机硬拦截：本地渲染，不走 LLM                                */
+/* ============================================================ */
+
+function renderCrisisIntervention(crisis) {
+  const shell = ui.renderAgentShell({ agentName: `${CONDUCTOR_NAME} · 编排者`, role: 'conductor' });
+  lastShell = shell;
+  // 让气泡本身变成红卡容器，而不是套在普通气泡里
+  shell.bubble.className = 'bubble crisis-intervene';
+  shell.bubble.innerHTML = crisisCardHtml({ reason: crisis.reason, onMoreClickId: 'crisis-more-btn' });
+  document.getElementById('crisis-more-btn')?.addEventListener('click', () => {
+    try { openCrisisList(); } catch (_) {}
+  });
+  document.getElementById('crisis-more-btn-dismiss')?.addEventListener('click', () => {
+    shell.bubble.className = 'bubble';
+    shell.bubble.textContent = '好的。如果你之后需要，我随时在。';
+    ui.addSpeakButton(shell, '好的。如果你之后需要，我随时在。');
+  });
+  ui.addSpeakButton(shell,
+    '先停一下。我这里有一条危机支持卡片。请先看下面这几个热线号码。'
+  );
 }
 
 /* ============================================================ */
