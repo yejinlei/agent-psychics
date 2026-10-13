@@ -6,6 +6,7 @@
 import { chat } from './llm.js';
 import { isLlmConfigured } from './config.js';
 import { listPsychologists, psychologistById, getCrisisHelplines } from './ontology.js';
+import { openByMode as sceneOpenByMode } from './scenes.js';
 
 /* ============================================================
    通用：dialog 弹窗工具
@@ -1153,6 +1154,12 @@ export function bindCqItems() {
         case 'supervision':
           openSupervision();
           break;
+        case 'drama':
+        case 'ethics':
+        case 'dream':
+        case 'coach':
+          if (sceneOpenByMode(mode)) break;
+          // fall through
         default:
           if (el.querySelector('.cq-sub')) {
             // 未实现的团队模式 → 明确提示

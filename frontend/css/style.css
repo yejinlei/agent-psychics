@@ -4514,3 +4514,225 @@ dialog.dlg-tool .tool-summary {
   border: 1px solid #fecaca;
 }
 
+/* ============================================================
+   【创意实验场】4 场景专属样式
+   ds-*  关系动力学沙盘
+   ed-*  伦理困境辩论
+   dw-*  梦境解析工作坊
+   dc-*  对话教练
+   ============================================================ */
+
+/* cq-item 场景入口 —— 与 cq-item 一致，加个渐变 icon 底 */
+.cq-item.cq-scene { border-left: 3px solid var(--accent-3); }
+.cq-item.cq-scene .cq-icon {
+  background: linear-gradient(135deg, #f0e7ff, #e0f2fe);
+  width: 34px; height: 34px; display: inline-flex;
+  align-items: center; justify-content: center;
+  border-radius: 8px; font-size: 18px; flex: 0 0 auto;
+}
+
+/* ---------------- 场景 ①：关系动力学沙盘 ---------------- */
+.ds-seg {
+  padding: 12px 14px; background: #ffffff;
+  border: 1px solid #e4e7ec; border-radius: 10px;
+  margin-bottom: 10px;
+}
+.ds-seg-label {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; color: #6b7280;
+  background: #f5f6f8; padding: 3px 10px; border-radius: 10px;
+  margin-bottom: 8px; letter-spacing: .05em;
+}
+.ds-line {
+  display: flex; gap: 8px; align-items: flex-start;
+  margin-bottom: 8px;
+}
+.ds-line:last-child { margin-bottom: 0; }
+.ds-line.b { flex-direction: row-reverse; }
+.ds-avatar {
+  width: 32px; height: 32px; flex: 0 0 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #ffffff; font-weight: 700; font-size: 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 6px rgba(99, 102, 241, .25);
+}
+.ds-avatar.b {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  box-shadow: 0 2px 6px rgba(239, 68, 68, .22);
+}
+.ds-bubble {
+  flex: 1; padding: 8px 12px;
+  background: #f9fafb; border: 1px solid #eef0f4;
+  border-radius: 12px 12px 12px 4px;
+  font-size: 13px; line-height: 1.65; color: #1f2430;
+}
+.ds-bubble b {
+  display: block; font-size: 11px; color: #6366f1;
+  margin-bottom: 3px; font-weight: 700;
+}
+.ds-bubble.b {
+  background: #fef2f2; border-color: #fee2e2;
+  border-radius: 12px 12px 4px 12px;
+}
+.ds-bubble.b b { color: #b91c1c; }
+
+/* 暂停点输入框 */
+.ds-intervene {
+  padding: 12px 14px;
+  background: #fefce8; border: 1px dashed #f59e0b;
+  border-radius: 10px; margin-bottom: 10px;
+}
+.ds-intervene-head {
+  font-size: 13px; font-weight: 700; color: #78350f;
+  margin-bottom: 6px;
+}
+.ds-intervene-hint {
+  font-size: 12px; color: #92400e; margin-bottom: 8px; line-height: 1.5;
+}
+.ds-intervene-row {
+  display: flex; gap: 8px;
+}
+.ds-intervene-row input[type="text"] {
+  flex: 1; padding: 8px 10px;
+  border: 1px solid #fde68a; border-radius: 6px;
+  font-size: 13px; font-family: inherit;
+  background: #ffffff; color: #1f2430;
+}
+.ds-intervene-row input[type="text"]:focus {
+  outline: none; border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, .15);
+}
+.ds-intv-go {
+  padding: 8px 14px;
+  background: #f59e0b; color: #ffffff;
+  border: none; border-radius: 6px;
+  font-size: 12.5px; font-weight: 700; cursor: pointer;
+  font-family: inherit; transition: background .15s;
+}
+.ds-intv-go:hover { background: #d97706; }
+
+.ds-review-title {
+  font-size: 14px; font-weight: 700; color: #14532d;
+  margin-bottom: 8px;
+  padding-bottom: 6px; border-bottom: 1px dashed #bbf7d0;
+}
+#ds-review {
+  font-size: 13px; line-height: 1.7; color: #14532d;
+}
+
+/* ---------------- 场景 ②：伦理困境辩论 ---------------- */
+.ed-case-card {
+  padding: 12px 14px; background: #fefce8;
+  border: 1px solid #fcd34d; border-left: 4px solid #d97706;
+  border-radius: 8px;
+}
+.ed-case-focus {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; color: #92400e;
+  background: #fef3c7; padding: 2px 8px; border-radius: 8px;
+  margin-bottom: 6px; letter-spacing: .05em;
+}
+.ed-case-title {
+  font-size: 15px; font-weight: 700; color: #78350f;
+  margin-bottom: 6px;
+}
+.ed-case-desc {
+  font-size: 13px; line-height: 1.7; color: #1f2430;
+}
+
+.ed-card {
+  padding: 12px 14px; background: #ffffff;
+  border: 1px solid #e4e7ec; border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 4px solid var(--accent);
+}
+.ed-card.ed-card-opener { border-left-color: #6366f1; }
+.ed-card.ed-card-rebuttal { border-left-color: #ef4444; }
+.ed-card.ed-card-reflex {
+  border-left-color: #14b8a6;
+  background: #f0fdfa;
+}
+.ed-card-head {
+  display: flex; align-items: baseline; gap: 8px;
+  flex-wrap: wrap; margin-bottom: 6px;
+}
+.ed-card-name {
+  font-size: 14px; font-weight: 700; color: #1f2430;
+}
+.ed-card-stance {
+  font-size: 11.5px; color: #6b7280;
+}
+.ed-round-tag {
+  margin-left: auto;
+  font-size: 10.5px; font-weight: 700;
+  padding: 2px 8px; border-radius: 8px;
+  background: #f5f6f8; color: #4b5563;
+  letter-spacing: .05em;
+}
+.ed-quote-from {
+  font-size: 12px; color: #6b7280;
+  padding: 4px 8px; background: #f5f6f8;
+  border-radius: 4px; margin-bottom: 6px;
+}
+.ed-quote-from b { color: #b91c1c; }
+.ed-card-body {
+  font-size: 13px; line-height: 1.7; color: #1f2430;
+}
+
+.ed-summary-title {
+  font-size: 14px; font-weight: 700; color: #92400e;
+  margin-bottom: 8px;
+  padding-bottom: 6px; border-bottom: 1px dashed #fcd34d;
+}
+#ed-summary {
+  font-size: 13px; line-height: 1.7; color: #1f2430;
+}
+
+/* ---------------- 场景 ③：梦境解析工作坊 ---------------- */
+.dw-card {
+  padding: 12px 14px; background: #ffffff;
+  border: 1px solid #e4e7ec; border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 4px solid #8b5cf6;
+}
+.dw-card-head {
+  display: flex; align-items: baseline; gap: 8px;
+  flex-wrap: wrap; margin-bottom: 6px;
+}
+.dw-card-name {
+  font-size: 14px; font-weight: 700; color: #1f2430;
+}
+.dw-card-stance {
+  font-size: 11.5px; color: #6b7280;
+}
+.dw-card-body {
+  font-size: 13px; line-height: 1.7; color: #1f2430;
+}
+
+.dw-summary-title {
+  font-size: 14px; font-weight: 700; color: #4338ca;
+  margin-bottom: 8px;
+  padding-bottom: 6px; border-bottom: 1px dashed #a5b4fc;
+}
+#dw-summary {
+  font-size: 13px; line-height: 1.7; color: #1f2430;
+}
+
+/* ---------------- 场景 ④：对话教练 ---------------- */
+.dc-fb-title {
+  font-size: 14px; font-weight: 700; color: #854d0e;
+  margin-bottom: 10px;
+  padding-bottom: 6px; border-bottom: 1px dashed #fde68a;
+}
+#dc-feedback {
+  font-size: 13px; line-height: 1.7; color: #1f2430;
+}
+#dc-feedback h2 {
+  font-size: 13px; font-weight: 700; color: #1f2430;
+  margin: 10px 0 4px; padding-left: 8px;
+  border-left: 3px solid #f59e0b;
+}
+#dc-feedback ul { padding-left: 20px; margin: 4px 0; }
+#dc-feedback ul li { margin: 3px 0; }
+

@@ -16,6 +16,7 @@ import {
 } from './ontology.js';
 import { orchestrator } from './agent.js';
 import { bindCqItems, bindDialogs, setCfgRef, openInfoDialog, openCrisisList } from './tools.js';
+import { setCfgRef as setScenesCfgRef, bindSceneEvents } from './scenes.js';
 import { initRegistry, get as agentGet } from './agents/registry.js';
 import * as memory from './memory.js';
 import * as ui from './ui.js';
@@ -147,8 +148,10 @@ async function init() {
   renderLearningPanel();
   // 3b. 咨询工具入口（.cq-item）+ 弹窗按钮
   setCfgRef(cfg);
+  setScenesCfgRef(cfg);
   bindCqItems();
   bindDialogs();
+  bindSceneEvents();
 
   // 4. 状态显示
   updateStatus();
@@ -255,10 +258,10 @@ function bindUI() {
   // 设置
   settingsBtn.onclick = () => { syncConfigForm(); dlg.showModal?.() || dlg.setAttribute('open', ''); };
   document.getElementById('btn-save-cfg').onclick = () => {
-    cfg = readConfigForm(); saveConfig(cfg); setCfgRef(cfg); updateStatus(); dlg.close?.();
+    cfg = readConfigForm(); saveConfig(cfg); setCfgRef(cfg); setScenesCfgRef(cfg); updateStatus(); dlg.close?.();
   };
   document.getElementById('btn-clear-cfg').onclick = () => {
-    clearConfig(); cfg = loadConfig(); setCfgRef(cfg); syncConfigForm(); updateStatus();
+    clearConfig(); cfg = loadConfig(); setCfgRef(cfg); setScenesCfgRef(cfg); syncConfigForm(); updateStatus();
   };
   document.getElementById('btn-test-llm').onclick = async () => {
     const testCfg = readConfigForm();
