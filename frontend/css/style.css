@@ -4285,3 +4285,77 @@ dialog.dlg-tool .btn-icon:disabled { opacity: .6; cursor: wait; }
   display: flex; gap: 10px; margin-top: 12px; padding-top: 12px;
   border-top: 1px solid #e4e7ec;
 }
+
+/* ================= 全球危机热线（crisis-helplines）================= */
+.cr-item {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+  padding: 10px 12px;
+  background: #ffffff;
+  border: 1px solid #e4e7ec;
+  border-radius: 8px;
+  transition: border-color .15s, background .15s;
+}
+.cr-item:hover {
+  border-color: #4f6ef7;
+  background: #f9fafb;
+}
+.cr-body { min-width: 0; flex: 1; }
+.cr-name {
+  font-size: 13px; font-weight: 600; color: #1f2430;
+  margin-bottom: 2px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.cr-phone {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 15px; font-weight: 700; color: #4f6ef7;
+  letter-spacing: .5px;
+}
+.cr-note {
+  font-size: 11px; color: #6b7280; margin-top: 3px;
+  line-height: 1.5;
+}
+.cr-link {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  color: #6b7280; text-decoration: none;
+  border-radius: 6px;
+  transition: all .15s;
+}
+.cr-link:hover {
+  background: #4f6ef7; color: #ffffff;
+}
+
+/* ================= 危机卡"更多"按钮 ================= */
+.crisis-more {
+  display: block; width: 100%; margin-top: 10px;
+  padding: 8px 12px;
+  background: transparent;
+  border: 1px dashed #fbbf24;
+  border-radius: 6px;
+  color: #b45309;
+  font-size: 12px; font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .15s;
+}
+.crisis-more:hover {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  border-style: solid;
+}
+
+/* ================= 首次访问欢迎提示 ================= */
+.first-visit-notice {
+  padding: 10px 14px;
+  background: #eff6ff;
+  border-left: 3px solid #3b82f6;
+  border-radius: 4px;
+  font-size: 12.5px;
+  color: #1e40af;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.first-visit-notice b { color: #1e3a8a; }
+

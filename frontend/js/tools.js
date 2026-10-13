@@ -5,7 +5,7 @@
 
 import { chat } from './llm.js';
 import { isLlmConfigured } from './config.js';
-import { listPsychologists, psychologistById } from './ontology.js';
+import { listPsychologists, psychologistById, getCrisisHelplines } from './ontology.js';
 
 /* ============================================================
    通用：dialog 弹窗工具
@@ -908,6 +908,78 @@ export function bindCqItems() {
   });
 }
 
+/* ============================================================
+   5. 全球危机热线（无 LLM，纯本地）
+   ============================================================ */
+export function openCrisisList() {
+  const dlg = openDialog('dlg-crisis');
+  if (!dlg) return;
+  const list = document.getElementById('cr-list');
+  const filter = document.getElementById('cr-filter');
+  renderCrisisList('');
+  if (filter && !filter.dataset._bound) {
+    filter.dataset._bound = '1';
+    let timer = null;
+    filter.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => renderCrisisList(filter.value.trim()), 120);
+    });
+  }
+}
+
+function renderCrisisList(q) {
+  const list = document.getElementById('cr-list');
+  if (!list) return;
+  const all = getCrisisHelplines();
+  const k = normKey(q);
+  const items = k
+    ? all.filter(r =>
+        normKey([r.region, r.name_zh, r.name_en, r.phone, r.note].filter(Boolean).join(' ')).includes(k)
+      )
+    : all;
+
+  // 按地区分组
+  const groups = new Map();
+  for (const r of items) {
+    if (!groups.has(r.region || '其他')) groups.set(r.region || '其他', []);
+    groups.get(r.region || '其他').push(r);
+  }
+
+  if (!items.length) {
+    list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-3);font-size:13px;">未找到匹配的热线，试试其他关键词（如"中国"、"美国"）。</div>';
+    return;
+  }
+
+  list.innerHTML = [...groups.entries()].map(([region, rows]) => `
+    <div style="margin-bottom:14px;">
+      <div style="font-size:11px; color:var(--text-3); font-weight:600; margin:0 0 6px; letter-spacing:.3px;">${escapeHtml(region)}</div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        ${rows.map(r => `
+          <div class="cr-item">
+            <div class="cr-body">
+              <div class="cr-name">${escapeHtml(r.name_zh || r.name_en || '')}</div>
+              <div class="cr-phone">${escapeHtml(r.phone || '—')}</div>
+              ${r.note ? `<div class="cr-note">${escapeHtml(r.note)}</div>` : ''}
+            </div>
+            ${r.url ? `<a class="cr-link" href="${escapeHtml(r.url)}" target="_blank" rel="noopener noreferrer" title="官网">↗</a>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function normKey(s) {
+  return String(s == null ? '' : s).toLowerCase().replace(/[\s·.．・\-—_()（）]/g, '');
+}
+
+/* ============================================================
+   6. 信息 & 免责声明
+   ============================================================ */
+export function openInfoDialog() {
+  openDialog('dlg-info');
+}
+
 /** 弹窗内所有按钮/输入的初始化绑定（只绑一次） */
 export function bindDialogs() {
   const bind = (id, handler) => {
@@ -921,13 +993,18 @@ export function bindDialogs() {
   bind('btn-cbt-close',  () => closeDialog('dlg-cbt'));
   bind('btn-as-close',   () => closeDialog('dlg-assessment'));
   bind('btn-sv-close',   () => closeDialog('dlg-supervision'));
+  bind('btn-crisis-close', () => closeDialog('dlg-crisis'));
+  bind('btn-info-close',   () => closeDialog('dlg-info'));
+  bind('btn-info-ok',      () => closeDialog('dlg-info'));
   bind('pc-run-btn',     runPanelConsult);
   bind('cbt-run-btn',    startCbt);
   bind('cbt-continue-btn', continueCbt);
   bind('as-scale-toggle', switchScale);
   bind('as-submit-btn',  submitAssessment);
   bind('sv-run-btn',     runSupervision);
-  ['dlg-panel-consult', 'dlg-cbt', 'dlg-assessment', 'dlg-supervision']
+  bind('btn-info',       openInfoDialog);
+  bind('btn-crisis-more', openCrisisList);
+  ['dlg-panel-consult', 'dlg-cbt', 'dlg-assessment', 'dlg-supervision', 'dlg-crisis', 'dlg-info']
     .forEach(id => {
       const el = document.getElementById(id);
       if (el && !el.dataset._bound) {

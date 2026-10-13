@@ -34,6 +34,7 @@ const TABLES = [
   { key: 'events',        file: 'events.csv',        idPrefix: 'EVT' },
   { key: 'institutions',  file: 'institutions.csv',  idPrefix: 'INS' },
   { key: 'nations',       file: 'nations.csv',       idPrefix: 'N' },
+  { key: 'crisis_helplines', file: 'crisis_helplines.csv', idPrefix: 'CRS' },
 ];
 
 let _DB = null;   // {schools:[], psychologists:[], ...}
@@ -204,6 +205,10 @@ export function psychologistsOfSchool(schoolId) {
     const aff = splitList(p.affiliation || '');
     return aff.includes(schoolId) || (p.school_ids && splitList(p.school_ids).includes(schoolId));
   });
+}
+
+export function getCrisisHelplines() {
+  return _DB?.crisis_helplines || [];
 }
 
 /* ------------------- 工具函数 ------------------- */

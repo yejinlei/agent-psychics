@@ -418,6 +418,10 @@
           <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 01-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 01-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 012.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 012.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
           <span>设置</span>
         </button>
+        <button id="btn-info" class="icon-btn" title="信息与免责声明">
+          <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 8h.01M11 12h1v4h1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>信息</span>
+        </button>
       </div>
     </header>
 
@@ -554,10 +558,11 @@
                 </div>
               </div>
               <div class="crisis-lines">
+                <div class="crisis-line"><span class="crisis-tag">24h</span><span class="crisis-num">12356</span><span class="crisis-loc">全国心理援助热线</span></div>
                 <div class="crisis-line"><span class="crisis-tag">24h</span><span class="crisis-num">010-82951332</span><span class="crisis-loc">北京心理援助</span></div>
-                <div class="crisis-line"><span class="crisis-tag">24h</span><span class="crisis-num">12355</span><span class="crisis-loc">全国青少年心理</span></div>
-                <div class="crisis-line"><span class="crisis-tag">24h</span><span class="crisis-num">400-161-9995</span><span class="crisis-loc">北京回龙观热线</span></div>
+                <div class="crisis-line"><span class="crisis-tag">24h</span><span class="crisis-num">400-161-9995</span><span class="crisis-loc">回龙观热线</span></div>
               </div>
+              <button id="btn-crisis-more" class="crisis-more">更多国家/地区热线 →</button>
             </div>
 
             <div class="panel-section">
@@ -1099,6 +1104,74 @@
     </div>
     <div class="dlg-actions">
       <button type="button" id="sv-run-btn" class="btn-primary">🔎 请督导分析</button>
+    </div>
+  </dialog>
+
+  <!-- ========== 全球危机热线 ========== -->
+  <dialog id="dlg-crisis" class="dlg dlg-tool">
+    <div class="dlg-head">
+      <div>
+        <h2>🌍 全球危机热线</h2>
+        <p class="note">如果你正处于紧急心理危机，请立即联系当地专业机构。紧急医疗请使用当地急救电话（如中国大陆 110 / 120）。</p>
+      </div>
+      <button type="button" class="dlg-close" id="btn-crisis-close" aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="dlg-body tool-body">
+      <div class="tool-row">
+        <input type="search" id="cr-filter" placeholder="搜索国家/地区：中国 / 美国 / 日本 / 香港 / 台湾 …" style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:6px; background:#fff; color:var(--text); font-family:inherit; font-size:13px;" />
+      </div>
+      <div id="cr-list" style="max-height:60vh; overflow-y:auto; margin-top:10px;"></div>
+    </div>
+  </dialog>
+
+  <!-- ========== 信息与免责声明 ========== -->
+  <dialog id="dlg-info" class="dlg dlg-tool">
+    <div class="dlg-head">
+      <div>
+        <h2>ℹ️ 关于 · 免责与隐私</h2>
+        <p class="note">在使用本工具前，请仔细阅读以下条款。</p>
+      </div>
+      <button type="button" class="dlg-close" id="btn-info-close" aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="dlg-body tool-body" style="font-size:13px; line-height:1.7; color:var(--text);">
+      <section style="margin-bottom:18px;">
+        <h3 style="font-size:14px; margin:0 0 6px;">关于本项目</h3>
+        <p style="margin:0;">Psychics 是一个<b>开源的心理学学习与轻咨询辅助工具</b>。它把心理学本体（学派 / 心理学家 / 咨询流程）与大语言模型结合，帮助学习者探索概念、模拟咨询场景、做 CBT 自我观察与自评量表练习。</p>
+      </section>
+      <section style="margin-bottom:18px; padding:12px 14px; background:#fef2f2; border-left:3px solid #dc2626; border-radius:4px;">
+        <h3 style="font-size:14px; margin:0 0 8px; color:#dc2626;">⚠ 重要免责声明</h3>
+        <p style="margin:0 0 6px;"><b>本工具不是医疗产品，不提供诊断、治疗或临床心理评估。</b> 所有对话内容、量表结果与 AI 生成建议仅供参考，不能替代专业临床判断。</p>
+        <p style="margin:0 0 6px;">AI 生成的内容可能不准确、不完整或过时，请勿作为医疗决策依据。</p>
+        <p style="margin:0;">如你正处于紧急心理危机（例如自杀念头、伤害自身或他人的想法），<b>请立即拨打当地危机热线或急救电话</b>——参见"咨询 → 求助"标签页顶部的热线列表。</p>
+      </section>
+      <section style="margin-bottom:18px;">
+        <h3 style="font-size:14px; margin:0 0 6px;">🔒 隐私与数据处理</h3>
+        <ul style="margin:0; padding-left:20px;">
+          <li>所有对话记录、案例数据、量表结果、CBT 草稿均保存在<b>你的浏览器 localStorage</b> 中，不上传到任何服务器。</li>
+          <li>本工具不收集、不存储你的个人身份信息（姓名、邮箱、手机号等）。</li>
+          <li>AI 对话内容会发送到你在"设置"中配置的 LLM 提供商 API（如 OpenRouter / SiliconFlow / DeepSeek 等），并遵循该提供商的隐私政策。<b>请不要在对话中输入真实姓名、身份证号、病历等敏感信息。</b></li>
+          <li>使用"清空配置"或浏览器清除 localStorage 可以彻底删除本地数据。</li>
+        </ul>
+      </section>
+      <section style="margin-bottom:18px;">
+        <h3 style="font-size:14px; margin:0 0 6px;">📖 数据来源</h3>
+        <ul style="margin:0; padding-left:20px;">
+          <li>心理学本体：公开学术资料整理（学派、心理学家条目）</li>
+          <li>PHQ-9 / GAD-7 量表：公开版权量表，用于教学与自评练习</li>
+          <li>危机热线：来自各机构的官方公布信息，如有变动请以官方发布为准</li>
+        </ul>
+      </section>
+      <section>
+        <h3 style="font-size:14px; margin:0 0 6px;">📄 许可证</h3>
+        <p style="margin:0;">本项目以 MIT License 开源。欢迎在遵循许可的前提下使用、修改与分发。</p>
+      </section>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" id="btn-info-ok" class="btn-primary">我知道了</button>
     </div>
   </dialog>
 

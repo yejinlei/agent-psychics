@@ -15,7 +15,7 @@ import {
   listPsychologists, psychologistById, schoolById, listSchools,
 } from './ontology.js';
 import { orchestrator } from './agent.js';
-import { bindCqItems, bindDialogs, setCfgRef } from './tools.js';
+import { bindCqItems, bindDialogs, setCfgRef, openInfoDialog } from './tools.js';
 import { initRegistry, get as agentGet } from './agents/registry.js';
 import * as memory from './memory.js';
 import * as ui from './ui.js';
@@ -162,6 +162,17 @@ async function init() {
 
   // 7. 设置弹窗默认值
   syncConfigForm();
+
+  // 8. 首次访问：自动弹出免责声明
+  const K_DISCLAIMER_SEEN = 'psychics.disclaimer_seen.v1';
+  try {
+    if (!localStorage.getItem(K_DISCLAIMER_SEEN)) {
+      setTimeout(() => {
+        openInfoDialog();
+        localStorage.setItem(K_DISCLAIMER_SEEN, new Date().toISOString());
+      }, 600);
+    }
+  } catch (_) {}
 }
 
 /* ============================================================ */
