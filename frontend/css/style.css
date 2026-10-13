@@ -4124,6 +4124,60 @@ dialog.dlg-tool .btn-icon:disabled { opacity: .6; cursor: wait; }
   background: #f5f6f8; padding: 1px 5px; border-radius: 4px; font-size: 12px;
 }
 
+/* --- T1：回合徽章 / 分组 / 反思卡 / 主持人综合 --- */
+.pc-round-banner {
+  padding: 8px 12px; margin-bottom: 4px;
+  background: linear-gradient(90deg, #eef2ff 0%, #f5f3ff 100%);
+  border: 1px solid #e0e7ff; border-radius: 8px;
+  font-size: 12px; color: #4338ca; line-height: 1.55;
+}
+.pc-round-holder { display: grid; gap: 10px; margin-top: 4px; }
+.pc-round-label {
+  font-size: 12px; font-weight: 600; color: #4338ca;
+  padding: 6px 12px; margin-top: 8px;
+  background: #eef2ff; border-radius: 6px;
+  border-left: 3px solid #6366f1;
+}
+.pc-round-badge {
+  display: inline-flex; align-items: center;
+  padding: 2px 8px; border-radius: 999px;
+  font-size: 11px; font-weight: 600;
+  background: #eef2ff; color: #4338ca;
+  border: 1px solid #c7d2fe;
+  flex: 0 0 auto;
+}
+.pc-round-badge.r2 {
+  background: #fef3c7; color: #92400e; border-color: #fcd34d;
+}
+.pc-round-badge.r3 {
+  background: #ecfdf5; color: #065f46; border-color: #a7f3d0;
+}
+
+/* 反思卡：绿调 */
+.pc-result.pc-result-reflex {
+  border-color: #a7f3d0;
+  background: linear-gradient(180deg, #ecfdf5 0%, #ffffff 100%);
+}
+.pc-result.pc-result-reflex .pc-result-name { color: #065f46; }
+.pc-avatar-reflex {
+  background: #10b981 !important;
+  color: #ffffff !important;
+  font-size: 16px;
+}
+
+/* 交锋卡：略偏黄 */
+.pc-result.pc-result-r2 {
+  border-color: #fcd34d;
+}
+.pc-result.pc-result-r2 .pc-result-sub b { color: #b45309; }
+
+/* 主持人综合：加一条顶边强调 */
+dialog.dlg-tool .tool-summary {
+  border-top: 3px solid #4f6ef7;
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
 /* ============ CBT 工作表 ============ */
 .cbt-progress { display: flex; gap: 8px; margin-bottom: 14px; }
 .cbt-pip {

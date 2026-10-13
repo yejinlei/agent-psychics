@@ -104,76 +104,221 @@ async function runPanelConsult() {
 
   const experts = ids.map(id => psychologistById(id)).filter(Boolean);
 
+  let ctx;
   try {
-    const { cfg, signal, appendText, finalize } = await openPanelResults(q, experts);
-
-    // 并行发起 LLM 调用
-    const prompts = experts.map(e => buildConsultPrompt(e, q));
-
-    const tasks = prompts.map(async (prompt, idx) => {
-      const t0 = performance.now();
-      try {
-        const r = await chat({
-          cfg,
-          messages: [
-            { role: 'system', content: prompt.system },
-            { role: 'user',   content: prompt.user },
-          ],
-          temperature: 0.7,
-          maxTokens: 1500,
-          signal,
-        });
-        return { idx, expert: experts[idx], content: r.content, ok: true, ms: performance.now() - t0 };
-      } catch (err) {
-        return { idx, expert: experts[idx], content: '', ok: false, err: err.message, ms: performance.now() - t0 };
-      }
-    });
-
-    // 逐个展示结果（按完成顺序）
-    const results = await Promise.all(tasks);
-    for (const r of results) {
-      appendText(r);
-    }
-    finalize(results);
+    ctx = await openPanelResults(q, experts);
   } catch (err) {
-    appendText({ error: err.message });
+    appendStatusText(`打开结果面板失败：${err.message}`);
+    document.getElementById('pc-run-btn').disabled = false;
+    return;
+  }
+  const { cfg, signal, appendText, appendRound, appendReflexion, finalize, setStatus } = ctx;
+
+  try {
+    // === Round 1：并行开题 ===
+    setStatus('① 开题中——每位专家独立作答…');
+    const results1 = await runRound1(q, experts, { cfg, signal, appendText });
+
+    // === Round 2：顺序交锋（每位专家逐位回应前一位的具体论点）===
+    setStatus('② 交锋中——每位专家须正面回应前一位的论点…');
+    await runRound2(q, experts, results1, { cfg, signal, appendRound });
+
+    // === Round 3：独立反思（先出，让主持人看到批评）===
+    setStatus('③ 反思中——独立第三方审视辩论过程…');
+    const reflText = await runReflexion(q, experts, results1, { cfg, signal });
+    appendReflexion(reflText);
+
+    // === 综合点评（输入 = 开题 + 交锋 + 反思）===
+    setStatus('④ 综合中——主持人汇总各方观点…');
+    await finalize(results1, { reflexion: reflText });
+  } catch (err) {
+    if (err?.name === 'AbortError') return;
+    appendStatusText(`会诊出错：${err.message}`);
   } finally {
     document.getElementById('pc-run-btn').disabled = false;
   }
 }
 
-function buildConsultPrompt(expert, question) {
-  const name = expert.name_zh || expert.name_en;
+function appendStatusText(msg) {
+  const el = document.getElementById('pc-status');
+  if (el) el.textContent = msg;
+}
+
+/** 通用：一次 chat 调用，失败返回 null */
+async function callLLM({ cfg, messages, temperature, maxTokens, signal }) {
+  try {
+    const r = await chat({ cfg, messages, temperature, maxTokens: maxTokens || 1500, signal });
+    return r?.content || '';
+  } catch (e) {
+    if (e?.name === 'AbortError') throw e;
+    return null;
+  }
+}
+
+/* -------- Round 1：并行开题 -------- */
+async function runRound1(q, experts, { cfg, signal, appendText }) {
+  const tasks = experts.map(async (expert, idx) => {
+    const t0 = performance.now();
+    const content = await callLLM({
+      cfg,
+      messages: buildOpenPrompt(expert, q),
+      temperature: 0.7,
+      maxTokens: 1500,
+      signal,
+    });
+    return {
+      idx, expert,
+      content: content || '',
+      ok: content != null,
+      err: content == null ? 'LLM 调用失败' : '',
+      ms: performance.now() - t0,
+      round: 1,
+    };
+  });
+  const results = await Promise.all(tasks);
+  // 按专家索引顺序渲染，保证阅读顺序 = 后续交锋的引用顺序
+  results.sort((a, b) => a.idx - b.idx).forEach(r => appendText(r));
+  return results;
+}
+
+/* -------- Round 2：顺序交锋 -------- */
+async function runRound2(q, experts, prevResults, { cfg, signal, appendRound }) {
+  // 前一位专家的完整发言（供本轮引用）
+  const prevSpokes = prevResults
+    .map(r => ({ name: r.expert.name_zh || r.expert.name_en, text: r.content }))
+    .filter(s => s.text);
+
+  for (let i = 1; i < experts.length; i++) {
+    const prev = prevSpokes[i - 1];
+    if (!prev) continue;
+    const t0 = performance.now();
+    const content = await callLLM({
+      cfg,
+      messages: buildRebuttalPrompt(experts[i], q, prev),
+      temperature: 0.7,
+      maxTokens: 1200,
+      signal,
+    });
+    appendRound({
+      idx: i, expert: experts[i],
+      content: content || '',
+      ok: content != null,
+      err: content == null ? 'LLM 调用失败' : '',
+      ms: performance.now() - t0,
+      round: 2,
+      quoteFrom: prev.name,
+    });
+  }
+}
+
+/* -------- Round 3：独立反思 -------- */
+async function runReflexion(q, experts, round1Results, { cfg, signal }) {
+  const transcript = round1Results.map(r => {
+    const n = r.expert.name_zh || r.expert.name_en;
+    return `【${n}】\n${r.content}`;
+  }).join('\n\n---\n\n');
+  const names = experts.map(e => e.name_zh || e.name_en).join('、');
+
+  const system = `你是一位**独立方法学批评者**，身份不属于本场任何专家，也没有学派归属。
+你不是任何一位参与者的代言人，也不是他们的盟友。
+
+【你的任务】
+对下面这场辩论做一次**结构化反思**（不是评价谁对谁错，而是揭示思维盲区）：
+
+1. **证据缺口**：哪些论断没有引用可验证的研究/临床数据/文献？
+2. **隐含假设**：每位专家在哪些点上是"默认成立"但需要辩护的？
+3. **立场漂移**：有没有专家在辩论中悄悄偏离了自己学派的经典立场？
+4. **视角遗漏**：面对此议题，还应有哪个学派/视角介入但缺席了？
+5. **可执行建议**：给出 1-2 条对下一步行动有帮助的具体建议。
+
+【约束】
+- 保持中立、可反驳、可复现，不用"作为AI"这类元话术
+- 每条批评都指名道姓（"X 在 Y 点上…"），不做泛泛而谈
+- 400-700 字，直接给结论
+- 不代替专家下最终结论`;
+
+  const user = `议题：${q}
+
+与会专家：${names}
+
+完整辩论记录：
+${transcript}`;
+
+  return await callLLM({
+    cfg,
+    messages: [{ role: 'system', content: system }, { role: 'user', content: user }],
+    temperature: 0.4,
+    maxTokens: 1500,
+    signal,
+  }) || '';
+}
+
+/* -------- Prompt 构造 -------- */
+function expertBioBlock(expert) {
   const range = expert.range || expert.affiliation || '';
   const bio = expert.bio_zh || expert.bio || '';
   const theories = (expert.theories || []).slice(0, 5).join('、');
   const works = (expert.works || []).slice(0, 3).join('、');
-
-  const system = `你是心理学者 ${name}，正在参与一场**多专家会诊**。
-你的立场必须严格代表${name}本人的理论视角与临床传统。
-
-【你的身份档案】
+  return `【你的身份档案】
 - 出生：${expert.birth_year || '—'} ${expert.death_year ? '· 逝世：' + expert.death_year : ''}
 - 学派归属：${range}
 - 主要理论：${theories || '（参考本体记录）'}
 - 代表作：${works || '（参考本体记录）'}
-${bio ? '- 生平摘要：' + bio.slice(0, 400) : ''}
+${bio ? '- 生平摘要：' + bio.slice(0, 400) : ''}`;
+}
 
-【会诊规则】
-1. 直接以${name}的口吻作答，第一人称"我"
-2. 严格基于你的学派立场，不要跑偏到别的流派
-3. 回复 200-350 字，务实、有洞察力
-4. 结尾给一个具体可执行的建议或反问
-5. 遇到超出你学派的问题，坦率承认并指出该找哪个流派的学者
-6. 不做医学诊断；不做跨学派综合（那是主持人做的事）
+function buildOpenPrompt(expert, question) {
+  const name = expert.name_zh || expert.name_en;
+  const system = `你是心理学者 ${name}，正在参与一场**多专家会诊**的第一轮开题。
+你的立场必须严格代表${name}本人的理论视角与临床传统。
 
-绝不输出"作为AI"或"作为${name}"这类元话术——你**就是** ${name}。`;
+${expertBioBlock(expert)}
 
-  const user = `会诊议题：${question}
+【本轮任务】
+从你的学派视角独立作答，不参考其他专家（此刻你看不到其他人的观点）。给出：
+- 你对议题的**核心诊断/假设**
+- 支撑这一判断的**至少 1 条可引用的理论或研究线索**（可写理论名，不要编造具体年份/编号）
+- 一条**建议的介入方向**
 
-请以${name}的立场，从你的学派视角给出你的诊断、假设、以及建议的治疗方向。`;
+【格式约束】
+- 250-400 字，直接以"${name}"的口吻作答，第一人称"我"
+- 结尾给一个具体可执行的建议或反问
+- 遇到超出你学派的问题，坦率承认并指出该找哪个流派的学者
+- 不做医学诊断；不做跨学派综合（那是主持人做的事）
+- 绝不输出"作为AI"或"作为${name}"这类元话术——你**就是** ${name}。`;
 
-  return { system, user };
+  const user = `会诊议题：${question}`;
+  return [{ role: 'system', content: system }, { role: 'user', content: user }];
+}
+
+function buildRebuttalPrompt(expert, question, prevSpoke) {
+  const name = expert.name_zh || expert.name_en;
+  const system = `你是心理学者 ${name}，正在参与**多专家会诊**的第二轮交锋。
+你必须严格代表${name}本人的理论视角与临床传统。
+
+${expertBioBlock(expert)}
+
+【本轮任务】
+上一位发言者是 **${prevSpoke.name}**。你必须做三件事：
+1. **点名引用** TA 发言中的**至少一句具体观点**（用引号引用原话）
+2. 从你的学派立场**正面回应**这句观点——可以补充、可以质疑、也可以指出其盲区
+3. **补上一条新的论据**（不能与你的开题重复）
+
+【约束】
+- 300-500 字，第一人称"我"
+- 严禁"综合双方""作为AI"等中性话术——你是持一方立场参与辩论
+- 保持专业、不做人身攻击；不越权诊断
+- 如果 ${prevSpoke.name} 的观点在方法学/证据层面站得住，请坦率承认，并把你方的补充说清楚`;
+
+  const user = `议题：${question}
+
+上一位（${prevSpoke.name}）的完整发言：
+"""
+${prevSpoke.text}
+"""
+
+请以 ${name} 的身份，正面回应 TA 的其中一句观点，并补上你方的新论据。`;
+  return [{ role: 'system', content: system }, { role: 'user', content: user }];
 }
 
 /** 打开结果区并返回流式回调 */
@@ -186,8 +331,26 @@ function openPanelResults(question, experts) {
 
   resultsEl.innerHTML = '';
   summaryEl.style.display = 'none';
+  summaryEl.innerHTML = '';
   runBtn.style.display = 'none';
 
+  // 顶部说明条
+  const banner = document.createElement('div');
+  banner.className = 'pc-round-banner';
+  banner.innerHTML = '🧠 三回合流程：<b>开题 → 交锋 → 反思</b>，最后由主持人综合点评';
+  resultsEl.appendChild(banner);
+
+  const round2Holder = document.createElement('div');
+  round2Holder.className = 'pc-round-holder';
+  round2Holder.style.display = 'none';
+  resultsEl.appendChild(round2Holder);
+
+  const reflexionHolder = document.createElement('div');
+  reflexionHolder.className = 'pc-round-holder';
+  reflexionHolder.style.display = 'none';
+  resultsEl.appendChild(reflexionHolder);
+
+  // Round 1 卡片：每位专家一张
   const cards = experts.map(e => {
     const name = e.name_zh || e.name_en;
     const div = document.createElement('div');
@@ -200,6 +363,7 @@ function openPanelResults(question, experts) {
           <div class="pc-result-name">${escapeHtml(name)}</div>
           <div class="pc-result-sub">${escapeHtml(e.affiliation || e.range || '')}</div>
         </div>
+        <div class="pc-round-badge">开题</div>
         <div class="pc-result-status">思考中…</div>
       </div>
       <div class="pc-result-body">加载中…</div>
@@ -211,15 +375,16 @@ function openPanelResults(question, experts) {
   return {
     cfg: cfgHolder().cfg,
     signal: new AbortController().signal,
+    setStatus: (msg) => { if (statusEl) { statusEl.textContent = msg; statusEl.style.display = 'flex'; } },
+
     appendText: (r) => {
       const card = cards[r.idx];
       if (!card) return;
-      const name = (r.expert.name_zh || r.expert.name_en);
       const body = card.querySelector('.pc-result-body');
       const status = card.querySelector('.pc-result-status');
       if (r.ok) {
         body.innerHTML = renderMdLite(r.content);
-        status.textContent = `${r.ms.toFixed(0)}ms`;
+        status.textContent = `${(r.ms || 0).toFixed(0)}ms`;
         status.className = 'pc-result-status ok';
         card.classList.add('done');
       } else {
@@ -228,8 +393,71 @@ function openPanelResults(question, experts) {
         status.className = 'pc-result-status err';
       }
     },
-    finalize: async (results) => {
-      const okResults = results.filter(r => r.ok);
+
+    appendRound: (r) => {
+      if (!round2Holder) return;
+      round2Holder.style.display = '';
+      // 回合分组标题（只加一次）
+      let label = round2Holder.querySelector('.pc-round-label');
+      if (!label) {
+        label = document.createElement('div');
+        label.className = 'pc-round-label';
+        label.innerHTML = '⚔️ <b>第二回合 · 交锋</b>（顺序发言，须正面回应前一位）';
+        round2Holder.appendChild(label);
+      }
+      const name = r.expert.name_zh || r.expert.name_en;
+      const div = document.createElement('div');
+      div.className = 'pc-result pc-result-r2';
+      div.dataset.idx = r.idx;
+      div.innerHTML = `
+        <div class="pc-result-head">
+          <div class="pc-result-avatar">${escapeHtml((name[0] || '?').toUpperCase())}</div>
+          <div class="pc-result-info">
+            <div class="pc-result-name">${escapeHtml(name)}</div>
+            <div class="pc-result-sub">${r.quoteFrom ? `回应 <b>${escapeHtml(r.quoteFrom)}</b>` : (r.expert.affiliation || '')}</div>
+          </div>
+          <div class="pc-round-badge r2">交锋</div>
+          <div class="pc-result-status">思考中…</div>
+        </div>
+        <div class="pc-result-body">加载中…</div>
+      `;
+      round2Holder.appendChild(div);
+
+      const body = div.querySelector('.pc-result-body');
+      const status = div.querySelector('.pc-result-status');
+      if (r.ok) {
+        body.innerHTML = renderMdLite(r.content);
+        status.textContent = `${(r.ms || 0).toFixed(0)}ms`;
+        status.className = 'pc-result-status ok';
+        div.classList.add('done');
+      } else {
+        body.innerHTML = `<span style="color:#b91c1c">⚠ 生成失败：${escapeHtml(r.err || '')}</span>`;
+        status.textContent = '失败';
+        status.className = 'pc-result-status err';
+      }
+    },
+
+    appendReflexion: (text) => {
+      if (!reflexionHolder) return;
+      reflexionHolder.style.display = '';
+      const div = document.createElement('div');
+      div.className = 'pc-result pc-result-reflex';
+      div.innerHTML = `
+        <div class="pc-result-head">
+          <div class="pc-result-avatar pc-avatar-reflex">✦</div>
+          <div class="pc-result-info">
+            <div class="pc-result-name">独立方法学批评者</div>
+            <div class="pc-result-sub">不属本场任何专家 · 不代替结论</div>
+          </div>
+          <div class="pc-round-badge r3">反思</div>
+        </div>
+        <div class="pc-result-body">${text ? renderMdLite(text) : '<span style="color:#b91c1c">⚠ 反思生成失败</span>'}</div>
+      `;
+      reflexionHolder.appendChild(div);
+    },
+
+    finalize: async (results, opts) => {
+      const okResults = results.filter(r => r.ok && r.content);
       if (okResults.length === 0) {
         summaryEl.style.display = 'block';
         summaryEl.innerHTML = '<p>⚠ 全部专家生成失败，请检查 LLM 配置或网络。</p>';
@@ -238,32 +466,41 @@ function openPanelResults(question, experts) {
         return;
       }
 
-      statusEl.textContent = `正在综合 ${okResults.length} 位专家的观点…`;
-      statusEl.style.display = 'flex';
-
       try {
         const expertText = okResults.map(r => {
           const n = r.expert.name_zh || r.expert.name_en;
-          return `【${n}】\n${r.content}`;
+          return `【${n} · 开题】\n${r.content}`;
         }).join('\n\n---\n\n');
+        const refl = opts?.reflexion ? `\n\n【独立反思者】\n${opts.reflexion}` : '';
+
         const r = await chat({
           cfg: cfgHolder().cfg,
           messages: [
-            { role: 'system', content: `你是心理会诊主持人。请综合多位专家的观点，输出：
-1. **共识点**（都同意的核心判断）
-2. **分歧点**（专家之间的不同看法，注明是谁主张）
-3. **建议下一步**（综合各方给出 1-2 条可执行建议）
-保持中立、清晰、避免诊断式语气。不要输出"作为AI"这类话术。回复 250-450 字。` },
-            { role: 'user', content: `议题：${question}\n\n专家意见：\n\n${expertText}` },
+            { role: 'system', content: `你是心理会诊主持人，身份中立，不代表任何专家。
+
+请基于**开题、交锋、独立反思**三部分材料，输出结构化综合点评：
+
+1. **共识点**：各位专家都认同（或反思者未提出异议）的核心判断
+2. **真正的分歧**：指名道姓，谁主张 A、谁主张 B，分歧所在的方法学/证据层面是什么
+3. **反思者的关键提示**：把反思者指出的证据缺口/隐含假设原样带进来（不要软化）
+4. **建议下一步**：1-2 条具体可执行的行动，标注来自哪位专家/反思者的哪条观点
+5. **不确定性**：这场辩论没能回答清楚的问题
+
+【约束】
+- 保持中立、清晰、避免诊断式语气
+- 每条结论后面用括注标注来源（例：（来自 ${okResults[0]?.expert?.name_zh || '专家A'}，或反思者指出…）
+- 不输出"作为AI"或"作为主持人"这类元话术
+- 回复 400-700 字` },
+            { role: 'user', content: `议题：${question}\n\n=== 开题 ===\n${expertText}${refl}` },
           ],
           temperature: 0.5,
-          maxTokens: 1500,
+          maxTokens: 2000,
         });
         summaryEl.style.display = 'block';
-        summaryEl.innerHTML = `<div class="pc-summary-title">🎯 综合点评</div><div>${renderMdLite(r.content || '')}</div>`;
+        summaryEl.innerHTML = `<div class="pc-summary-title">🎯 主持人综合点评</div><div>${renderMdLite(r.content || '')}</div>`;
       } catch (err) {
         summaryEl.style.display = 'block';
-        summaryEl.innerHTML = `<div class="pc-summary-title">🎯 综合点评</div><p>⚠ 综合点评生成失败：${escapeHtml(err.message || '')}</p>`;
+        summaryEl.innerHTML = `<div class="pc-summary-title">🎯 主持人综合点评</div><p>⚠ 综合点评生成失败：${escapeHtml(err.message || '')}</p>`;
       }
       runBtn.style.display = '';
       statusEl.style.display = 'none';
